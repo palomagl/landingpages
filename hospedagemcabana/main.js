@@ -37,3 +37,21 @@ function syncScroll() {
 addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(syncScroll); } }, {passive:true});
 addEventListener('resize', () => requestAnimationFrame(syncScroll), {passive:true});
 syncScroll();
+
+/* If Airbnb's CDN blocks third-party image embedding, do not display broken-image icons. */
+document.querySelectorAll('.hero-photo img, .photo img').forEach(img => {
+  function fail() {
+    const parent = img.parentElement;
+    if (!parent || parent.classList.contains('image-unavailable')) return;
+    parent.classList.add('image-unavailable');
+    img.style.visibility = 'hidden';
+    const a = document.createElement('a');
+    a.className = 'image-unavailable-link';
+    a.href = 'https://www.airbnb.com.br/rooms/1525661029363941402';
+    a.target = '_blank'; a.rel = 'noopener noreferrer';
+    a.textContent = 'Ver fotografia original no Airbnb ↗';
+    parent.appendChild(a);
+  }
+  img.addEventListener('error', fail, {once:true});
+  if (img.complete && img.naturalWidth === 0) fail();
+});

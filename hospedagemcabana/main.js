@@ -1,40 +1,39 @@
-/* Rio Vale — interactions, light enough for mobile.
-   Replace with the URL of the exact Airbnb listing when provided. */
-const AIRBNB_URL = "https://www.airbnb.com.br/rooms/1525661029363941402";
-const IS_DIRECT_LISTING = /airbnb\.[^/]+\/rooms\//.test(AIRBNB_URL);
-document.querySelectorAll('[data-booking]').forEach(a => {
-  a.href = AIRBNB_URL;
-  if (!IS_DIRECT_LISTING) {
-    const label = a.getAttribute('aria-label') || 'Abrir Airbnb';
-    a.setAttribute('aria-label', label + ' — busca de hospedagens na região, anúncio específico não confirmado');
-    a.title = 'Busca de hospedagens na região. O anúncio exato ainda não foi identificado.';
-  }
-});
-document.getElementById('year').textContent = new Date().getFullYear();
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const bar = document.querySelector('.topline');
-const heroImg = document.querySelector('.hero-image img');
-const mobile = document.getElementById('mobileBooking');
-if ('IntersectionObserver' in window && !reduceMotion) {
+// Rio Vale — lightweight scroll interactions. Zero external JS dependencies.
+const motionReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const bar = document.querySelector('.progress');
+const heroImage = document.querySelector('.hero-photo img');
+const mobileCta = document.querySelector('#mobileCta');
+const bookingSection = document.querySelector('#reserva');
+const year = document.querySelector('#year');
+if (year) year.textContent = new Date().getFullYear();
+
+if ('IntersectionObserver' in window && !motionReduced) {
   document.body.classList.add('motion');
-  const revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('in'); revealObserver.unobserve(e.target); }
-    });
-  }, {threshold: 0.09, rootMargin: '0px 0px -20px 0px'});
-  document.querySelectorAll('.revealed').forEach(el => revealObserver.observe(el));
+  const observer = new IntersectionObserver(entries => {
+    for (const item of entries) {
+      if (item.isIntersecting) {
+        item.target.classList.add('shown');
+        observer.unobserve(item.target);
+      }
+    }
+  }, { threshold: .08, rootMargin: '0px 0px -18px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
+
 let ticking = false;
-function updateScroll() {
-  const y = window.scrollY;
-  const total = document.documentElement.scrollHeight - innerHeight;
-  if (bar) bar.style.transform = 'scaleX(' + (total > 0 ? Math.min(1, y / total) : 0) + ')';
-  if (mobile) mobile.classList.toggle('show', y > Math.min(innerHeight * .7, 620) && y < total - 120);
-  if (!reduceMotion && heroImg && y < innerHeight * 1.1) heroImg.style.transform = 'translate3d(0,' + Math.min(y * .15, 140) + 'px,0) scale(1.09)';
+function syncScroll() {
+  const offset = window.scrollY;
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  if (bar) bar.style.transform = 'scaleX(' + (total > 0 ? Math.max(0, Math.min(offset/total, 1)) : 0) + ')';
+  if (heroImage && !motionReduced && offset < innerHeight * 1.12) {
+    heroImage.style.transform = 'translate3d(0,' + Math.min(offset * .12, 128) + 'px,0) scale(1.06)';
+  }
+  if (mobileCta) {
+    const bookingReached = bookingSection && bookingSection.getBoundingClientRect().top < innerHeight * .68;
+    mobileCta.classList.toggle('visible', offset > Math.min(innerHeight * .66, 540) && !bookingReached);
+  }
   ticking = false;
 }
-addEventListener('scroll', () => {
-  if (!ticking) { ticking = true; requestAnimationFrame(updateScroll); }
-}, {passive: true});
-addEventListener('resize', () => requestAnimationFrame(updateScroll), {passive: true});
-updateScroll();
+addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(syncScroll); } }, {passive:true});
+addEventListener('resize', () => requestAnimationFrame(syncScroll), {passive:true});
+syncScroll();

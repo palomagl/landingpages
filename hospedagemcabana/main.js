@@ -1,7 +1,7 @@
 /* Rio Vale — mobile-first experience. No dependencies or layout-heavy scroll libraries. */
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const progress = document.querySelector('.reading-bar');
-const hero = document.querySelector('.opening-img');
+const heroMedia = document.querySelector('.opening-media');
 const floating = document.querySelector('#floatingBooking');
 const book = document.querySelector('#reservar');
 const year = document.querySelector('#year');
@@ -15,6 +15,15 @@ if (!reduced && 'IntersectionObserver' in window) {
   }), {threshold:.08, rootMargin:'0px 0px -12px 0px'});
   document.body.classList.add('motion');
   items.forEach(el => obs.observe(el));
+  // Independent image reveals, including the swipeable gallery cards.
+  const photoTargets = [...document.querySelectorAll('.feature-image, .experience-illustration, .gallery-card')];
+  const photoObserver = new IntersectionObserver(entries => {
+    for (const entry of entries) if (entry.isIntersecting) {
+      entry.target.classList.add('photo-shown');
+      photoObserver.unobserve(entry.target);
+    }
+  }, {threshold: .12, rootMargin:'0px 55px -18px 55px'});
+  photoTargets.forEach(el => {el.classList.add('photo-enter');photoObserver.observe(el)});
 }
 
 // Smooth but lightweight progress and photo depth, throttled to animation frames.
@@ -23,8 +32,9 @@ function onScrollFrame() {
   const y = Math.max(0,scrollY);
   const max = document.documentElement.scrollHeight-innerHeight;
   if (progress) progress.style.transform = 'scaleX('+(max>0?Math.min(y/max,1):0)+')';
-  if (hero && !reduced && y < innerHeight * 1.2) {
-    hero.style.transform = 'translate3d(0,'+Math.min(y*.12,120)+'px,0) scale(1.05)';
+  if (heroMedia && !reduced && y < innerHeight * 1.2) {
+    // Leave the animated image transform untouched; move its container only.
+    heroMedia.style.setProperty('--hero-shift', Math.min(y * .11, 100) + 'px');
   }
   if (floating) {
     const bookingInView = book && book.getBoundingClientRect().top < innerHeight*.75;

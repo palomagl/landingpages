@@ -1,24 +1,27 @@
-# Rio Vale — Refúgio a dois
+# Rio Vale — Refúgio a Dois
 
-Landing page demonstrativa, não oficial, da **Cabana Rio Vale** em Nova Roma do Sul / RS.
+Landing page demonstrativa, não oficial, da **Cabana Rio Vale**, Nova Roma do Sul / RS.
 
-## Como usar
-Abra `index.html` no navegador, ou inicie um servidor local (ex.: VS Code Live Server). Nenhum build é necessário.
+## Estrutura
+- `index.html` — página com hero, galeria, comodidades e chamada para reserva.
+- `style.css` — identidade editorial (Bodoni Moda + Manrope), responsividade e animações.
+- `main.js` — links do Airbnb e interações leves de scroll.
+- `favicon.svg` — símbolo original do projeto.
 
-## Arquivos
-- `index.html`: estrutura, SEO e conteúdo.
-- `style.css`: identidade editorial, design responsivo, animações e componentes.
-- `main.js`: efeitos de scroll, barra de progresso, reserva móvel e links.
-- `favicon.svg`: favicon vetorial original.
+## Fotografias
+A página usa **cinco URLs de fotografias identificadas no anúncio oficial do Airbnb**, além de uma imagem encontrada no portal turístico municipal. Algumas aparecem em mais de um lugar. As imagens são referências remotas (não estão copiadas localmente), e podem deixar de carregar por restrições de acesso externo.
 
-## Link do Airbnb
-Em `main.js`, altere a constante `AIRBNB_URL` para a URL exata do anúncio. **Até esse link ser fornecido**, os botões apontam para uma busca de hospedagens em Nova Roma do Sul, e não para o anúncio específico. Não são exibidos preços ou datas não verificados.
+A galeria completa do anúncio não estava acessível pela ferramenta de consulta; não é correto afirmar que todas as fotos estão no projeto. Para uma publicação comercial estável, solicite à proprietária os arquivos originais e autorização de uso, converta-os para WebP ou AVIF, salve em `assets/` e atualize os caminhos.
 
-## Fotografias e licença
-As três imagens usadas como referências são carregadas externamente a partir da página do portal Turismo Nova Roma do Sul:
-https://www.turismonovaromadosul.com.br/hospedagem
+Origem do anúncio: https://www.airbnb.com.br/rooms/1525661029363941402
 
-Para publicar comercialmente, **obtenha autorização do proprietário para uso das fotografias e marca e substitua as imagens remotas por arquivos originais otimizados** (ideal: AVIF/WebP em diferentes resoluções). Não altere as fotos de modo a representar características inexistentes.
+Portal turístico: https://www.turismonovaromadosul.com.br/hospedagem
 
-## Design
-Layout editorial curto, foco em imagens reais, interações discretas, acessibilidade básica, animações com redução de movimento e CTA fixo em dispositivos móveis.
+## Reservas
+Os botões apontam para o anúncio exato do Airbnb. O pagamento, os preços e a disponibilidade são controlados exclusivamente pelo Airbnb.
+
+## Teste local
+Abra `index.html` no navegador ou use um servidor local (Live Server, por exemplo).
+
+## Nota
+Este é um **projeto de portfólio não oficial**. Confirme textos, imagens e autorização de marca com o proprietário antes da publicação pública ou uso comercial.

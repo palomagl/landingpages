@@ -140,3 +140,8 @@ h1,h2,h3,p,figure{margin:0}
 .mobile-cta.visible{transform:translateY(0)}.mobile-cta small{display:block;font-size:8px;color:#d7d0bd;margin-bottom:3px}.mobile-cta strong{font:24px "Instrument Serif",serif;font-weight:400}.mobile-cta .btn{min-height:45px;padding:12px 14px;font-size:9px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}.motion .reveal:not(.shown){opacity:1;transform:none}}
+
+/* Graceful photo fallback: keep the composition, link to the authentic listing. */
+.image-unavailable{background:linear-gradient(145deg,#293c30,#101f18 70%)!important}
+.image-unavailable-link{position:absolute;z-index:4;left:50%;top:50%;transform:translate(-50%,-50%);width:max-content;max-width:80%;padding:13px 17px;color:#f4efdf;border:1px solid #f4efdf78;text-align:center;font-size:11px;letter-spacing:.05em;line-height:1.5}
+.image-unavailable-link:hover{background:#ffffff1b}

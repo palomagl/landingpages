@@ -9,7 +9,7 @@ Landing page demonstrativa, não oficial, da **Cabana Rio Vale**, Nova Roma do S
 - `favicon.svg` — símbolo original do projeto.
 
 ## Fotografias
-A página usa **cinco URLs de fotografias identificadas no anúncio oficial do Airbnb**, além de uma imagem encontrada no portal turístico municipal. Algumas aparecem em mais de um lugar. As imagens são referências remotas (não estão copiadas localmente), e podem deixar de carregar por restrições de acesso externo.
+A página utiliza exclusivamente cinco URLs de fotografias presentes no anúncio oficial do Airbnb. Algumas aparecem em mais de um lugar. As imagens são referências remotas (não estão copiadas localmente), e podem deixar de carregar por restrições de acesso externo.
 
 A galeria completa do anúncio não estava acessível pela ferramenta de consulta; não é correto afirmar que todas as fotos estão no projeto. Para uma publicação comercial estável, solicite à proprietária os arquivos originais e autorização de uso, converta-os para WebP ou AVIF, salve em `assets/` e atualize os caminhos.
 

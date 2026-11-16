@@ -1,6 +1,6 @@
 /* Rio Vale — interactions, light enough for mobile.
    Replace with the URL of the exact Airbnb listing when provided. */
-const AIRBNB_URL = "https://www.airbnb.com.br/s/Nova-Roma-do-Sul--Rio-Grande-do-Sul--Brasil/homes";
+const AIRBNB_URL = "https://www.airbnb.com.br/rooms/1525661029363941402";
 const IS_DIRECT_LISTING = /airbnb\.[^/]+\/rooms\//.test(AIRBNB_URL);
 document.querySelectorAll('[data-booking]').forEach(a => {
   a.href = AIRBNB_URL;

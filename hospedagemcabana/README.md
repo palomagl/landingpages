@@ -1,27 +1,27 @@
 # Rio Vale — Refúgio a Dois
 
-Landing page demonstrativa, não oficial, da **Cabana Rio Vale**, Nova Roma do Sul / RS.
+Landing page conceitual **não oficial** baseada na Cabana Rio Vale, Nova Roma do Sul/RS.
 
 ## Estrutura
-- `index.html` — página com hero, galeria, comodidades e chamada para reserva.
-- `style.css` — identidade editorial (Bodoni Moda + Manrope), responsividade e animações.
-- `main.js` — links do Airbnb e interações leves de scroll.
-- `favicon.svg` — símbolo original do projeto.
+- `index.html` — composição editorial curta: abertura, cabana, experiência e reserva.
+- `style.css` — direção visual com Instrument Serif e Manrope, responsividade, fotografia em destaque.
+- `main.js` — efeitos de revelação e scroll, CTA móvel, proteção contra imagens indisponíveis.
+- `favicon.svg` — símbolo vetorial da marca conceitual.
 
 ## Fotografias
-A página utiliza exclusivamente cinco URLs de fotografias presentes no anúncio oficial do Airbnb. Algumas aparecem em mais de um lugar. As imagens são referências remotas (não estão copiadas localmente), e podem deixar de carregar por restrições de acesso externo.
+Cinco URLs de fotos diferentes extraídas do mesmo anúncio oficial da Cabana Rio Vale no Airbnb; nenhuma imagem de banco de imagens ou cabana fictícia.
 
-A galeria completa do anúncio não estava acessível pela ferramenta de consulta; não é correto afirmar que todas as fotos estão no projeto. Para uma publicação comercial estável, solicite à proprietária os arquivos originais e autorização de uso, converta-os para WebP ou AVIF, salve em `assets/` e atualize os caminhos.
+**Atenção:** links de imagens externos do Airbnb podem não funcionar em todos os sites, mesmo quando as URLs existem. O código apresenta um link ao anúncio caso o carregamento falhe. Para lançamento real, obtenha as fotografias originais com autorização da proprietária, hospede os arquivos otimizados no projeto e substitua as URLs remotas.
 
-Origem do anúncio: https://www.airbnb.com.br/rooms/1525661029363941402
-
-Portal turístico: https://www.turismonovaromadosul.com.br/hospedagem
+Anúncio oficial: https://www.airbnb.com.br/rooms/1525661029363941402
 
 ## Reservas
-Os botões apontam para o anúncio exato do Airbnb. O pagamento, os preços e a disponibilidade são controlados exclusivamente pelo Airbnb.
+Todos os botões abrem diretamente o anúncio oficial no Airbnb. Não há pagamentos, preços inventados ou disponibilidade falsa na landing page.
 
-## Teste local
-Abra `index.html` no navegador ou use um servidor local (Live Server, por exemplo).
+## Executar
+Abra `index.html` no navegador ou utilize Live Server. Não precisa instalar dependências.
 
-## Nota
-Este é um **projeto de portfólio não oficial**. Confirme textos, imagens e autorização de marca com o proprietário antes da publicação pública ou uso comercial.
+## Publicação
+O GitHub armazena o código: para visualizar as alterações em um site público, será preciso que um serviço de hospedagem faça o deploy da versão mais recente. Se houver cache, atualize a página depois do deploy.
+
+Este é um projeto de apresentação/portfólio; antes de divulgar como página oficial, confirme textos, uso da marca e direitos sobre as imagens.

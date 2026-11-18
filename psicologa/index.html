@@ -82,6 +82,20 @@
 }
 @media(prefers-reduced-motion:reduce){.portrait-inner img,.plant-line{animation:none!important;transform:none!important}}
 
+
+/* Art direction: replace generic botanical clip art with editorial linework */
+.comfort-art-refined{background:radial-gradient(circle at 22% 28%,#fff7ed 0%,transparent 55%),linear-gradient(145deg,#e9ddce,#d6c2ac);display:flex;align-items:center;justify-content:center;isolation:isolate}
+.comfort-art-refined:before{display:none}
+.editorial-rings{position:absolute;inset:0;overflow:hidden}
+.editorial-rings span{position:absolute;border:1px solid rgba(115,93,74,.33);border-radius:50%;aspect-ratio:1}
+.editorial-rings span:nth-child(1){width:75%;top:-38%;left:-30%}
+.editorial-rings span:nth-child(2){width:85%;top:-5%;left:2%;border-color:#a87e615e}
+.editorial-rings span:nth-child(3){width:90%;top:23%;left:29%;border-color:#ac86643a}
+.editorial-word{position:relative;z-index:1;color:#614a3d;font:italic clamp(66px,7vw,125px)/1 var(--serif);letter-spacing:-.09em;transform:rotate(-7deg);text-shadow:0 2px 18px #ffffff3c}
+.editorial-index{position:absolute;bottom:24px;left:32px;letter-spacing:.19em;font-size:9px;color:#8b705d}
+.quote-star{font-size:72px;line-height:.6;opacity:.45;font-family:Georgia,serif}
+@media(max-width:700px){.comfort-art-refined{height:190px}.editorial-word{font-size:76px}.editorial-index{font-size:7px;bottom:13px;left:18px}.editorial-rings span:nth-child(1){width:53%;top:-48%;left:-17%}.editorial-rings span:nth-child(2){width:65%;top:-35%;left:23%}.editorial-rings span:nth-child(3){width:65%;top:-20%;left:61%}}
+
 </style>
 
 </head>
@@ -117,7 +131,7 @@
   <div class="intro-heading observe"><p class="kicker">COMO POSSO TE ACOMPANHAR</p><h2>Um espaço para <em>se ouvir.</em><svg class="underline-draw" aria-hidden="true" viewBox="0 0 390 30"><path d="M5 24c104-17 221-25 378-12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></h2></div>
   <div class="intro-copy observe"><p>Nem toda pergunta precisa de uma resposta imediata. Às vezes, o que faz diferença é ter espaço para olhar com calma para o que sentimos e vivemos.</p><p>Um acompanhamento atento à singularidade de cada pessoa, orientado pela abordagem psicanalítica.</p><span class="small-note">ESCUTA · RESPEITO · SINGULARIDADE</span></div>
  </div>
- <div class="comfort-scene observe"><div class="comfort-art" aria-hidden="true"><div class="sun-pool"></div><svg viewBox="0 0 350 340" fill="none" class="plant-line"><path d="M159 331c7-72 30-141 96-269M210 218C118 177 116 114 119 98c65 0 117 43 91 120Zm28-59C224 64 266 35 304 25c25 62-1 124-66 134ZM179 278c-80-42-93-107-98-135 64 13 117 61 98 135Z" stroke="currentColor" stroke-width="2" fill="rgba(108,117,78,.1)"/></svg></div><div class="comfort-quote"><span class="quote-star" aria-hidden="true">✳</span><p>“Há espaço para o que você ainda não sabe colocar em palavras.”</p><span>UM CONVITE À ESCUTA</span></div></div>
+ <div class="comfort-scene observe"><div class="comfort-art comfort-art-refined" aria-hidden="true"><div class="editorial-rings"><span></span><span></span><span></span></div><span class="editorial-word">escuta.</span><span class="editorial-index">UM ESPAÇO PARA VOCÊ · 01 / 03</span></div><div class="comfort-quote"><span class="quote-star" aria-hidden="true">“</span><p>“Há espaço para o que você ainda não sabe colocar em palavras.”</p><span>UM CONVITE À ESCUTA</span></div></div>
 </section>
 <section class="topics" aria-labelledby="topics-title">
  <div class="topics-inner"><div class="topics-top observe"><span class="kicker">POSSIBILIDADES DE ESCUTA</span><span class="topics-number">02 / TEMAS</span></div>

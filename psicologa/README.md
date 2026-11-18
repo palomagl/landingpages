@@ -1,26 +1,34 @@
-# Psicóloga Andréia Silva — prévia de landing page
+# Andréia Brizola da Silva — landing page demonstrativa
 
-Projeto de demonstração não oficial, criado para apresentação e revisão de conceito.
+**Prévia visual não oficial** desenvolvida para apresentar a proposta de um site de psicologia. Não representa um site aprovado ou publicado oficialmente pela profissional.
 
-## Fontes e fotos
-O site usa exclusivamente duas fotografias reais enviadas pela usuária. As imagens foram recortadas de capturas públicas, sem transformação do rosto, da pose ou do corpo. Por serem imagens de pequena resolução, é recomendável obter as fotos originais autorizadas antes de uma publicação comercial.
+## Informações de referência
+- Andréia Brizola da Silva · Psicóloga · CRP 07/42730
+- Atendimento individual presencial para adolescentes e adultos
+- Sapiranga/RS
+- Abordagem psicanalítica
+- Instagram: https://www.instagram.com/andreiasilva.psi/
 
-## Conteúdo validado no briefing
-Andréia Brizola da Silva · CRP 07/42730 · formação FACCAT · abordagem psicanalítica · atendimento individual presencial a adolescentes e adultos em Sapiranga/RS. Não oferecer modalidade online.
+Confirme os dados e obtenha autorização antes da publicação comercial.
 
-## Contato
-CTA usa o número fornecido na conversa: +55 51 99999-4655. Confirme com a profissional antes de publicar oficialmente.
+## Como visualizar o projeto atual
 
-## Estrutura
-- index.html: site com CSS/JS e retratos incorporados para prévia instantânea, sem assets quebrados
-- styles.css, script.js e assets/: arquivos separados para desenvolvimento contínuo
+A implementação **atual** está no arquivo **`index.html`**, que é autônomo: contém HTML, CSS, JavaScript e os dois retratos enviados para a prévia. Para visualizar localmente, abra `index.html` ou use um servidor estático. Os arquivos `styles.css`, `script.js` e `config.js` são de uma versão anterior **e não são carregados por este index.html**.
 
-## Animações
-Microtransições de entrada, retrato com movimento sutil, linha ilustrada, folhas, botão e navegação; todas desativáveis por prefers-reduced-motion. Nenhuma biblioteca de animação pesada.
+Para publicar via Vercel, crie um projeto ligado ao repositório `palomagl/landingpages` com **Root Directory = `psicologa`**, Framework Preset = Other e Output Directory em branco. Um commit no GitHub, sozinho, não garante que o endereço atual esteja implantando esta pasta; confira as configurações da Vercel.
 
-## Publicação
-A prévia usa noindex e é não oficial. Antes da versão definitiva, obter autorização, confirmar dados, telefone, endereço e revisar a publicidade conforme CFP/CRP.
-## Versão no GitHub
-A página ativa é `index.html`, com os estilos, scripts, SVG e retratos reais incorporados no próprio HTML para não depender de URLs externas de imagens. Os arquivos antigos `config.js`, `script.js`, `styles.css`, `DIRECAO.md` e `assets/escuta-*` permanecem como material legado da demonstração anterior e não são utilizados pela nova página. Para uma manutenção futura, é possível separar os módulos, preservando as imagens e os comportamentos.
+## Fotografias
+- O hero contém o retrato real enviado para a prévia, com resolução útil próxima de **470×319 px**.
+- A seção “Sobre” utiliza a foto real em preto e branco enviada, de **136×135 px**.
+- Não existe upscaling capaz de recuperar detalhes reais de origem; a edição atual prioriza não ampliar excessivamente, não transformar o rosto, não aplicar blur artístico nem reconstruir a aparência.
+- Para alcançar nitidez profissional em telas de alta densidade, **substituir essas duas imagens por fotografias originais de alta resolução autorizadas pela Andréia**.
 
-**Limite dos testes:** HTML, âncoras e sintaxe JavaScript foram verificados localmente. O navegador automatizado neste ambiente bloqueou a navegação para a prévia local; não foi possível confirmar screenshots de todos os tamanhos de tela nem métricas Lighthouse. Não afirmar o contrário.
+## Interações e qualidade
+A página atual usa IntersectionObserver e CSS para revelar textos e desenhar linhas, com fallback para `prefers-reduced-motion`. Um problema de inicialização foi corrigido: o script passou do `head` para o final do `body`, garantindo que os elementos existam antes de registrar eventos.
+
+A revisão refinou retratos, removendo zoom infinito, e trocou ornamentos botânicos genéricos por formas editoriais.
+
+**Validação pendente:** captura visual real e teste funcional no domínio de produção após o deploy da pasta correta. Não considerar testes anteriores do tema fictício Clara Avelar como validação desta versão.
+
+## Avisos
+A prévia permanece com `noindex,nofollow` e identificação de projeto não oficial. Revisar dados, direitos de imagem, orientações CFP/CRP e contato antes de ativar como site público oficial.

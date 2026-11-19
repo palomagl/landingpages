@@ -1,0 +1,1251 @@
+/* Dra. Lívia Hartmann — site de consultório odontológico.
+   Paleta: esmalte (fundo), papel, beringela (tinta), verde do WhatsApp só para a ação principal,
+   lilás e damasco como apoio. Tipos: Lora nos títulos, Inter no resto. */
+
+@font-face {
+  font-family: "Lora";
+  src: url("/fonts/lora.woff") format("woff");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lora";
+  src: url("/fonts/lora-italic.woff") format("woff");
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-Regular.woff") format("woff");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-Medium.woff") format("woff");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-SemiBold.woff") format("woff");
+  font-weight: 600;
+  font-display: swap;
+}
+
+:root {
+  --esmalte: #eef0eb;
+  --papel: #fbfbf8;
+  --beringela: #2e1a3b;
+  --ameixa: #5b4e63;
+  --zap: #137a44;
+  --zap-escuro: #0e5f35;
+  --lilas: #e5deee;
+  --damasco: #f0b48e;
+  --linha: #d9d6dc;
+  --bolha-out: #dcefdc;
+  --serif: "Lora", Georgia, serif;
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --wrap: 1180px;
+  --pad: clamp(20px, 4vw, 48px);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 84px;
+}
+
+body {
+  margin: 0;
+  background: var(--esmalte);
+  color: var(--beringela);
+  font: 400 17px/1.6 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  line-height: 1.15;
+  margin: 0;
+  text-wrap: balance;
+}
+h1 {
+  font-size: clamp(2.4rem, 5.2vw, 4.1rem);
+  letter-spacing: -0.015em;
+}
+h2 {
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  letter-spacing: -0.01em;
+}
+h3 {
+  font-size: 1.3rem;
+}
+p {
+  margin: 0;
+}
+a {
+  color: inherit;
+}
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--zap);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 40;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--beringela);
+  color: var(--papel);
+  font-weight: 600;
+  text-decoration: none;
+}
+.skip:focus {
+  top: 12px;
+}
+main:focus {
+  outline: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.small {
+  font-size: 0.9rem;
+}
+.muted {
+  color: var(--ameixa);
+}
+.lead {
+  font-size: 1.15rem;
+  color: var(--ameixa);
+  max-width: 34em;
+}
+.small-lead {
+  font-size: 1rem;
+}
+
+/* ------------------------------------------------------------------ botões */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+.btn.small {
+  min-height: 40px;
+  padding: 0 16px;
+  font-size: 0.92rem;
+}
+.btn.zap {
+  background: var(--zap);
+  color: #fff;
+}
+.btn.zap:hover {
+  background: var(--zap-escuro);
+}
+.btn.zap:disabled {
+  background: #b9c7bd;
+  color: #f4f6f3;
+  cursor: not-allowed;
+}
+.btn.quiet {
+  background: transparent;
+  border-color: var(--beringela);
+}
+.btn.quiet:hover {
+  background: var(--beringela);
+  color: var(--papel);
+}
+.btn.light {
+  background: var(--papel);
+  color: var(--beringela);
+}
+
+/* ------------------------------------------------------------------ topo */
+
+.top {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 12px var(--pad);
+  background: rgba(238, 240, 235, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--linha);
+}
+.mark {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 44px;
+  text-decoration: none;
+  line-height: 1.1;
+  margin-right: auto;
+}
+.mark-name {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.mark-sub {
+  font-size: 0.82rem;
+  color: var(--ameixa);
+}
+.top nav {
+  display: flex;
+  gap: 4px;
+}
+.top nav button {
+  background: none;
+  border: 0;
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  color: var(--ameixa);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+.top nav button:hover {
+  color: var(--beringela);
+  background: var(--lilas);
+}
+
+/* ------------------------------------------------------------------ seções */
+
+/* Cada seção tem fundo de ponta a ponta e o conteúdo numa coluna de até 1180px. */
+main > section {
+  padding: clamp(56px, 8vw, 104px) max(var(--pad), calc((100% - var(--wrap)) / 2));
+}
+
+.photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 22px;
+  background: var(--lilas);
+}
+
+/* hero: texto e escolhas à esquerda; retrato em arco com o celular por cima, à direita */
+main > section.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+  padding-top: clamp(32px, 5vw, 64px);
+}
+.hero-copy {
+  display: grid;
+  gap: 24px;
+}
+.hero-copy h1 {
+  max-width: 13em;
+}
+.hero-visual {
+  position: relative;
+  justify-self: end;
+  width: 100%;
+  max-width: 440px;
+  padding-bottom: 56px;
+}
+.hero-photo {
+  aspect-ratio: 4 / 5;
+  border-radius: 999px 999px 26px 26px;
+}
+.hero-phone {
+  position: absolute;
+  left: -56px;
+  bottom: 0;
+  width: 280px;
+}
+.hero-phone .phone {
+  width: 100%;
+}
+.hero-phone .chat {
+  min-height: 168px;
+}
+.booking-phone {
+  display: flex;
+  justify-content: center;
+}
+
+/* escolhas em pílulas */
+.choices {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.choices legend {
+  padding: 0;
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: var(--papel);
+  border: 1.5px solid var(--linha);
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.97rem;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+.pill:hover {
+  border-color: var(--ameixa);
+}
+.pill.on {
+  background: var(--beringela);
+  border-color: var(--beringela);
+  color: var(--papel);
+}
+.pill input,
+.day input,
+.slot input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  cursor: inherit;
+}
+.pill:has(input:focus-visible),
+.day:has(input:focus-visible),
+.slot:has(input:focus-visible) {
+  outline: 3px solid var(--zap);
+  outline-offset: 2px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+/* faixa com os três fatos */
+main > section.facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(20px, 4vw, 56px);
+  background: var(--beringela);
+  color: #ded6e4;
+  padding-top: 44px;
+  padding-bottom: 44px;
+}
+.facts p {
+  max-width: 22em;
+}
+.facts strong {
+  display: block;
+  color: var(--papel);
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+/* o consultório, em foto larga */
+main > section.room {
+  padding-bottom: 0;
+}
+.room figure {
+  margin: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: end;
+}
+.room-photo {
+  aspect-ratio: 3 / 2;
+  border-radius: 28px;
+}
+.room figcaption {
+  display: grid;
+  gap: 10px;
+  color: var(--ameixa);
+  font-size: 1.1rem;
+  max-width: 22em;
+  padding-bottom: 8px;
+}
+.room figcaption strong {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  font-weight: 500;
+  line-height: 1.15;
+  color: var(--beringela);
+}
+
+/* medo de dentista */
+main > section.fear {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+  background: var(--lilas);
+  margin-top: clamp(56px, 8vw, 104px);
+}
+.fear-text {
+  display: grid;
+  gap: 32px;
+}
+.fear h2 {
+  max-width: 13em;
+}
+.fear-photo {
+  aspect-ratio: 4 / 5;
+}
+.fear-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 22px;
+}
+.fear-list li {
+  padding-left: 22px;
+  border-left: 3px solid var(--damasco);
+}
+.fear-list strong {
+  display: block;
+  font-size: 1.05rem;
+}
+
+/* primeira consulta: é uma sequência, por isso os números */
+.first h2 {
+  margin-bottom: 36px;
+}
+.first-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(28px, 5vw, 64px);
+  align-items: center;
+}
+.first-photo {
+  aspect-ratio: 4 / 3;
+}
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 36px 32px;
+}
+.steps li {
+  position: relative;
+  padding-left: 52px;
+}
+.steps .n {
+  position: absolute;
+  left: 0;
+  top: -6px;
+  font-family: var(--serif);
+  font-size: 2.6rem;
+  line-height: 1;
+  font-weight: 500;
+  color: #d98b5f;
+}
+.steps h3 {
+  margin-bottom: 6px;
+}
+.steps p {
+  color: var(--ameixa);
+}
+
+/* tratamentos */
+main > section.treatments {
+  background: var(--papel);
+}
+.t-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+.t-aside {
+  position: sticky;
+  top: 96px;
+  display: grid;
+  gap: 12px;
+}
+.t-photo {
+  aspect-ratio: 4 / 3;
+  margin-top: 16px;
+}
+.t-list {
+  margin: 0;
+}
+.t-list > div {
+  padding: 22px 0;
+  border-top: 1px solid var(--linha);
+}
+.t-list > div:first-child {
+  border-top: 0;
+  padding-top: 4px;
+}
+.t-list dt {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.t-list dd {
+  margin: 0;
+  color: var(--ameixa);
+  max-width: 34em;
+}
+
+/* agendamento */
+main > section.booking {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+  padding-left: max(var(--pad), calc((100% - var(--wrap)) / 2));
+  padding-right: max(var(--pad), calc((100% - var(--wrap)) / 2));
+}
+main > section.booking > * {
+  margin: 0;
+  max-width: none;
+}
+.booking-form {
+  display: grid;
+  gap: 26px;
+}
+.booking-form h2 {
+  margin-bottom: -14px;
+}
+.booking-phone {
+  position: sticky;
+  top: 96px;
+}
+
+.days {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 4px 8px;
+  margin: -4px -4px 0;
+  scrollbar-width: thin;
+}
+.day {
+  position: relative;
+  flex: 0 0 auto;
+  display: grid;
+  justify-items: center;
+  width: 66px;
+  padding: 10px 0 9px;
+  border-radius: 14px;
+  background: var(--papel);
+  border: 1.5px solid var(--linha);
+  cursor: pointer;
+  line-height: 1.15;
+}
+.day .wd,
+.day .mo {
+  font-size: 0.8rem;
+  color: var(--ameixa);
+}
+.day .dn {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 2px 0;
+}
+.day:hover {
+  border-color: var(--ameixa);
+}
+.day.on {
+  background: var(--beringela);
+  border-color: var(--beringela);
+  color: var(--papel);
+}
+.day.on .wd,
+.day.on .mo {
+  color: #cfc4d8;
+}
+.day.full {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 8px;
+}
+.slot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 44px;
+  border-radius: 10px;
+  background: var(--papel);
+  border: 1.5px solid var(--linha);
+  cursor: pointer;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.slot:hover {
+  border-color: var(--ameixa);
+}
+.slot.on {
+  background: var(--zap);
+  border-color: var(--zap);
+  color: #fff;
+}
+.slot.taken {
+  background: transparent;
+  border-style: dashed;
+  color: #a39aa9;
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+  max-width: 360px;
+}
+.field label {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.input {
+  min-height: 48px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1.5px solid var(--linha);
+  background: var(--papel);
+  font: inherit;
+  color: var(--beringela);
+  min-width: 0;
+}
+.input:focus-visible {
+  outline: 3px solid var(--zap);
+  outline-offset: 1px;
+  border-color: var(--zap);
+}
+
+/* sobre */
+main > section.about {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+  background: var(--papel);
+}
+.about > div {
+  display: grid;
+  gap: 14px;
+  max-width: 34em;
+}
+.about-photo {
+  aspect-ratio: 1 / 1;
+  max-width: 460px;
+}
+
+/* onde fica */
+main > section.where {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+}
+.where-info {
+  display: grid;
+  gap: 16px;
+  justify-items: start;
+}
+.addr {
+  font-size: 1.2rem;
+}
+.hours {
+  border-collapse: collapse;
+}
+.hours th,
+.hours td {
+  text-align: left;
+  padding: 6px 24px 6px 0;
+  border-bottom: 1px solid var(--linha);
+  font-weight: 400;
+}
+.hours th {
+  color: var(--ameixa);
+}
+.map-card {
+  margin: 0;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--papel);
+  border: 1px solid var(--linha);
+}
+.map-scroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+}
+.map-hint {
+  display: none;
+}
+.map-svg,
+.map-embed {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 640 / 440;
+  border: 0;
+}
+.map-card figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 12px 18px;
+  font-size: 0.9rem;
+  color: var(--ameixa);
+}
+.map-card figcaption {
+  align-items: center;
+}
+.map-card figcaption a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--beringela);
+  font-weight: 600;
+}
+
+/* perguntas */
+main > section.faq-section {
+  background: var(--papel);
+}
+.faq {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  column-gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+.faq h2 {
+  grid-row: 1 / span 4;
+  max-width: 10em;
+}
+.faq details {
+  grid-column: 2;
+  border-bottom: 1px solid var(--linha);
+}
+.faq details:first-of-type {
+  border-top: 1px solid var(--linha);
+}
+.faq summary {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+.faq summary::after {
+  content: "+";
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--ameixa);
+  transition: transform 0.2s;
+}
+.faq details[open] summary::after {
+  transform: rotate(45deg);
+}
+.faq details p {
+  padding: 0 0 20px;
+  color: var(--ameixa);
+  max-width: 36em;
+}
+
+/* rodapé */
+.foot {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px 56px;
+  padding: 48px max(var(--pad), calc((100% - var(--wrap)) / 2)) 56px;
+  background: var(--beringela);
+  color: #cfc4d8;
+}
+.foot strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--papel);
+  margin-bottom: 8px;
+}
+.foot p + p {
+  margin-top: 6px;
+}
+.foot a {
+  color: var(--papel);
+}
+
+/* ------------------------------------------------------------------ celular com a conversa */
+
+.phone {
+  margin: 0;
+  width: min(100%, 340px);
+  border-radius: 38px;
+  padding: 12px;
+  background: var(--beringela);
+  box-shadow: 0 30px 60px -30px rgba(46, 26, 59, 0.55);
+}
+.phone-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 14px 12px;
+  color: var(--papel);
+  line-height: 1.2;
+}
+.phone-top strong {
+  display: block;
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+.phone-top small {
+  font-size: 0.8rem;
+  color: #cfc4d8;
+}
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--lilas);
+  color: var(--beringela);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  flex: none;
+}
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 300px;
+  padding: 14px 12px;
+  border-radius: 26px 26px 0 0;
+  background-color: #ece6dc;
+  background-image: radial-gradient(rgba(46, 26, 59, 0.06) 1px, transparent 1.2px);
+  background-size: 14px 14px;
+}
+.chat-day {
+  align-self: center;
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 8px;
+  background: rgba(251, 251, 248, 0.85);
+  color: var(--ameixa);
+}
+.bubble {
+  position: relative;
+  max-width: 88%;
+  padding: 8px 12px 18px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  box-shadow: 0 1px 0 rgba(46, 26, 59, 0.08);
+  overflow-wrap: anywhere;
+}
+.bubble.out {
+  align-self: flex-end;
+  background: var(--bolha-out);
+  border-top-right-radius: 4px;
+}
+.bubble.in {
+  align-self: flex-start;
+  background: #fff;
+  border-top-left-radius: 4px;
+  padding-bottom: 8px;
+  animation: pop 0.25s ease-out;
+}
+.meta {
+  position: absolute;
+  right: 10px;
+  bottom: 3px;
+  font-size: 0.72rem;
+}
+.ticks {
+  color: #2f8fd8;
+  letter-spacing: -0.2em;
+}
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 0.9em;
+  background: var(--zap);
+  vertical-align: -1px;
+  animation: blink 1s steps(2, start) infinite;
+}
+.composer {
+  padding: 10px 12px 12px;
+  border-radius: 0 0 26px 26px;
+  background: #ece6dc;
+}
+.composer span {
+  display: block;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #fff;
+  color: #8c8392;
+  font-size: 0.88rem;
+}
+
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* aviso da demonstração */
+.notice {
+  position: fixed;
+  z-index: 30;
+  left: 50%;
+  bottom: max(20px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  width: min(560px, calc(100% - 32px));
+  display: grid;
+  gap: 14px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: var(--beringela);
+  color: var(--papel);
+  box-shadow: 0 20px 40px -16px rgba(46, 26, 59, 0.6);
+  animation: pop 0.25s ease-out;
+}
+.notice {
+  justify-items: start;
+  padding-right: 56px;
+}
+.notice-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--papel);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.notice-close:hover {
+  background: rgba(251, 251, 248, 0.12);
+}
+@media (max-width: 680px) {
+  .notice {
+    bottom: 12px;
+    gap: 10px;
+    padding: 14px 52px 14px 16px;
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+}
+
+/* ------------------------------------------------------------------ visão do consultório */
+
+.clinic-main {
+  max-width: calc(var(--wrap) + 2 * var(--pad));
+  margin: 0 auto;
+  padding: 48px var(--pad) 80px;
+  display: grid;
+  gap: 18px;
+}
+.clinic-main h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+.clinic-main h2 {
+  font-size: 1.5rem;
+}
+.clinic-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 40px;
+  margin-top: 20px;
+  align-items: start;
+}
+.clinic-grid > section {
+  display: grid;
+  gap: 16px;
+}
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.empty {
+  padding: 24px;
+  border-radius: 16px;
+  border: 1.5px dashed var(--linha);
+  color: var(--ameixa);
+}
+.requests {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.requests li {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--papel);
+  border: 1.5px solid var(--linha);
+}
+.requests li.novo {
+  border-color: var(--damasco);
+}
+.requests .bubble {
+  max-width: 100%;
+  padding-bottom: 8px;
+}
+.requests .bubble.in {
+  border: 1px solid var(--linha);
+  box-shadow: none;
+}
+.requests .btn {
+  justify-self: start;
+}
+.week {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 6px;
+}
+.week-day {
+  display: grid;
+  gap: 4px;
+  align-content: start;
+}
+.week-day h3 {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding-bottom: 4px;
+}
+.cell {
+  display: grid;
+  gap: 0;
+  padding: 5px 7px;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  font-size: 0.74rem;
+  line-height: 1.3;
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+}
+.cell span:last-child {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cell.busy {
+  background: var(--lilas);
+}
+.cell.free {
+  background: transparent;
+  border: 1px dashed var(--linha);
+  color: #9a91a0;
+}
+.cell.site {
+  background: var(--damasco);
+  font-weight: 600;
+}
+.cell.site.confirmado {
+  background: var(--zap);
+  color: #fff;
+}
+
+/* ------------------------------------------------------------------ telas menores */
+
+@media (max-width: 980px) {
+  .top nav {
+    display: none;
+  }
+  main > section.hero,
+  main > section.booking,
+  main > section.fear,
+  main > section.about,
+  main > section.where,
+  .first-grid,
+  .t-grid,
+  .faq,
+  .clinic-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .hero-visual {
+    justify-self: center;
+    max-width: 420px;
+    padding-bottom: 0;
+  }
+  .hero-phone {
+    position: relative;
+    left: auto;
+    width: min(280px, 82%);
+    margin: -150px -8px 0 auto;
+  }
+  .booking-phone,
+  .t-aside {
+    position: static;
+  }
+  .room figure {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .fear-photo {
+    aspect-ratio: 4 / 4.2;
+    object-position: center 20%;
+  }
+  .faq h2 {
+    grid-row: auto;
+    margin-bottom: 16px;
+  }
+  .faq details {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 680px) {
+  body {
+    font-size: 16px;
+  }
+  .top {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .mark-name {
+    font-size: 1.05rem;
+  }
+  main > section.facts,
+  .steps,
+  .foot {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .steps {
+    gap: 28px;
+  }
+  .room-photo {
+    border-radius: 20px;
+  }
+  .photo {
+    border-radius: 18px;
+  }
+  .hero-photo {
+    border-radius: 999px 999px 20px 20px;
+  }
+  .hero-copy .actions .btn,
+  .booking-form .actions .btn {
+    width: 100%;
+  }
+  .week {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 14px;
+  }
+  .chat {
+    min-height: 200px;
+  }
+  .map-svg {
+    min-width: 600px;
+  }
+  .map-hint {
+    display: inline;
+  }
+  .hero-phone .chat {
+    min-height: 150px;
+  }
+}
+
+@media (max-width: 400px) {
+  .top {
+    gap: 12px;
+  }
+  .mark-name {
+    font-size: 0.98rem;
+  }
+  .top .btn.small {
+    padding: 0 14px;
+    white-space: nowrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

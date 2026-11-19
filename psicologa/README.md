@@ -30,3 +30,9 @@ Os arquivos legados `styles.css`, `script.js` e `config.js` na pasta, se present
 Seção “Cuidado”: ilustração de sofá bege com bordas transparentes para integrar a imagem ao fundo, sem retângulo aparente; texto adicional de acolhimento e nota visível de que a composição é ilustrativa (não é fotografia comprovada do consultório). Seção “Sobre”: retrato editorial já aprovado com acabamento transparente nas bordas, sem recriar o rosto nesta revisão. Imagens em WebP otimizadas e incorporadas ao `index.html` (arquivo autocontido de aproximadamente 664 KB), além de revelação escalonada de elementos durante a rolagem, respeitando `prefers-reduced-motion`.
 
 Testes de responsividade e funcionalidade: 320, 360, 390, 430, 600, 768, 870, 928, 1024, 1280 e 1440 px; menus móveis, links, carregamento de imagens e ausência de rolagem horizontal. A efetiva atualização no domínio da Vercel depende do deploy do repositório.
+
+## Experiência em celular — revisão de 19/11/2026
+
+A primeira dobra foi redesenhada para 320–600 px, com enquadramento específico da arte do hero (recorte da composição existente, sem regenerar rosto), foto mais baixa e título, texto e CTA alcançáveis logo na abertura. O menu móvel mantém o X e fecha por Esc, toque e seleção. A lista de cinco temas tem rolagem horizontal com cartões e indicação de deslize, com suporte a toque e teclado; há uma barra discreta de WhatsApp que só aparece após a abertura e desaparece na seção final e enquanto o menu está aberto. A barra respeita a área segura inferior do aparelho. Recursos visuais leves, sem biblioteca extra.
+
+QA: 13 tamanhos de viewport em Chromium (320, 360, 375, 390, 414, 430, 600, 601, 768, 870, 871, 1024 e 1440 px); links âncora, carregamento das fotos, ausência de erros de JavaScript e rolagem horizontal, comportamento de navegação, barra de contato e posição do CTA aprovados. Isso não substitui um teste de Safari/iOS físico.

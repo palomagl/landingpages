@@ -1,14 +1,23 @@
 # Landing Pages | ÚNICA
 
-Catálogo de experiências digitais demonstrativas, organizado por nicho. Cada pasta corresponde a um projeto independente, pensado para apresentação comercial e portfólio.
+Exemplos de landing pages prontos para servir de base em projetos reais. Cada pasta é um projeto independente, com código, imagens e documentação próprios: para usar com um cliente, é só trocar marca, textos, fotos e contatos.
 
-| Pasta | Projeto | Status |
+| Pasta | Exemplo | Status |
 | --- | --- | --- |
-| [hospedagemcabana/](hospedagemcabana/) | Cabana Rio Vale — hospedagem | Demonstração em desenvolvimento |
-| [psicologa/](psicologa/) | Psicologia — landing page autoral | Briefing pronto / aguardando implementação |
-| [scooter-eletrica/](scooter-eletrica/) | Scooter Elétrica — loja de scooters, bikes e patinetes elétricos | Demonstração pronta para apresentação |
+| [hospedagemcabana/](hospedagemcabana/) | Cabanas — hospedagem | Pronto para usar como base |
+| [psicologa/](psicologa/) | Psicologia — consultório | Pronto para usar como base |
+| [scooter-eletrica/](scooter-eletrica/) | Scooters elétricas — loja | Pronto para usar como base |
 
-## Organização
-Cada nova demonstração fica dentro da sua própria pasta (`nutricionista/`, `advocacia/`, `barbearia/`, etc.), com documentação, código e assets próprios.
+## Como usar um exemplo em um projeto real
+1. Copie a pasta do exemplo mais próximo do nicho do cliente para uma nova pasta (`nutricionista/`, `advocacia/`, `barbearia/` etc.).
+2. Troque marca, textos, fotos, WhatsApp, endereço e preços. O README de cada pasta lista o que é provisório.
+3. Atualize as tags de compartilhamento (`og:title`, `og:description`, `og:image`) para o domínio do cliente.
+4. Publique na Vercel apontando o **Root Directory** para a pasta do projeto, para que o `vercel.json` dela seja aplicado.
 
-**Importante:** projetos demonstrativos não devem ser apresentados como sites oficiais nem atribuir credenciais, depoimentos ou marcas reais sem autorização.
+## Padrão dos exemplos
+- **Celular primeiro:** testados a partir de 320 px de largura, com atenção a celulares lentos e conexões fracas.
+- **Sem dependências:** HTML, CSS e JavaScript puros; abre direto no navegador.
+- **Segurança e privacidade** (`hospedagemcabana/` e `scooter-eletrica/`): política de segurança de conteúdo, fontes hospedadas no próprio site, links externos protegidos e cabeçalhos de segurança no `vercel.json`. Use o mesmo padrão em novos projetos.
+
+## Antes de publicar para um cliente
+Use apenas fotos, marcas, depoimentos e credenciais que o cliente autorizou, e confirme preços, condições e dados de contato com ele.

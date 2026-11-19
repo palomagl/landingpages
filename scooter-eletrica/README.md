@@ -10,6 +10,7 @@ Landing page conceitual **não oficial** para uma loja de scooters, bikes, trici
 - `media/` — vídeo do topo (paisagem e retrato) e imagens de capa leves.
 - `favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`, `site.webmanifest` — ícones da aba e da tela inicial do celular.
 - `og-image.jpg` — prévia de 1200×630 que aparece ao enviar o link no WhatsApp e nas redes.
+- `fonts/` — Barlow e Barlow Condensed hospedadas no próprio site (só os caracteres do português), com as licenças OFL.
 - `vercel.json` — cabeçalhos de segurança e cache (vale quando a pasta é a raiz do projeto na Vercel).
 
 ## Antes de apresentar como site real
@@ -23,10 +24,12 @@ Landing page conceitual **não oficial** para uma loja de scooters, bikes, trici
 - Vídeo do topo: "Men and Woman Standing Beside Parked Motorcycles", de Anastasia Shuraeva, Pexels (licença gratuita).
 
 ## Desempenho e segurança
-- Sem bibliotecas externas; só a fonte vem do Google Fonts.
-- Em 3G lento (simulação, celular com CPU 4× mais lenta): primeira tela em cerca de 2,5 s e 253 KB baixados; o vídeo não é carregado nessa conexão.
+- Nenhum recurso de terceiros: script, estilos, fontes, fotos e vídeo saem do próprio site. O visitante não tem o IP enviado ao Google e a página abre mesmo se outro serviço cair.
+- Em 3G lento (simulação, celular com CPU 4× mais lenta): primeira tela em cerca de 2,5 s; o vídeo não é carregado nessa conexão.
 - Rolagem a 60 quadros por segundo no mesmo celular simulado, sem deslocamento de layout.
-- Política de segurança de conteúdo (CSP) no `index.html` e no `vercel.json`, script em arquivo separado, links externos com `noopener noreferrer`.
+- Política de segurança de conteúdo (CSP) no `index.html` e no `vercel.json`: só roda o script do próprio site, sem estilos ou scripts embutidos.
+- Cabeçalhos na Vercel: HTTPS obrigatório (HSTS), proteção contra a página ser embutida em outro site, `nosniff`, política de referência e bloqueio de câmera, microfone e localização.
+- Links externos com `noopener noreferrer`. Não há formulários, cookies, rastreadores nem bibliotecas de terceiros.
 
 ## Prévia no WhatsApp
 A tag `og:image` aponta para `og-image.jpg` no branch `main` deste repositório (`raw.githubusercontent.com`). A prévia aparece depois que esta pasta estiver no `main`. Se o site for publicado em domínio próprio, troque a URL pela do domínio.

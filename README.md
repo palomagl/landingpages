@@ -6,6 +6,7 @@ Catálogo de experiências digitais demonstrativas, organizado por nicho. Cada p
 | --- | --- | --- |
 | [hospedagemcabana/](hospedagemcabana/) | Cabana Rio Vale — hospedagem | Demonstração em desenvolvimento |
 | [psicologa/](psicologa/) | Psicologia — landing page autoral | Briefing pronto / aguardando implementação |
+| [scooter-eletrica/](scooter-eletrica/) | Scooter Elétrica — loja de scooters, bikes e patinetes elétricos | Demonstração pronta para apresentação |
 
 ## Organização
 Cada nova demonstração fica dentro da sua própria pasta (`nutricionista/`, `advocacia/`, `barbearia/`, etc.), com documentação, código e assets próprios.

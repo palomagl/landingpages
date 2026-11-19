@@ -4,6 +4,7 @@ Exemplos de landing pages prontos para servir de base em projetos reais. Cada pa
 
 | Pasta | Exemplo | Status |
 | --- | --- | --- |
+| [cafeteria/](cafeteria/) | Máquinas de café — catálogo com orçamento pelo WhatsApp (React) | Pronto para usar como base |
 | [hospedagemcabana/](hospedagemcabana/) | Cabanas — hospedagem | Pronto para usar como base |
 | [dentista/](dentista/) | Odontologia — consultório com agendamento pelo WhatsApp | Pronto para usar como base |
 | [psicologa/](psicologa/) | Psicologia — consultório | Pronto para usar como base |
@@ -17,8 +18,8 @@ Exemplos de landing pages prontos para servir de base em projetos reais. Cada pa
 
 ## Padrão dos exemplos
 - **Celular primeiro:** testados a partir de 320 px de largura, com atenção a celulares lentos e conexões fracas.
-- **Sem dependências:** HTML, CSS e JavaScript puros; abre direto no navegador. A exceção é `dentista/`, feito em React + Vite: precisa de `npm install` e `npm run build` (a Vercel faz isso sozinha).
-- **Segurança e privacidade** (`hospedagemcabana/`, `scooter-eletrica/` e `dentista/`): política de segurança de conteúdo, fontes hospedadas no próprio site, links externos protegidos e cabeçalhos de segurança no `vercel.json`. Use o mesmo padrão em novos projetos.
+- **Sem dependências:** HTML, CSS e JavaScript puros; abre direto no navegador. As exceções são `cafeteria/` e `dentista/`, feitos em React + Vite: precisam de `npm install` e `npm run build` (a Vercel faz isso sozinha). No `cafeteria/`, todo o conteúdo fica em um único arquivo de configuração.
+- **Segurança e privacidade** (`hospedagemcabana/`, `scooter-eletrica/`, `dentista/` e `cafeteria/`): política de segurança de conteúdo, fontes hospedadas no próprio site, links externos protegidos e cabeçalhos de segurança no `vercel.json`. Use o mesmo padrão em novos projetos.
 
 ## Antes de publicar para um cliente
 Use apenas fotos, marcas, depoimentos e credenciais que o cliente autorizou, e confirme preços, condições e dados de contato com ele.

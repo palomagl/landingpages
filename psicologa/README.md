@@ -24,3 +24,9 @@ O arquivo **index.html** é autocontido: inclui HTML, CSS, JavaScript e quatro f
 Para Vercel, selecione o repositório `palomagl/landingpages` com **Root Directory: `psicologa`** e preset Other. A sincronização do domínio e o deploy da Vercel dependem das configurações externas; atualizar o GitHub não certifica o estado da URL publicada.
 
 Os arquivos legados `styles.css`, `script.js` e `config.js` na pasta, se presentes, não são usados pela página atual, que é autocontida. Links externos e dados devem ser revisados antes da publicação final.
+
+## Revisão editorial de 19/11/2026
+
+Seção “Cuidado”: ilustração de sofá bege com bordas transparentes para integrar a imagem ao fundo, sem retângulo aparente; texto adicional de acolhimento e nota visível de que a composição é ilustrativa (não é fotografia comprovada do consultório). Seção “Sobre”: retrato editorial já aprovado com acabamento transparente nas bordas, sem recriar o rosto nesta revisão. Imagens em WebP otimizadas e incorporadas ao `index.html` (arquivo autocontido de aproximadamente 664 KB), além de revelação escalonada de elementos durante a rolagem, respeitando `prefers-reduced-motion`.
+
+Testes de responsividade e funcionalidade: 320, 360, 390, 430, 600, 768, 870, 928, 1024, 1280 e 1440 px; menus móveis, links, carregamento de imagens e ausência de rolagem horizontal. A efetiva atualização no domínio da Vercel depende do deploy do repositório.

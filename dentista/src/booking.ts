@@ -3,6 +3,15 @@ import { clinic, periods, services, type PeriodId, type ServiceId } from "./conf
 // Horários e pedidos de agendamento. Nesta demonstração os dados ficam só no navegador de quem
 // testa; num cliente real, a mensagem vai para o WhatsApp e (se quiser) para uma agenda online.
 
+// O que a pessoa já escolheu no cartão de consulta.
+export interface Draft {
+  service: ServiceId;
+  period: PeriodId;
+  name: string;
+  date?: string;
+  time?: string;
+}
+
 export interface Slot {
   date: string; // AAAA-MM-DD
   time: string; // HH:MM
@@ -114,6 +123,12 @@ export function longDay(date: string) {
 export function formatTime(time: string) {
   const [hh, mm] = time.split(":");
   return `${Number(hh)}h${mm === "00" ? "" : mm}`;
+}
+
+/** "24/11", como se escreve num cartão de consulta. */
+export function shortDate(date: string) {
+  const [, m, d] = date.split("-");
+  return `${d}/${m}`;
 }
 
 /** "na quinta, 19 de nov, às 17h30" (ou "no sábado, ..."), para usar no meio de uma frase. */

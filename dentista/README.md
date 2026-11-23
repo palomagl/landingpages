@@ -1,12 +1,20 @@
 # Site para dentista: do site direto pro WhatsApp
 
-Modelo de site para consultório odontológico. A pessoa escolhe o que precisa (avaliação, limpeza, dor…)
-e o melhor período, ou um dia e horário livres, e o botão abre o WhatsApp do consultório com a mensagem
-pronta. Feito para ser reaproveitado: quase tudo que muda de um cliente pro outro está em `src/config.ts`.
+Modelo de site para consultório odontológico, pensado primeiro para o celular. A ideia central é o
+**cartão de consulta**, igual ao que a recepção entrega: a pessoa escolhe o tratamento, o dia e o
+horário, escreve o nome (que aparece em letra de mão, em tinta azul) e o cartão vira uma mensagem pronta
+no WhatsApp do consultório. No topo, um cartãozinho inclinado mostra o próximo horário livre de verdade
+e já reserva com um toque. O texto é escrito na voz da dentista, em primeira pessoa.
 
-A versão deste repositório é a **demonstração** (Dra. Lívia Hartmann, dados fictícios, fotos de banco de imagem). Nela o
-botão não abre o WhatsApp: mostra a resposta simulada no celular da tela e guarda o pedido no próprio
-navegador, para a página `#clinica` mostrar como o consultório recebe os pedidos.
+Identidade: ameixa (cor da marca), menta (o papel do cartão) e o verde do WhatsApp só nos botões;
+Young Serif nos títulos, Instrument Sans no texto e Nothing You Could Do na letra à mão.
+
+Quase tudo que muda de um cliente para outro está em `src/config.ts`.
+
+A versão deste repositório é a **demonstração** (Dra. Lívia Hartmann, dados fictícios, fotos de banco de imagem).
+Nela os botões não abrem o WhatsApp: o cartão leva um carimbo de "pedido enviado", recebe uma resposta
+simulada e o pedido fica guardado no próprio navegador, para a página `#clinica` mostrar como o
+consultório recebe os pedidos.
 
 ## Rodar
 
@@ -33,7 +41,9 @@ a pasta `dist/` gerada pelo build.
    `conversa`, `exame`, `prevencao` e `atendimento` (qualquer extensão) e rode
    `python3 tools/preparar-fotos.py pasta-das-fotos`. O script recorta na proporção certa e gera WebP em
    800 e 1600 px em `public/fotos/`. Ajuste os textos alternativos em `photos` no `config.ts`.
-4. **Textos**: os blocos "Medo de dentista", "Sobre" e as perguntas frequentes estão em `src/Home.tsx`.
+4. **Textos**: os combinados com quem tem medo (`promises`) e as legendas das fotos (`gallery`) ficam no
+   `config.ts`; o topo, o "Sobre" e as perguntas frequentes, em `src/Home.tsx`. Tudo em primeira pessoa:
+   troque pela voz do cliente (ou passe para "a gente", se for uma clínica com equipe).
 5. **`index.html`**: título, descrição e `og:` com o nome e a cidade do cliente, e o aviso do
    `<noscript>` (aparece só para quem está com JavaScript desligado) com o WhatsApp e o telefone dele.
 
@@ -68,10 +78,13 @@ com o cliente, que é quem responde perante o CRO.
 
 ## Responsividade
 
-Testado de 320 px a 1920 px de largura, sem rolagem lateral: menu some abaixo de 980 px, celular da
-conversa vai pra baixo das escolhas, áreas de toque com pelo menos 44 px, mapa com largura mínima e
-arrastável no celular (abre centralizado no consultório), e a rolagem suave respeita quem pediu menos
-movimento no sistema.
+Feito primeiro para o celular e testado de 320 px a 1920 px de largura, sem rolagem lateral. No
+celular: foto grande no topo com o título por cima (o alto da foto fica livre para o cartãozinho),
+combinados e fotos que deslizam para o lado, tratamentos em lista que abre e fecha, barra fixa com o
+WhatsApp que some quando já existe um botão igual na tela, áreas de toque com pelo menos 44 px e mapa
+arrastável que abre centralizado no consultório. A partir de 860 px vira layout de computador (foto e
+texto lado a lado, galeria em mosaico). Animações (a letra "se escrevendo" no cartãozinho, o carimbo)
+somem para quem pediu menos movimento no sistema.
 
 ## Estrutura
 
@@ -80,9 +93,11 @@ src/config.ts      dados do consultório, serviços, períodos e fotos
 src/booking.ts     horários, mensagem do WhatsApp e pedidos da demonstração
 src/Home.tsx       o site
 src/Clinic.tsx     visão do consultório (#clinica), só faz sentido na demonstração
-src/Phone.tsx      o celular que monta a mensagem ao vivo
+src/AppointmentCard.tsx  o cartão de consulta (agendamento)
+src/StickyBar.tsx  barra fixa do WhatsApp no celular
+src/Doodles.tsx    desenhos de caneta dos combinados
 src/MapCard.tsx    mapa (Google Maps incorporado ou ilustrado)
-src/SendButton.tsx botão do WhatsApp (link de verdade fora da demonstração)
+src/WhatsAppButton.tsx  botão do WhatsApp (link de verdade fora da demonstração)
 src/styles.css     visual inteiro, sem framework
 tools/preparar-fotos.py
 ```
@@ -93,5 +108,5 @@ consultorio = 3952130, conversa = 3952127, exame = 3952125, prevencao = 3952128,
 As que estão em `public/fotos` vieram da versão de 800 px; para um portfólio mais nítido, baixe os
 originais pelo botão "Baixar" e rode o `preparar-fotos.py` de novo.
 
-Nada do que a pessoa digita vai para servidor: o nome só entra na mensagem do WhatsApp. Fontes Lora e
-Inter (licença OFL, em `public/fonts`).
+Nada do que a pessoa digita vai para servidor: o nome só entra na mensagem do WhatsApp. Fontes Young
+Serif, Instrument Sans e Nothing You Could Do, todas com licença OFL (créditos em `public/fonts/LICENCAS.txt`).

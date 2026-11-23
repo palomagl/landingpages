@@ -49,10 +49,13 @@ export function Clinic() {
     <div className="clinic">
       <header className="top">
         <a className="mark" href="#" aria-label="Voltar ao site">
-          <span className="mark-name">{clinic.dentist}</span>
-          <span className="mark-sub">visão do consultório</span>
+          <span className="mark-badge" aria-hidden="true">LH</span>
+          <span className="mark-text">
+            <span className="mark-name">{clinic.dentist}</span>
+            <span className="mark-sub">visão do consultório</span>
+          </span>
         </a>
-        <a className="btn quiet small" href="#">Voltar ao site</a>
+        <a className="btn ghost small" href="#">Voltar ao site</a>
       </header>
       <main className="clinic-main">
         <h1>Como os pedidos chegam</h1>
@@ -66,7 +69,7 @@ export function Clinic() {
             <div className="row">
               <h2 id="req-title">Pedidos pelo site</h2>
               {requests.length > 0 && (
-                <button type="button" className="btn quiet small" onClick={() => { clearRequests(); setRequests([]); }}>Limpar testes</button>
+                <button type="button" className="btn ghost small" onClick={() => { clearRequests(); setRequests([]); }}>Limpar testes</button>
               )}
             </div>
             {requests.length === 0 ? (

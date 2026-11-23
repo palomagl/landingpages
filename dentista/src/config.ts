@@ -17,6 +17,7 @@ export const clinic = {
   address: "Rua dos Ipês, 214, sala 3",
   district: "Centro, Novo Hamburgo/RS",
   mapsQuery: "Centro, Novo Hamburgo, RS",
+  wazeQuery: "Centro, Novo Hamburgo",
   // Cliente de verdade: cole aqui o link de incorporação do Google Maps (Compartilhar > Incorporar um
   // mapa > só o endereço do src). Vazio = mostra o mapa ilustrado, que é o que a demonstração usa.
   mapEmbedUrl: "",
@@ -34,7 +35,7 @@ export const services = [
     id: "avaliacao",
     short: "Avaliação",
     name: "Avaliação e plano de tratamento",
-    text: "A gente conversa, examina com calma e você sai sabendo o que precisa ser feito, em que ordem e por quê. Nada começa sem você entender o plano.",
+    text: "A gente conversa, eu examino com calma e você sai sabendo o que precisa ser feito, em que ordem e por quê.",
     message: "marcar uma avaliação",
     minutes: 40,
   },
@@ -42,7 +43,7 @@ export const services = [
     id: "limpeza",
     short: "Limpeza",
     name: "Limpeza e prevenção",
-    text: "Remoção de tártaro, polimento e orientação de escovação para o seu caso. É a consulta que evita as outras.",
+    text: "Tiro o tártaro, faço o polimento e mostro como escovar no seu caso. É a consulta que evita as outras.",
     message: "marcar uma limpeza",
     minutes: 40,
   },
@@ -50,7 +51,7 @@ export const services = [
     id: "dor",
     short: "Estou com dor",
     name: "Dor e urgência",
-    text: "Dente doendo, quebrado ou inchaço. Todo dia ficam horários reservados para encaixe de quem chega com dor.",
+    text: "Dente doendo, quebrado ou inchaço. Todo dia eu deixo horários livres para encaixe de quem chega com dor.",
     message: "um encaixe, porque estou com dor",
     minutes: 30,
   },
@@ -66,7 +67,7 @@ export const services = [
     id: "canal",
     short: "Canal",
     name: "Tratamento de canal",
-    text: "Feito pela própria Dra. Lívia, que é especialista em endodontia. Anestesia sem pressa e pausas sempre que você precisar.",
+    text: "É a minha especialidade, então eu mesma faço. Anestesia sem pressa e pausas sempre que você precisar.",
     message: "conversar sobre um tratamento de canal",
     minutes: 60,
   },
@@ -74,7 +75,7 @@ export const services = [
     id: "clareamento",
     short: "Clareamento",
     name: "Clareamento",
-    text: "Só depois da avaliação: nem todo dente pode ser clareado, e a gente explica o porquê antes de qualquer coisa.",
+    text: "Só depois da avaliação: nem todo dente pode ser clareado, e eu te explico o porquê antes de qualquer coisa.",
     message: "saber sobre clareamento",
     minutes: 40,
   },
@@ -103,3 +104,19 @@ export const photos = {
 } as const;
 
 export type PhotoId = keyof typeof photos;
+
+// O que a dentista combina com quem tem medo. Escrito na voz dela, em primeira pessoa.
+export const promises = [
+  { title: "Eu conto antes de fazer.", text: "Cada etapa: o que você vai sentir e quanto tempo leva. Nada de surpresa na cadeira." },
+  { title: "Levantou a mão, eu paro.", text: "É o nosso sinal. Vale a qualquer momento, quantas vezes você precisar." },
+  { title: "A anestesia tem o tempo dela.", text: "Só começo quando fez efeito. Aqui ninguém está com pressa." },
+  { title: "Dá pra ir aos poucos.", text: "Se for mais fácil pra você, a gente divide o tratamento em consultas curtas." },
+] as const;
+
+// Fotos do consultório, na ordem em que aparecem na galeria.
+export const gallery: readonly { id: PhotoId; caption: string }[] = [
+  { id: "consultorio", caption: "Uma cadeira só. A auxiliar fica junto o tempo todo." },
+  { id: "conversa", caption: "A primeira consulta começa por uma conversa." },
+  { id: "exame", caption: "O plano aparece no tablet, e você leva por escrito." },
+  { id: "prevencao", caption: "Limpeza, restauração e canal, tudo na mesma sala." },
+];

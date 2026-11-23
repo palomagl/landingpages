@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { Clinic } from "./Clinic";
-import { DEMO } from "./config";
-import { Home, type Draft } from "./Home";
-import type { PhoneState } from "./Phone";
-import { buildMessage, cleanName, saveRequest, suggestSlots, whenLabel } from "./booking";
+import { clinic, DEMO } from "./config";
+import { Home, quickMessage } from "./Home";
+import { StickyBar } from "./StickyBar";
+import type { SendStatus } from "./AppointmentCard";
+import { buildMessage, cleanName, saveRequest, whenLabel, type Draft } from "./booking";
 
 const useHashPage = () => {
   // "#clinica" é um nome simples de propósito: funciona em qualquer hospedagem e dá pra mandar o link.
@@ -14,7 +15,7 @@ const useHashPage = () => {
     const on = () => {
       const next = read();
       setPage(next);
-      // Só volta ao topo quando troca de página; um link interno (como "Ir para o conteúdo") rola sozinho.
+      // Só volta ao topo quando troca de página; um link interno (como "Horários") rola sozinho.
       if (next !== current) window.scrollTo({ top: 0 });
       current = next;
     };
@@ -24,68 +25,81 @@ const useHashPage = () => {
   return page;
 };
 
+type Notice = { kind: "link"; message: string } | { kind: "sent" };
+
 export function App() {
   const page = useHashPage();
-  const [draft, setDraft] = useState<Draft>({ service: "avaliacao", period: "tarde", name: "" });
-  const [phone, setPhone] = useState<PhoneState>("draft");
+  const [draft, setDraft] = useState<Draft>({ service: "avaliacao", period: "qualquer", name: "" });
+  const [status, setStatus] = useState<SendStatus>("idle");
   const [reply, setReply] = useState<string>();
-  const [notice, setNotice] = useState(false);
+  const [notice, setNotice] = useState<Notice | null>(null);
   const timer = useRef<number | undefined>(undefined);
   const message = buildMessage(draft);
 
-  // Mudou a escolha: o celular volta a mostrar a mensagem sendo montada (e uma resposta que ainda ia
-  // chegar, da mensagem anterior, é cancelada).
+  // Mudou alguma coisa no cartão: o pedido volta a ser rascunho (e uma resposta que ainda ia chegar,
+  // da mensagem anterior, é cancelada).
   useEffect(() => {
     window.clearTimeout(timer.current);
-    setPhone("draft");
+    setStatus("idle");
     setReply(undefined);
   }, [message]);
 
   useEffect(() => () => window.clearTimeout(timer.current), []);
 
-  const send = (where: "hero" | "agenda") => {
-    if (!DEMO) return; // no site de verdade o botão já é um link direto pro WhatsApp
+  // Demonstração: um botão geral de WhatsApp mostra a mensagem que iria.
+  const demoLink = (text: string) => setNotice({ kind: "link", message: text });
+
+  // Demonstração: o cartão de consulta "envia", carimba e recebe uma resposta simulada.
+  const demoSend = () => {
+    if (!DEMO || !draft.date || !draft.time) return;
     saveRequest({ name: cleanName(draft.name) || "Visitante", service: draft.service, period: draft.period, date: draft.date, time: draft.time, message });
-    setPhone("sent");
+    setStatus("sent");
+    setNotice(null);
     const first = cleanName(draft.name).split(" ")[0];
-    const oi = `Oi${first ? `, ${first}` : ""}!`;
-    const sorry = draft.service === "dor" ? "Sinto muito pela dor. " : "";
-    // A resposta simulada usa horários livres de verdade da agenda, no período que a pessoa escolheu.
-    const [first1, first2] = suggestSlots(draft.service === "dor" ? "qualquer" : draft.period);
-    const answer =
-      draft.date && draft.time
-        ? `${oi} ${sorry}Está livre ${whenLabel(draft.date, draft.time)}. Posso confirmar?`
-        : draft.service === "dor" && first1
-          ? `${oi} ${sorry}Consigo te encaixar ${whenLabel(first1.date, first1.time)}. Pode ser?`
-          : first1 && first2
-            ? `${oi} Tenho dois horários: ${whenLabel(first1.date, first1.time)} ou ${whenLabel(first2.date, first2.time)}. Qual fica melhor?`
-            : `${oi} Recebi! Já te mando os horários livres.`;
+    const sorry = draft.service === "dor" ? " Sinto muito pela dor." : "";
+    const answer = `Oi${first ? `, ${first}` : ""}!${sorry} Está livre ${whenLabel(draft.date, draft.time)}. Posso confirmar?`;
     window.clearTimeout(timer.current);
     timer.current = window.setTimeout(() => {
       setReply(answer);
-      setPhone("replied");
-      // O aviso da demonstração vem um pouco depois, para não cobrir a resposta antes de ela ser lida.
-      timer.current = window.setTimeout(() => setNotice(true), 2500);
-    }, 1500);
-    // Em tela estreita o celular fica abaixo do formulário: rola até ele para mostrar a resposta.
-    if (window.innerWidth <= 980) {
-      const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      document.querySelector(where === "hero" ? ".hero-phone" : ".booking-phone")?.scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "center" });
-    }
+      setStatus("replied");
+      // O aviso da demonstração vem depois, para não cobrir a resposta antes de ela ser lida.
+      timer.current = window.setTimeout(() => setNotice({ kind: "sent" }), 2500);
+    }, 1400);
   };
 
   // A visão do consultório só existe na demonstração: num cliente real os pedidos chegam no WhatsApp.
   if (DEMO && page === "clinica") return <Clinic />;
   return (
     <>
-      <Home draft={draft} setDraft={setDraft} phone={phone} reply={reply} onSend={send} />
+      <Home draft={draft} setDraft={setDraft} status={status} reply={reply} onDemoSend={demoSend} onDemoLink={demoLink} />
+      <StickyBar message={quickMessage} onDemo={demoLink} />
       {notice && (
         <div className="notice" role="status">
-          <p>
-            Isto é uma demonstração: no site de um consultório de verdade, o botão abre o WhatsApp com a mensagem pronta.
-          </p>
-          <a className="btn light small" href="#clinica" onClick={() => setNotice(false)}>Ver como o consultório recebe</a>
-          <button type="button" className="notice-close" aria-label="Fechar aviso" onClick={() => setNotice(false)}>×</button>
+          {notice.kind === "link" ? (
+            <>
+              <p>
+                Isto é uma demonstração. No site de verdade, este botão abre o WhatsApp da {clinic.dentist} já com a
+                mensagem:
+              </p>
+              <p className="notice-quote">{notice.message}</p>
+              <a className="btn light small" href="#agendar" onClick={() => setNotice(null)}>
+                Ou escolha um horário
+              </a>
+            </>
+          ) : (
+            <>
+              <p>
+                Isto é uma demonstração: no site de verdade, o botão abre o WhatsApp com a mensagem pronta e a
+                resposta chega por lá.
+              </p>
+              <a className="btn light small" href="#clinica" onClick={() => setNotice(null)}>
+                Ver como o consultório recebe
+              </a>
+            </>
+          )}
+          <button type="button" className="notice-close" aria-label="Fechar aviso" onClick={() => setNotice(null)}>
+            ×
+          </button>
         </div>
       )}
     </>

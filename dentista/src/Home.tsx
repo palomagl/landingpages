@@ -1,192 +1,245 @@
-import { useState } from "react";
-import { Choices } from "./Choices";
-import { clinic, DEMO, periods, services, type PeriodId, type ServiceId } from "./config";
+import { AppointmentCard, type SendStatus } from "./AppointmentCard";
+import { clinic, DEMO, gallery, promises, services, type ServiceId } from "./config";
+import { doodles } from "./Doodles";
 import { MapCard } from "./MapCard";
-import { Phone, type PhoneState } from "./Phone";
 import { Photo } from "./Photo";
-import { SendButton } from "./SendButton";
-import { buildMessage, cleanName, dayLabel, formatTime, longDay, upcomingDays } from "./booking";
-
-export interface Draft {
-  service: ServiceId;
-  period: PeriodId;
-  name: string;
-  date?: string;
-  time?: string;
-}
+import { ChatIcon, WhatsAppButton } from "./WhatsAppButton";
+import { buildMessage, dayLabel, formatTime, shortDate, suggestSlots, type Draft } from "./booking";
 
 type Props = {
   draft: Draft;
   setDraft: (d: Draft) => void;
-  phone: PhoneState;
+  status: SendStatus;
   reply?: string;
-  onSend: (where: "hero" | "agenda") => void;
+  onDemoSend: () => void;
+  onDemoLink: (message: string) => void;
 };
 
 const calm = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: calm() ? "auto" : "smooth", block: "start" });
+export const goTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: calm() ? "auto" : "smooth", block: "start" });
 
-export function Home({ draft, setDraft, phone, reply, onSend }: Props) {
+// Mensagem dos botões gerais de WhatsApp (topo, barra do celular): pede uma avaliação, sem horário.
+export const quickMessage = buildMessage({ service: "avaliacao", period: "qualquer", name: "" });
+
+export function Home({ draft, setDraft, status, reply, onDemoSend, onDemoLink }: Props) {
   const message = buildMessage(draft);
+  const pick = (service: ServiceId) => {
+    setDraft({ ...draft, service });
+    goTo("agendar");
+  };
+  // O próximo horário livre de verdade, para o cartãozinho do topo.
+  const next = suggestSlots("qualquer", 1)[0];
+  const reserveNext = () => {
+    if (!next) return;
+    setDraft({ ...draft, date: next.date, time: next.time });
+    goTo("agendar");
+  };
+
   return (
     <>
       <a className="skip" href="#conteudo">Ir para o conteúdo</a>
       <header className="top">
         <a className="mark" href="#" aria-label={`${clinic.dentist}, início`}>
-          <span className="mark-name">{clinic.dentist}</span>
-          <span className="mark-sub">odontologia</span>
+          <span className="mark-badge" aria-hidden="true">LH</span>
+          <span className="mark-text">
+            <span className="mark-name">{clinic.dentist}</span>
+            <span className="mark-sub">dentista em Novo Hamburgo</span>
+          </span>
         </a>
-        <nav aria-label="Seções">
-          <button type="button" onClick={() => scrollTo("medo")}>Pra quem tem medo</button>
-          <button type="button" onClick={() => scrollTo("tratamentos")}>Tratamentos</button>
-          <button type="button" onClick={() => scrollTo("onde")}>Onde fica</button>
+        <nav className="top-nav" aria-label="Seções">
+          <a href="#tratamentos">Tratamentos</a>
+          <a href="#agendar">Horários</a>
+          <a href="#onde">Onde fica</a>
         </nav>
-        <button type="button" className="btn zap small" onClick={() => scrollTo("agendar")}>Marcar horário</button>
+        <WhatsAppButton label="Chamar no WhatsApp" message={quickMessage} onDemo={onDemoLink} className="top-chat">
+          <ChatIcon />
+          <span className="top-chat-text">WhatsApp</span>
+        </WhatsAppButton>
       </header>
 
       <main id="conteudo" tabIndex={-1}>
-        <section className="hero">
-          <div className="hero-copy">
-            <h1>Dentista sem pressa, pra quem anda adiando.</h1>
-            <p className="lead">
-              Consultório pequeno no centro de Novo Hamburgo, com hora marcada e tempo pra explicar cada passo. Diz o
-              que você precisa: a mensagem já sai pronta pro WhatsApp.
+        <section className="hero" id="topo" aria-labelledby="hero-title">
+          <div className="hero-photo-wrap">
+            <Photo id="retrato" className="hero-photo" sizes="(max-width: 860px) 100vw, 50vw" priority />
+          </div>
+          <div className="hero-panel">
+            <h1 id="hero-title">Pode chegar com medo.</h1>
+            <p className="hero-lead">
+              Sou a Lívia, dentista no centro de Novo Hamburgo. Atendo uma pessoa por vez, com hora marcada, e explico
+              cada passo antes de fazer.
             </p>
-            <Choices
-              name="hero-service"
-              legend="O que você precisa?"
-              options={services.map((s) => ({ id: s.id, label: s.short }))}
-              value={draft.service}
-              onChange={(service) => setDraft({ ...draft, service, date: undefined, time: undefined })}
-            />
-            <Choices
-              name="hero-period"
-              legend="Quando fica melhor?"
-              options={periods}
-              value={draft.period}
-              onChange={(period) => setDraft({ ...draft, period, date: undefined, time: undefined })}
-            />
-            <div className="actions">
-              <SendButton label="Mandar no WhatsApp" message={message} onDemoSend={() => onSend("hero")} />
-              <button type="button" className="btn quiet" onClick={() => scrollTo("agendar")}>Prefiro escolher dia e hora</button>
+            <div className="hero-actions">
+              <WhatsAppButton label="Marcar pelo WhatsApp" message={quickMessage} onDemo={onDemoLink} className="btn zap" />
+              <a className="hero-link" href="#agendar">Ver horários livres</a>
             </div>
+            <p className="hero-cro">
+              {clinic.dentist}, {clinic.cro}
+            </p>
           </div>
-          <div className="hero-visual">
-            <Photo id="retrato" className="hero-photo" sizes="(max-width: 980px) 92vw, 460px" priority />
-            <div className="hero-phone">
-              <Phone message={message} state={phone} reply={reply} live />
-            </div>
-          </div>
+          {next && (
+            <button type="button" className="next-card" onClick={reserveNext} aria-label={`Próximo horário livre: ${dayLabel(next.date).weekday}, ${shortDate(next.date)}, ${formatTime(next.time)}. Reservar.`}>
+              <span className="next-card-brand">{clinic.dentist}</span>
+              <span className="next-card-label">Próximo horário livre</span>
+              <span className="hand">
+                <span className="write-on">
+                  {dayLabel(next.date).weekday}, {shortDate(next.date)}, {formatTime(next.time)}
+                </span>
+              </span>
+              <span className="next-card-cta">Toque para reservar</span>
+            </button>
+          )}
         </section>
 
-        <section className="facts" aria-label="Como funciona o consultório">
-          <p><strong>Hora marcada de verdade.</strong> Uma pessoa por vez, sem sala de espera cheia.</p>
-          <p><strong>Plano antes de começar.</strong> Você sabe o que vai ser feito e por quê antes do primeiro procedimento.</p>
-          <p><strong>Encaixe pra quem tem dor.</strong> Todo dia tem horário reservado pra urgência.</p>
-        </section>
-
-        <section className="room" aria-label="O consultório">
-          <figure>
-            <Photo id="consultorio" className="room-photo" sizes="(max-width: 980px) 92vw, 720px" />
-            <figcaption>
-              <strong>Sala 3, {clinic.address.split(",")[0]}.</strong>
-              <span>Uma cadeira só, uma paciente por vez e nenhuma pressa. A auxiliar fica junto o tempo todo.</span>
-            </figcaption>
-          </figure>
-        </section>
-
-        <section className="fear" id="medo" aria-labelledby="fear-title">
-          <div className="fear-text">
-            <h2 id="fear-title">Medo de dentista é comum. A gente trabalha contando com ele.</h2>
-            <ul className="fear-list">
-              <li><strong>Nada de surpresa.</strong> Antes de cada etapa, a Dra. Lívia explica o que você vai sentir e quanto tempo leva.</li>
-              <li><strong>Um sinal pra parar.</strong> Combinado no começo: levantou a mão, ela para na hora.</li>
-              <li><strong>Anestesia sem pressa.</strong> Esperar o tempo certo faz toda a diferença, e aqui ninguém tem pressa.</li>
-              <li><strong>Consulta curta, se preferir.</strong> Dá pra dividir o tratamento em sessões menores.</li>
-            </ul>
+        <section className="promises" id="medo" aria-labelledby="promises-title">
+          <div className="section-head">
+            <h2 id="promises-title">O que eu combino com quem tem medo</h2>
+            <p>Medo de dentista é mais comum do que parece. Esses combinados valem desde a primeira consulta.</p>
           </div>
-          <Photo id="conversa" className="fear-photo" sizes="(max-width: 980px) 92vw, 560px" />
+          <ul className="promise-list swipe">
+            {promises.map((p, i) => {
+              const Doodle = doodles[i % doodles.length];
+              return (
+                <li key={p.title}>
+                  <Doodle />
+                  <h3>{p.title}</h3>
+                  <p>{p.text}</p>
+                </li>
+              );
+            })}
+          </ul>
+          <p className="swipe-hint">Arraste para o lado para ver todos.</p>
         </section>
 
-        <section className="first" aria-labelledby="first-title">
-          <h2 id="first-title">Como é a primeira consulta</h2>
-          <div className="first-grid">
-            <Photo id="exame" className="first-photo" sizes="(max-width: 980px) 92vw, 520px" />
-            <ol className="steps">
-              <li><span className="n" aria-hidden>1</span><h3>Conversa</h3><p>O que está incomodando, o que você já fez e o que te deixa nervoso.</p></li>
-              <li><span className="n" aria-hidden>2</span><h3>Exame</h3><p>Exame clínico e, se precisar, radiografia na hora.</p></li>
-              <li><span className="n" aria-hidden>3</span><h3>Plano</h3><p>Você recebe por escrito o que precisa ser feito, por prioridade.</p></li>
-              <li><span className="n" aria-hidden>4</span><h3>Você decide</h3><p>Leva o plano pra casa e marca quando quiser. Sem pressão.</p></li>
-            </ol>
+        <section className="room" id="consultorio" aria-labelledby="room-title">
+          <div className="section-head">
+            <h2 id="room-title">O consultório</h2>
+            <p>
+              {clinic.address}, no {clinic.district.split(",")[0]}. Sala pequena, de propósito: é só você, eu e a
+              auxiliar.
+            </p>
           </div>
+          <ul className="gallery swipe">
+            {gallery.map((g) => (
+              <li key={g.id}>
+                <figure>
+                  <Photo id={g.id} className="gallery-photo" sizes="(max-width: 860px) 82vw, 560px" />
+                  <figcaption>{g.caption}</figcaption>
+                </figure>
+              </li>
+            ))}
+          </ul>
         </section>
 
         <section className="treatments" id="tratamentos" aria-labelledby="t-title">
-          <div className="t-grid">
-            <div className="t-aside">
-              <h2 id="t-title">Tratamentos</h2>
-              <p className="muted">{clinic.specialty}.</p>
-              <Photo id="prevencao" className="t-photo" sizes="(max-width: 980px) 92vw, 440px" />
-            </div>
-            <dl className="t-list">
-              {services.map((s) => (
-                <div key={s.id}>
-                  <dt>{s.name}</dt>
-                  <dd>{s.text}</dd>
-                </div>
-              ))}
-            </dl>
+          <div className="t-head">
+            <h2 id="t-title">Tratamentos</h2>
+            <p>{clinic.specialty}. Valores e convênios eu passo pelo WhatsApp, olhando o seu caso.</p>
           </div>
+          <ul className="t-list">
+            {services.map((s) => (
+              <li key={s.id}>
+                <details>
+                  <summary>
+                    <h3>{s.name}</h3>
+                    <span className="t-time">consulta de cerca de {s.minutes} min</span>
+                  </summary>
+                  <div className="t-body">
+                    <p>{s.text}</p>
+                    <button type="button" className="t-pick" onClick={() => pick(s.id)}>
+                      Marcar {s.short.toLowerCase() === "estou com dor" ? "um encaixe" : s.short.toLowerCase()}
+                    </button>
+                  </div>
+                </details>
+              </li>
+            ))}
+          </ul>
         </section>
 
-        <Booking draft={draft} setDraft={setDraft} phone={phone} reply={reply} onSend={() => onSend("agenda")} message={message} />
+        <AppointmentCard draft={draft} setDraft={setDraft} status={status} reply={reply} message={message} onDemoSend={onDemoSend} />
 
-        <section className="about" aria-labelledby="about-title">
-          <Photo id="atendimento" className="about-photo" sizes="(max-width: 980px) 92vw, 560px" />
-          <div>
-            <h2 id="about-title">Sobre a {clinic.dentist}</h2>
+        <section className="about" id="sobre" aria-labelledby="about-title">
+          <div className="about-photo-wrap">
+            <Photo id="atendimento" className="about-photo" sizes="(max-width: 860px) 92vw, 440px" />
+            <span className="about-photo-note hand">minha mesa, sala 3</span>
+          </div>
+          <div className="about-text">
+            <h2 id="about-title">Prazer, Lívia.</h2>
             <p>
-              Formada há 8 anos, com especialização em endodontia, a parte da odontologia que cuida do canal.
-              Atende só com uma auxiliar, justamente pra conseguir conhecer cada paciente pelo nome.
+              Me formei há 8 anos e fiz especialização em endodontia, que é o tratamento de canal. Escolhi atender só
+              com uma auxiliar pra conseguir conhecer cada paciente pelo nome.
             </p>
             <p>
-              Usa radiografia digital e mostra tudo no tablet: você vê o mesmo que ela antes de decidir qualquer
-              coisa.
+              Uso radiografia digital e mostro tudo no tablet: você vê o mesmo que eu antes de decidir qualquer coisa.
+              Nada começa sem você entender o plano.
             </p>
-            <p className="small muted">{clinic.cro}. Responsável técnica pelo consultório.</p>
+            <p className="signature hand" aria-hidden="true">
+              Lívia
+            </p>
+            <p className="about-cro">
+              {clinic.dentist}, {clinic.cro}. Responsável técnica pelo consultório.
+            </p>
           </div>
         </section>
 
         <section className="where" id="onde" aria-labelledby="where-title">
-          <MapCard />
           <div className="where-info">
             <h2 id="where-title">Onde fica</h2>
-            <p className="addr">{clinic.address}<br />{clinic.district}</p>
-            <p className="muted">{clinic.howToGetThere} Acesso por elevador.</p>
+            <p className="addr">
+              {clinic.address}
+              <br />
+              {clinic.district}
+            </p>
+            <p className="muted">{clinic.howToGetThere} Prédio com elevador.</p>
             <table className="hours">
               <caption className="sr-only">Horário de atendimento</caption>
               <tbody>
                 {clinic.hours.map((h) => (
-                  <tr key={h.days}><th scope="row">{h.days}</th><td>{h.time}</td></tr>
+                  <tr key={h.days}>
+                    <th scope="row">{h.days}</th>
+                    <td>{h.time}</td>
+                  </tr>
                 ))}
               </tbody>
             </table>
-            <p className="small muted">Telefone fixo {clinic.phone}. WhatsApp {clinic.whatsappDisplay}.</p>
+            <p className="muted small">
+              Telefone fixo {clinic.phone}. WhatsApp {clinic.whatsappDisplay}.
+            </p>
+            <div className="go-buttons">
+              <a className="btn ghost small" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(clinic.mapsQuery)}`} target="_blank" rel="noopener noreferrer">
+                Abrir no Google Maps
+              </a>
+              <a className="btn ghost small" href={`https://waze.com/ul?q=${encodeURIComponent(clinic.wazeQuery)}&navigate=yes`} target="_blank" rel="noopener noreferrer">
+                Abrir no Waze
+              </a>
+            </div>
           </div>
+          <MapCard />
         </section>
 
-        <section className="faq-section" aria-labelledby="faq-title">
-          <Faq />
+        <section className="faq-section" id="perguntas" aria-labelledby="faq-title">
+          <h2 id="faq-title">Perguntas que sempre chegam</h2>
+          <div className="faq">
+            {FAQ.map((f) => (
+              <details key={f.q}>
+                <summary>{f.q}</summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
+          </div>
         </section>
       </main>
 
-      <footer className="foot">
-        <div>
-          <strong>{clinic.dentist}</strong>
-          <p>{clinic.cro}. {clinic.specialty}.</p>
-          <p>{clinic.address}, {clinic.district}. {clinic.phone}.</p>
+      <footer className="foot" id="rodape">
+        <div className="foot-main">
+          <p className="foot-name">{clinic.dentist}</p>
+          <p>
+            {clinic.cro}. {clinic.specialty}.
+          </p>
+          <p>
+            {clinic.address}, {clinic.district}. {clinic.phone}.
+          </p>
         </div>
-        <div className="small">
+        <div className="foot-note">
           <p>
             O que você escolhe e digita aqui serve só para montar a mensagem do WhatsApp: nada é enviado para outro
             lugar.{DEMO && " Na demonstração, os pedidos de teste ficam guardados só neste navegador."}
@@ -194,8 +247,7 @@ export function Home({ draft, setDraft, phone, reply, onSend }: Props) {
           {DEMO && (
             <p>
               Site de demonstração: profissional, CRO, endereço e telefones são fictícios. Fotos de banco de imagem
-              (Pexels), com modelos.{" "}
-              <a href="#clinica">Ver como o consultório recebe os pedidos</a>.
+              (Pexels), com modelos. <a href="#clinica">Ver como o consultório recebe os pedidos</a>.
             </p>
           )}
         </div>
@@ -204,104 +256,14 @@ export function Home({ draft, setDraft, phone, reply, onSend }: Props) {
   );
 }
 
-function Booking({ draft, setDraft, phone, reply, onSend, message }: Omit<Props, "onSend"> & { onSend: () => void; message: string }) {
-  // Recalculado a cada vez: se a aba ficar aberta por horas, horários que já passaram somem sozinhos.
-  const days = upcomingDays(10);
-  const [picked, setDay] = useState(draft.date ?? days.find((d) => d.slots.some((s) => s.free))?.date ?? days[0].date);
-  const current = days.find((d) => d.date === picked) ?? days[0];
-  const day = current.date;
-  // O horário escolhido ainda precisa existir (com a aba aberta muito tempo, ele pode ter passado).
-  const stillOpen = days.some((d) => d.slots.some((s) => s.free && s.date === draft.date && s.time === draft.time));
-  const ready = cleanName(draft.name).length >= 2 && stillOpen;
-
-  return (
-    <section className="booking" id="agendar" aria-labelledby="b-title">
-      <div className="booking-form">
-        <h2 id="b-title">Escolha dia e horário</h2>
-        <p className="lead small-lead">O horário fica reservado pra você quando o consultório confirmar pelo WhatsApp.</p>
-
-        <Choices
-          name="b-service"
-          legend="Pra quê?"
-          options={services.map((s) => ({ id: s.id, label: s.short }))}
-          value={draft.service}
-          onChange={(service) => setDraft({ ...draft, service })}
-        />
-
-        <fieldset className="choices">
-          <legend>Dia</legend>
-          <div className="days">
-            {days.map((d) => {
-              const l = dayLabel(d.date);
-              const free = d.slots.filter((s) => s.free).length;
-              return (
-                <label key={d.date} className={`day ${day === d.date ? "on" : ""} ${free === 0 ? "full" : ""}`}>
-                  <input
-                    type="radio"
-                    name="b-day"
-                    value={d.date}
-                    checked={day === d.date}
-                    disabled={free === 0}
-                    onChange={() => {
-                      setDay(d.date);
-                      setDraft({ ...draft, date: undefined, time: undefined });
-                    }}
-                  />
-                  <span className="wd">{l.weekday.slice(0, 3)}</span>
-                  <span className="dn">{l.day}</span>
-                  <span className="mo">{free === 0 ? "lotado" : l.month}</span>
-                </label>
-              );
-            })}
-          </div>
-        </fieldset>
-
-        <fieldset className="choices">
-          <legend>Horários de {longDay(current.date)}</legend>
-          <div className="slots">
-            {current.slots.map((s) => (
-              <label key={s.time} className={`slot ${draft.time === s.time && draft.date === s.date ? "on" : ""} ${s.free ? "" : "taken"}`}>
-                <input
-                  type="radio"
-                  name="b-time"
-                  value={s.time}
-                  disabled={!s.free}
-                  checked={draft.time === s.time && draft.date === s.date}
-                  onChange={() => setDraft({ ...draft, date: s.date, time: s.time })}
-                />
-                {formatTime(s.time)}
-                <span className="sr-only">{s.free ? "livre" : "ocupado"}</span>
-              </label>
-            ))}
-          </div>
-        </fieldset>
-
-        <div className="field">
-          <label htmlFor="b-name">Seu nome</label>
-          <input id="b-name" className="input" type="text" maxLength={40} autoComplete="given-name" enterKeyHint="done" placeholder="Ana" value={draft.name}
-            onChange={(e) => setDraft({ ...draft, name: e.target.value.slice(0, 40) })} />
-        </div>
-
-        <div className="actions">
-          <SendButton label="Pedir esse horário no WhatsApp" message={message} ready={ready} onDemoSend={onSend} />
-          {!ready && <span className="small muted">{stillOpen ? "Falta só o seu nome." : "Escolha um horário."}</span>}
-        </div>
-      </div>
-      <div className="booking-phone">
-        <Phone message={message} state={phone} reply={reply} />
-      </div>
-    </section>
-  );
-}
-
 const FAQ = [
   {
     q: "Estou com dor agora. O que faço?",
-    a: "Manda uma mensagem escrito \"dor\" no WhatsApp. Todo dia ficam horários reservados para encaixe, e a gente te responde com o primeiro disponível.",
+    a: "Me manda uma mensagem escrito \"dor\" no WhatsApp. Todo dia ficam horários reservados para encaixe, e eu te respondo com o primeiro disponível.",
   },
   {
     q: "Atende convênio? Quais as formas de pagamento?",
-    a: "Isso depende do tratamento e muda com frequência, então a gente responde certinho pelo WhatsApp, já olhando o seu caso.",
+    a: "Isso depende do tratamento e muda com frequência, então eu respondo certinho pelo WhatsApp, já olhando o seu caso.",
   },
   {
     q: "Atende criança?",
@@ -312,17 +274,3 @@ const FAQ = [
     a: "Uns 40 minutos. Se precisar de radiografia, ela é feita na hora.",
   },
 ];
-
-function Faq() {
-  return (
-    <div className="faq">
-      <h2 id="faq-title">Perguntas que sempre chegam</h2>
-      {FAQ.map((f) => (
-        <details key={f.q}>
-          <summary>{f.q}</summary>
-          <p>{f.a}</p>
-        </details>
-      ))}
-    </div>
-  );
-}

@@ -5,7 +5,6 @@ import { clinic } from "./config";
 // demonstração), mostra um mapa ilustrado do quarteirão, desenhado aqui mesmo em SVG.
 
 export function MapCard() {
-  const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(clinic.mapsQuery)}`;
   return (
     <figure className="map-card">
       {clinic.mapEmbedUrl ? (
@@ -25,7 +24,6 @@ export function MapCard() {
           {clinic.mapEmbedUrl ? `${clinic.address}, ${clinic.district}` : "Mapa ilustrativo do quarteirão"}
           {!clinic.mapEmbedUrl && <span className="map-hint">. Arraste para os lados para ver a estação.</span>}
         </span>
-        <a href={mapsLink} target="_blank" rel="noreferrer">Abrir no Google Maps</a>
       </figcaption>
     </figure>
   );

@@ -1,6 +1,10 @@
-Fontes incluídas (recortadas para o alfabeto latino):
+Fontes usadas no site, todas com a SIL Open Font License 1.1 (uso livre, inclusive comercial):
 
-- Lora — Copyright 2011 The Lora Project Authors (https://github.com/cyrealtype/Lora-Cyrillic)
-- Inter — Copyright (c) 2016 The Inter Project Authors (https://github.com/rsms/inter)
+- Young Serif (títulos): Copyright 2023 The Young Serif Project Authors, desenho de Bastien Sozeau
+  (github.com/noirblancrouge/YoungSerif)
+- Instrument Sans (texto): Copyright 2022 The Instrument Sans Project Authors, desenho de Rodrigo
+  Fuenzalida (github.com/Instrument/instrument-sans)
+- Nothing You Could Do (letra à mão do cartão de consulta): Copyright (c) 2010 Kimberly Geswein
 
-Ambas sob a SIL Open Font License 1.1: https://openfontlicense.org
+Os arquivos aqui são recortes (só os caracteres usados em português) dos originais.
+Texto completo da licença: https://openfontlicense.org

@@ -3,9 +3,10 @@
 Uso:
     python3 tools/preparar-fotos.py pasta-com-as-fotos-originais
 
-A pasta deve ter um arquivo para cada foto, com estes nomes (qualquer extensão de imagem):
+A pasta deve ter um arquivo para cada foto, com estes nomes (jpg, png, webp ou avif):
     retrato, consultorio, conversa, exame, prevencao, atendimento
-Os arquivos prontos vão para public/fotos/. Precisa do Pillow (pip install pillow).
+Os arquivos prontos vão para public/fotos/. Precisa do Pillow 11.2 ou mais novo (pip install -U pillow),
+que é o que abre AVIF.
 """
 
 import sys
@@ -45,12 +46,15 @@ def main() -> None:
     DESTINO.mkdir(parents=True, exist_ok=True)
     faltando = []
     for nome, (w, h, foco) in FOTOS.items():
-        arquivos = [p for p in origem.glob(f"{nome}.*") if p.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp"}]
+        arquivos = [p for p in origem.glob(f"{nome}.*") if p.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp", ".avif"}]
         if not arquivos:
             faltando.append(nome)
             continue
         img = ImageOps.exif_transpose(Image.open(arquivos[0])).convert("RGB")
         img = recortar(img, w, h, foco)
+        if img.width < LARGURAS[-1]:
+            print(f"Atenção: {arquivos[0].name} tem só {img.width} px de largura depois do recorte; "
+                  "em telas de alta resolução vai ficar menos nítida. Use o arquivo original, se tiver.")
         for largura in LARGURAS:
             altura = round(largura * h / w)
             saida = DESTINO / f"{nome}-{largura}.webp"

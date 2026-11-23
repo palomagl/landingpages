@@ -11,21 +11,33 @@ export type Route =
   | { name: 'home'; anchor?: string }
   | { name: 'collection'; category: string | null }
   | { name: 'product'; slug: string }
+  | { name: 'privacy' }
   | { name: 'notfound'; hash: string };
 
+/** Decodifica sem lançar erro: um "%" solto no endereço não pode derrubar o site. */
+function safeDecode(s: string) {
+  try {
+    return decodeURIComponent(s);
+  } catch {
+    return s;
+  }
+}
+
 export function parseHash(hash: string): Route {
-  const h = decodeURIComponent(hash.replace(/^#/, ''));
+  const h = safeDecode(hash.replace(/^#/, ''));
   if (!h || h === 'inicio') return { name: 'home' };
   if (h === 'contato') return { name: 'home', anchor: 'contato' };
   if (h === 'colecao') return { name: 'collection', category: null };
   if (h.startsWith('colecao-')) return { name: 'collection', category: h.slice(8) };
   if (h.startsWith('produto-')) return { name: 'product', slug: h.slice(8) };
+  if (h === 'privacidade') return { name: 'privacy' };
   return { name: 'notfound', hash: h };
 }
 
 export const routes = {
   home: () => '#inicio',
   contact: () => '#contato',
+  privacy: () => '#privacidade',
   collection: (category?: string | null) => (category ? `#colecao-${category}` : '#colecao'),
   product: (slug: string) => `#produto-${slug}`,
 };

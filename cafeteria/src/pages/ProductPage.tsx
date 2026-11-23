@@ -65,11 +65,13 @@ export function ProductPage({ slug }: { slug: string }) {
           </a>
           <span aria-hidden="true">/</span>
           {cat && (
-            <a href={routes.collection(cat.id)} className="hover:text-ink">
-              {cat.name}
-            </a>
+            <>
+              <a href={routes.collection(cat.id)} className="hover:text-ink">
+                {cat.name}
+              </a>
+              <span aria-hidden="true">/</span>
+            </>
           )}
-          <span aria-hidden="true">/</span>
           <span className="text-ink">{product.name}</span>
         </nav>
       </div>
@@ -250,7 +252,7 @@ export function ProductPage({ slug }: { slug: string }) {
             'glass fixed inset-x-0 bottom-0 z-30 border-t hairline px-5 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 transition-transform duration-500 ease-expo lg:hidden',
             stickyBar ? 'translate-y-0' : 'translate-y-full',
           )}
-          aria-hidden={!stickyBar}
+          inert={!stickyBar}
         >
           <div className="flex items-center gap-4">
             <div className="min-w-0 flex-1">

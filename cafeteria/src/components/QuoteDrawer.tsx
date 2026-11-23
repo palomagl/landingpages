@@ -163,7 +163,17 @@ export function QuoteDrawer() {
               </ul>
 
               <div className="space-y-6 px-5 py-7 sm:px-8">
-                <h3 className="text-[0.9375rem] font-semibold">Seus dados</h3>
+                <div>
+                  <h3 className="text-[0.9375rem] font-semibold">Seus dados</h3>
+                  {copy.privacy && (
+                    <p className="mt-1.5 text-[0.8125rem] leading-snug text-muted">
+                      {copy.privacy.formNote}{' '}
+                      <a href={routes.privacy()} onClick={quote.close} className="font-medium text-ink underline underline-offset-2">
+                        Política de privacidade
+                      </a>
+                    </p>
+                  )}
+                </div>
                 {config.quoteFields.map((f) => (
                   <label key={f.id} className="block">
                     <span className="mb-1.5 block text-sm font-medium">

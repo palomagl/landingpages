@@ -44,7 +44,14 @@ export function Footer() {
         <p>
           © {new Date().getFullYear()} {brand.name}. {copy.footer.legal}
         </p>
-        {copy.footer.credit && <p>{copy.footer.credit}</p>}
+        <p className="flex flex-wrap gap-x-5 gap-y-1">
+          {copy.privacy && (
+            <a href={routes.privacy()} className="underline-offset-4 transition-colors hover:text-ink hover:underline">
+              {copy.privacy.title}
+            </a>
+          )}
+          {copy.footer.credit && <span>{copy.footer.credit}</span>}
+        </p>
       </div>
     </footer>
   );

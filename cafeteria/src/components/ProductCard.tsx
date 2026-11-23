@@ -59,6 +59,8 @@ export function ProductCard({
             {product.badge}
           </span>
         )}
+        {/* a foto inteira também abre o produto (o link acessível é o do nome, abaixo) */}
+        <a href={routes.product(product.slug)} tabIndex={-1} aria-hidden="true" className="absolute inset-0 z-[1]" />
       </div>
       <div className="relative -mt-3 flex flex-1 flex-col rounded-[0.875rem] bg-[linear-gradient(180deg,color-mix(in_oklab,var(--c-card)_70%,white)_0%,var(--c-card)_60%)] px-6 pb-6 pt-[1.15rem] shadow-[0_-10px_22px_-18px_rgb(60_35_15/0.45)] md:px-5 lg:pb-[1.6rem] lg:pl-[2.4rem] lg:pr-6 lg:pt-[1.35rem]">
         <h3 className="pr-16 text-[1.25rem] font-bold leading-tight tracking-[-0.025em] lg:text-[1.4375rem]">

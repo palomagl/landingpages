@@ -20,24 +20,6 @@
 }
 .city-ticker-track b {font-weight:700;color:#607324;padding:0 17px}
 @keyframes city-march {to{transform:translateX(-50%)}}
-.purchase-points {
-  background:#17201b;color:#d7e3d6;min-height:72px;
-  border-bottom:1px solid #ffffff18;
-}
-.purchase-points-inner {
-  display:grid;grid-template-columns:repeat(3,1fr);
-}
-.purchase-points-inner>span {
-  display:flex;align-items:center;gap:10px;min-height:72px;
-  justify-content:center;padding:10px 16px;text-align:center;
-  font-size:12px;font-weight:600;letter-spacing:.02em;
-}
-.purchase-points-inner>span+span{border-left:1px solid #ffffff26}
-.purchase-points strong {
-  font-family:var(--display);font-size:24px;font-weight:800;
-  color:var(--electric);letter-spacing:-.025em;
-}
-
 /* Vitrine de produto principal: não existe "abrir todos". */
 .catalog {
   position:relative;background:#f4f6f1;
@@ -105,13 +87,6 @@
   transition:transform .5s cubic-bezier(.2,.8,.2,1);
 }
 .catalog .card:hover .card-img img {transform:scale(1.085) rotate(-.6deg)}
-.catalog .card-img::after {
-  content:attr(data-number);position:absolute;z-index:2;
-  right:14px;bottom:13px;color:#25372c;
-  font-family:var(--display);font-size:16px;font-weight:800;
-  line-height:1;letter-spacing:.08em;
-  opacity:.68;pointer-events:none;
-}
 .catalog .card .badge {
   background:#f3f7ea;border:1px solid #ffffff99;
   backdrop-filter:blur(5px);color:#233529;letter-spacing:.01em;
@@ -190,19 +165,6 @@
 .story-link span {color:var(--electric);transition:transform .2s}
 .story-link:hover span{transform:translate(3px,-3px)}
 .story-coordinate {font-size:10px;letter-spacing:.22em;color:#849b84;margin-top:clamp(38px,5vw,70px)}
-/* Rethink boilerplate benefit blocks as stronger typography and editorial hierarchy. */
-.benefits {background:#e4ecdd;padding:clamp(78px,8vw,124px) 0}
-.benefits .h2 {font-size:clamp(3.6rem,7vw,7rem);line-height:.83}
-.benefits-grid {gap:0;border-top:1px solid #94ad933f;margin-top:46px}
-.benefit {
-  background:transparent;border-radius:0;border-right:1px solid #94ad9350;
-  padding:34px 30px 30px 0;min-height:225px;
-}
-.benefit+.benefit {padding-left:30px}
-.benefit:last-child {border-right:0}
-.benefit h3 {font-family:var(--display);font-size:clamp(27px,3vw,36px);font-weight:800;text-transform:uppercase;line-height:.98;letter-spacing:-.025em}
-.benefit p {font-size:14.5px;max-width:340px;color:#536354;line-height:1.6}
-.benefit .index {font-size:32px;color:#718e59}
 /* Appointment-style consult panel without claiming actual reservations. */
 .sales-assist {
   position:relative;overflow:hidden;
@@ -233,8 +195,6 @@
 .sales-assist-copy>p:not(.sales-assist-eyebrow) {
   font-size:clamp(16px,1.5vw,19px);line-height:1.55;max-width:440px;
 }
-.sales-progress {display:flex;align-items:center;gap:16px;margin-top:38px;font-family:var(--display);font-weight:800;font-size:22px;color:#445c2d}
-.sales-progress-line {width:70px;height:1px;background:#4b612b6d}
 .sales-assist-form {
   padding:clamp(20px,3.6vw,48px);
   background:#f8faf4;border:1px solid #edf3d9;
@@ -247,7 +207,6 @@
   display:block;font-size:16px;font-weight:700;letter-spacing:-.025em;
   margin:0 0 12px;line-height:1.5;
 }
-.sales-step-num {font-family:var(--display);font-weight:800;font-size:18px;color:#80975d;margin-right:6px}
 #salesModel {
   width:100%;min-height:54px;padding:12px 44px 12px 16px;
   appearance:none;color:#263729;background:#ecf2e8;
@@ -298,16 +257,12 @@
   .sales-assist-inner {grid-template-columns:1fr;gap:35px}
   .sales-assist h2 {font-size:clamp(4.4rem,11vw,7rem)}
   .sales-assist-copy>p:not(.sales-assist-eyebrow) {max-width:610px}
-  .sales-progress {display:none}
   .sales-assist-form {max-width:660px;width:100%}
 }
 @media(max-width:740px) {
   .city-ticker {height:48px}
   .city-ticker-track span {font-size:25px}
   .city-ticker-track b {padding:0 10px}
-  .purchase-points-inner {grid-template-columns:repeat(3,minmax(0,1fr))}
-  .purchase-points-inner>span {min-height:68px;font-size:10px;line-height:1.25;padding:9px 7px;display:flex;flex-direction:column;gap:2px}
-  .purchase-points strong {font-size:22px}
   .catalog {padding-top:65px}
   .catalog #modelos-titulo {font-size:clamp(3.8rem,14.2vw,6.5rem);line-height:.82}
   .catalog .sub {font-size:15px;margin-top:18px}
@@ -318,7 +273,6 @@
   .catalog .grid {gap:10px}
   .catalog .card {border-radius:14px}
   .catalog .card-img {aspect-ratio:1.08}
-  .catalog .card-img::after {font-size:13px;right:8px;bottom:8px}
   .catalog .card .badge {top:8px;left:8px;padding:5px 8px;font-size:10px}
   .catalog .card-body {padding:13px 11px 8px}
   .catalog .card-name {font-size:clamp(26px,7.3vw,37px);margin:5px 0 11px}
@@ -336,13 +290,6 @@
   .city-story-copy>p:not(.section-kicker) {font-size:15px}
   .story-photo-caption {bottom:18px;left:20px;font-size:9px}
   .story-coordinate {margin-top:35px}
-  .benefits {padding:70px 0}
-  .benefits .h2 {font-size:clamp(3.2rem,11vw,5.8rem)}
-  .benefits-grid {display:block;margin-top:30px}
-  .benefit,.benefit+.benefit {border-right:0;border-bottom:1px solid #94ad9350;padding:23px 0}
-  .benefit:last-child {border-bottom:0}
-  .benefit h3 {font-size:30px;margin:12px 0 8px}
-  .benefit p {max-width:540px}
   .sales-assist {padding:68px 0 76px}
   .sales-assist h2 {font-size:clamp(4rem,12vw,6rem)}
   .sales-assist-eyebrow {font-size:10.5px;letter-spacing:.12em;margin-bottom:20px}

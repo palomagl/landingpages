@@ -32,40 +32,25 @@ if (vid && !reduce && !slow) {
   if (document.readyState === 'complete') setTimeout(start, 300); else addEventListener('load', () => setTimeout(start, 300));
 }
 
-/* filtros e descoberta instantânea, sem navegar para longe das escolhas */
-const cards = $$('.card'), chips = $$('.chip'), uses = $$('.use');
+/* Vitrine completa sempre visível; a escolha é apenas uma ajuda adicional. */
+const cards = $$('.card'), uses = $$('.use');
 const quickResults = $('#useResults'), quickList = $('#useResultsList');
 const quickSwitches = $$('[data-quick-use]');
-let cat = 'todos', use = null;
-function apply() {
-  let n = 0;
-  cards.forEach(c => {
-    const ok = (cat === 'todos' || c.dataset.cat === cat) && (!use || c.dataset.uses.split(' ').includes(use));
-    c.hidden = !ok;
-    if (ok) n++;
-  });
-  chips.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.cat === cat)));
-  uses.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.use === use)));
-  quickSwitches.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.quickUse === use)));
-  $('#count').textContent = n + (n === 1 ? ' modelo' : ' modelos');
-  $('#filterNote').classList.toggle('show', !!use);
-  $('#filterText').textContent = use ? 'Indicados para: ' + USES[use].toLowerCase() : '';
-  $('#empty').classList.toggle('show', n === 0);
-}
+let use = null;
+
 function drawQuickResults() {
   if (!quickResults || !quickList) return;
-  const active = Boolean(use);
-  quickResults.hidden = !active;
-  if (!active) {
-    quickList.replaceChildren();
-    return;
-  }
+  quickResults.hidden = !use;
+  uses.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.use === use)));
+  quickSwitches.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.quickUse === use)));
+  if (!use) { quickList.replaceChildren(); return; }
+
   const matches = cards.filter(c => c.dataset.uses.split(' ').includes(use))
     .map(c => P.find(p => p.id === c.querySelector('[data-open]')?.dataset.open))
     .filter(Boolean);
-  const subtitle = USES[use] || 'Seu próximo trajeto';
-  $('#useResultsTitle').textContent = subtitle;
-  $('#useResultsSub').textContent = 'Os modelos aparecem aqui. Toque para ver fotos e detalhes.';
+
+  $('#useResultsTitle').textContent = USES[use];
+  $('#useResultsSub').textContent = 'Modelos indicados para o que você procura. Toque para conhecer melhor.';
   $('#useResultsCount').textContent = matches.length + (matches.length === 1 ? ' modelo' : ' modelos');
   quickList.innerHTML = matches.map(p => {
     const photo = p.imgs?.[0];
@@ -77,10 +62,9 @@ function drawQuickResults() {
   }).join('');
   quickList.scrollLeft = 0;
 }
+
 function selectUse(next, toggle = false, reveal = false) {
   use = toggle && use === next ? null : next;
-  cat = 'todos';
-  apply();
   drawQuickResults();
   if (use && reveal && quickResults) {
     const title = quickResults.querySelector('.results-top');
@@ -91,16 +75,12 @@ function selectUse(next, toggle = false, reveal = false) {
     });
   }
 }
-chips.forEach(b => b.addEventListener('click', () => { cat = b.dataset.cat; apply(); }));
 uses.forEach(b => b.addEventListener('click', () => selectUse(b.dataset.use, true, true)));
 quickSwitches.forEach(b => b.addEventListener('click', () => selectUse(b.dataset.quickUse)));
 quickList?.addEventListener('click', e => {
   const button = e.target.closest('[data-preview-open]');
   if (button) openSheet(button.dataset.previewOpen);
 });
-$('.results-all')?.addEventListener('click', () => { use = null; cat = 'todos'; apply(); drawQuickResults(); });
-$('#clearUse').addEventListener('click', () => { use = null; apply(); drawQuickResults(); });
-$('#clearAll').addEventListener('click', () => { use = null; cat = 'todos'; apply(); drawQuickResults(); });
 
 /* galerias com arrastar, pontinhos e setas */
 function wireGallery(g) {

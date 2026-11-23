@@ -393,3 +393,17 @@ dialog.contact-demo::backdrop {background:#121a15bf;backdrop-filter:blur(5px)}
   .motion-ready .motion-reveal:not(.is-visible) {opacity:1;transform:none}
   .recommend-card:hover,.choose .use:hover,.benefit:hover {transform:none}
 }
+
+/* Vitrine completa em fluxo natural de rolagem: sem filtros ou botões de expansão. */
+.catalog .cat-head {gap:18px}
+.catalog .count {align-self:flex-end;white-space:normal}
+.catalog .grid {margin-top:clamp(25px,3.4vw,43px)}
+.catalog .card {min-height:100%}
+.catalog .card-open {width:100%}
+.catalog .card-foot {margin-top:auto}
+@media (max-width:740px) {
+  .catalog {padding-top:clamp(64px,9vw,90px)}
+  .catalog .cat-head {align-items:flex-start;gap:10px}
+  .catalog .count {align-self:auto}
+  .catalog .grid {margin-top:22px}
+}

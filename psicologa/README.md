@@ -36,3 +36,12 @@ Testes de responsividade e funcionalidade: 320, 360, 390, 430, 600, 768, 870, 92
 A primeira dobra foi redesenhada para 320–600 px, com enquadramento específico da arte do hero (recorte da composição existente, sem regenerar rosto), foto mais baixa e título, texto e CTA alcançáveis logo na abertura. O menu móvel mantém o X e fecha por Esc, toque e seleção. A lista de cinco temas tem rolagem horizontal com cartões e indicação de deslize, com suporte a toque e teclado; há uma barra discreta de WhatsApp que só aparece após a abertura e desaparece na seção final e enquanto o menu está aberto. A barra respeita a área segura inferior do aparelho. Recursos visuais leves, sem biblioteca extra.
 
 QA: 13 tamanhos de viewport em Chromium (320, 360, 375, 390, 414, 430, 600, 601, 768, 870, 871, 1024 e 1440 px); links âncora, carregamento das fotos, ausência de erros de JavaScript e rolagem horizontal, comportamento de navegação, barra de contato e posição do CTA aprovados. Isso não substitui um teste de Safari/iOS físico.
+
+
+## Revisão de interação e atendimento — 23/11/2026
+
+- Todos os botões de contato (menu desktop, menu móvel, abertura, encerramento e WhatsApp flutuante) apontam diretamente para o WhatsApp da profissional, sem etapa intermediária.
+- Ícone vetorial reconhecível do WhatsApp em todos os CTAs e microinterações discretas para mouse, foco visível e toque; redução de movimentos respeitada.
+- Os cinco temas aparecem simultaneamente na faixa verde, inclusive em telas de 320 px, sem rolagem horizontal.
+- Nova seção editorial de localização: **Clínica Therapie, Rua Getúlio Vargas, 999, Centro, Sapiranga/RS, CEP 93800-048**, com link para Maps; dados da clínica verificados, porém **a vinculação da profissional ao local deve ser confirmada antes de publicar como site oficial**.
+- Validação visual e de largura em Chromium com fontes externas indisponíveis no ambiente de teste: 320, 360, 390, 430, 768 e 1440 px; sem rolagem horizontal. Não equivale a teste físico no Safari/iOS.

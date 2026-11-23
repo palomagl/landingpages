@@ -8,7 +8,7 @@ Landing page responsiva para lojas de scooters, bicicletas elétricas, triciclos
 
 - Hero com vídeo cinematográfico original em tela cheia, capa adaptada ao celular e dois caminhos: explorar o catálogo ou receber indicação por tipo de uso.
 - **Catálogo aberto** logo após o hero: os 8 modelos estão na página sem filtros, "Ver todos" ou interação prévia. Atalhos opcionais por categoria apenas rolam até o produto correspondente. A escolha por rotina continua opcional, depois da vitrine, mostrando recomendações logo abaixo das escolhas.
-- Seção editorial com foto da V8 em ambiente urbano, destaque V8, conteúdo sobre mobilidade, processo de compra, FAQ e contato.
+- Seção editorial com foto da V8 em ambiente urbano, destaque V8, FAQ e contato. Blocos redundantes de benefícios e de etapas de compra foram removidos para encurtar a página.
 - Assistente comercial com duas escolhas (modelo e tipo de dúvida) que monta uma mensagem pronta e segue para a prévia demonstrativa ou WhatsApp real configurado.
 - Versão mobile com duas colunas compactas para os produtos, seleção guiada mais baixa, resultados horizontais com arraste, menu, toque confortável e CTA persistente.
 - Modo de demonstração do atendimento: ao tocar em um botão de WhatsApp, uma janela mostra a mensagem que o comprador enviaria; nenhum número fictício recebe contato.
@@ -18,7 +18,7 @@ Landing page responsiva para lojas de scooters, bicicletas elétricas, triciclos
 - `index.html` — conteúdo e estrutura semântica.
 - `style.css` — estilos e componentes da versão inicial, mantidos para compatibilidade.
 - `retail.css` — direção visual base, ajustes desktop/tablet/mobile, layout e preview de contato.
-- `conversion.css` — linguagem visual mais forte: letreiro animado, catálogo completo, detalhes dos cards, storytelling urbano e assistente comercial.
+- `conversion.css` — linguagem visual: letreiro animado, catálogo completo, detalhes dos cards, storytelling urbano e assistente comercial, sem contadores decorativos.
 - `main.js` — filtros, dados dos produtos, diálogo de detalhes e galerias.
 - `contact.js` — comunicação WhatsApp configurável e prévia segura para demonstração.
 - `motion.js` — revelação progressiva de cards e seções no scroll, respeitando a preferência por movimento reduzido.

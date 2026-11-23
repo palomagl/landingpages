@@ -6,10 +6,10 @@ Landing page responsiva para lojas de scooters, bicicletas elétricas, triciclos
 
 ## O que o visitante encontra
 
-- Hero com foto de produto, proposta de valor clara e dois caminhos: explorar o catálogo ou receber indicação por tipo de uso.
-- Seleção guiada por rotina, 8 produtos com filtros por categoria, fichas de produto e galerias de fotos.
+- Hero com vídeo cinematográfico original em tela cheia, capa adaptada ao celular e dois caminhos: explorar o catálogo ou receber indicação por tipo de uso.
+- Seleção guiada pela rotina: tocar em uma opção mostra os modelos correspondentes imediatamente abaixo, com chips de troca rápida no próprio resultado (sem salto para o catálogo). O catálogo mantém 8 produtos, filtros por categoria, fichas e galerias.
 - Destaque editorial para V8, conteúdo sobre mobilidade, processo de compra, FAQ e contato.
-- Versão mobile com duas colunas compactas para os produtos, menu, toque confortável e CTA persistente.
+- Versão mobile com duas colunas compactas para os produtos, seleção guiada mais baixa, resultados horizontais com arraste, menu, toque confortável e CTA persistente.
 - Modo de demonstração do atendimento: ao tocar em um botão de WhatsApp, uma janela mostra a mensagem que o comprador enviaria; nenhum número fictício recebe contato.
 
 ## Arquivos
@@ -19,6 +19,7 @@ Landing page responsiva para lojas de scooters, bicicletas elétricas, triciclos
 - `retail.css` — nova direção visual, ajustes desktop/tablet/mobile, layout comercial e preview de contato.
 - `main.js` — filtros, dados dos produtos, diálogo de detalhes e galerias.
 - `contact.js` — comunicação WhatsApp configurável e prévia segura para demonstração.
+- `motion.js` — revelação progressiva das seções no scroll, respeitando a preferência por movimento reduzido.
 - `img/`, `fonts/`, `media/` — imagens responsivas, fontes e acervo.
 - `vercel.json` — cabeçalhos de segurança/cache quando a pasta é o projeto raiz na Vercel.
 
@@ -40,7 +41,7 @@ Não há build, framework, CDN, rastreamento ou dependências externas.
 - Seleção por uso e categoria: os 8 modelos continuam aparecendo em “Todos”; filtros combinam corretamente.
 - Detalhes de cada modelo: imagens, texto, galeria e ações de contato.
 - WhatsApp: na demonstração, abrir preview e copiar texto; em loja real, validar número final com mensagem certa.
-- Performance: medir em aparelho real e Lighthouse; o vídeo de hero foi retirado da primeira dobra e os assets responsivos existentes foram mantidos. Evitar alegações de desempenho sem medição da versão publicada.
+- Performance: medir em aparelho real e Lighthouse. O vídeo original foi restaurado: desktop (~1,35 MB) e mobile (~712 KB), com posters WebP, início após carregamento, pausa fora da tela e fallback para conexão lenta, economia de dados ou movimento reduzido. Evitar alegações de desempenho sem medição da versão publicada.
 
 ## Executar
 

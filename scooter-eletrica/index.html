@@ -29,6 +29,7 @@
 <link rel="preload" as="image" href="media/hero-poster.webp" media="(min-aspect-ratio: 4.01/5)" fetchpriority="high">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="retail.css">
+<link rel="stylesheet" href="conversion.css">
 </head>
 <body>
 
@@ -65,24 +66,37 @@
     <a class="hero-scroll" href="#escolher" aria-label="Rolar para escolher um modelo"><span class="scroll-line"></span><span>DESCUBRA SEU PRÓXIMO CAMINHO</span></a>
   </section>
 
-  <div class="quick" aria-label="Vantagens de explorar nosso catálogo">
-    <div class="wrap quick-grid">
-      <div class="q"><span class="quick-num">01</span><span>Escolha pelo seu estilo de vida</span></div>
-      <div class="q"><span class="quick-num">02</span><span>Veja fotos e detalhes de cada modelo</span></div>
-      <div class="q"><span class="quick-num">03</span><span>Converse com um vendedor</span></div>
+  <div class="city-ticker" aria-label="Mais caminhos, mais possibilidades">
+    <div class="city-ticker-track" aria-hidden="true">
+      <span>MAIS CIDADE <b>✳</b> MAIS MOVIMENTO <b>✳</b> DO SEU JEITO <b>✳</b></span>
+      <span>MAIS CIDADE <b>✳</b> MAIS MOVIMENTO <b>✳</b> DO SEU JEITO <b>✳</b></span>
+    </div>
+  </div>
+  <div class="purchase-points">
+    <div class="wrap purchase-points-inner">
+      <span><strong>08</strong> modelos para descobrir</span>
+      <span><strong>04</strong> estilos de mobilidade</span>
+      <span><strong>01</strong> escolha que combina com você</span>
     </div>
   </div>
 
   <section class="catalog" id="modelos" aria-labelledby="modelos-titulo">
     <div class="wrap">
       <div class="cat-head">
-        <div><p class="section-kicker">Catálogo completo · 8 modelos</p><h2 class="h2" id="modelos-titulo">Todos os modelos.<br>À sua escolha.</h2><p class="sub">Eles já estão todos aqui. Role, compare as fotos e abra os detalhes do que chamar sua atenção — sem precisar selecionar nada.</p></div>
-        <span class="count" id="count">8 modelos na vitrine</span>
+        <div><p class="section-kicker">O catálogo inteiro está aqui</p><h2 class="h2" id="modelos-titulo">ESCOLHEU.<br><em>PARTIU.</em></h2><p class="sub">Oito modelos para diferentes rotinas. Veja as fotos, encontre o seu e consulte preço e disponibilidade direto com o vendedor.</p></div>
+        <span class="count" id="count"><span class="count-dot"></span> 8 modelos à sua escolha</span>
       </div>
+      <nav class="catalog-jump" aria-label="Ir para um tipo de veículo">
+        <span>Ir direto para</span>
+        <a href="#modelo-v8">Bikes <span aria-hidden="true">↗</span></a>
+        <a href="#modelo-paris">Scooters <span aria-hidden="true">↗</span></a>
+        <a href="#modelo-triciclo">Triciclos <span aria-hidden="true">↗</span></a>
+        <a href="#modelo-hapali">Patinetes <span aria-hidden="true">↗</span></a>
+      </nav>
       <div class="grid" id="grid">
-      <article class="card" data-cat="bike" data-uses="trabalho garupa">
+      <article class="card" id="modelo-v8" data-cat="bike" data-uses="trabalho garupa">
         <button class="card-open" data-open="v8" aria-label="Ver detalhes da V8">
-          <span class="card-img"><span class="badge">Destaque</span><img src="img/v8-1-640.webp" srcset="img/v8-1-400.webp 400w, img/v8-1-640.webp 640w, img/v8-1-1200.webp 1200w" sizes="(min-width:1100px) 280px, (min-width:700px) 33vw, 50vw" alt="Bike elétrica V8 preta em diagonal, com controles e cartões NFC" width="640" height="640" loading="lazy" decoding="async"></span>
+          <span class="card-img" data-number="01 / 08"><span class="badge">Destaque</span><img src="img/v8-1-640.webp" srcset="img/v8-1-400.webp 400w, img/v8-1-640.webp 640w, img/v8-1-1200.webp 1200w" sizes="(min-width:1100px) 280px, (min-width:700px) 33vw, 50vw" alt="Bike elétrica V8 preta em diagonal, com controles e cartões NFC" width="640" height="640" loading="lazy" decoding="async"></span>
           <span class="card-body">
             <span class="card-kind">Bike elétrica</span>
             <span class="card-name">V8</span>
@@ -91,12 +105,12 @@
           </span>
         </button>
         <div class="card-foot">
-          <a class="btn btn-wa btn-sm" href="#contato-demo" data-demo-url="https://wa.me/5500900000000?text=Ol%C3%A1%21%20Vi%20a%20bike%20el%C3%A9trica%20V8%20no%20site%20e%20quero%20saber%20pre%C3%A7o%20e%20condi%C3%A7%C3%B5es." target="_blank" rel="noopener noreferrer" aria-label="Quero a V8 pelo WhatsApp"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.6 7.4c.3-.6.6-.6.9-.6h.7c.2 0 .5.1.6.5l.9 2.1c.1.3 0 .5-.1.7l-.6.7c-.2.2-.2.4-.1.6.6 1.1 1.5 2 2.6 2.6.2.1.4.1.6-.1l.7-.8c.2-.2.4-.3.7-.2l2.1 1c.3.1.5.3.4.6 0 .9-.6 1.8-1.5 2.1-1 .3-2.4.1-4.3-1.1a11 11 0 0 1-3.6-3.9c-.8-1.5-.8-2.9-.3-3.6z" fill="currentColor"/></svg><span>Quero<span class="nm"> a V8</span></span></a>
+          <a class="btn btn-wa btn-sm" href="#contato-demo" data-demo-url="https://wa.me/5500900000000?text=Ol%C3%A1%21%20Vi%20a%20bike%20el%C3%A9trica%20V8%20no%20site%20e%20quero%20saber%20pre%C3%A7o%20e%20condi%C3%A7%C3%B5es." target="_blank" rel="noopener noreferrer" aria-label="Quero a V8 pelo WhatsApp"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.6 7.4c.3-.6.6-.6.9-.6h.7c.2 0 .5.1.6.5l.9 2.1c.1.3 0 .5-.1.7l-.6.7c-.2.2-.2.4-.1.6.6 1.1 1.5 2 2.6 2.6.2.1.4.1.6-.1l.7-.8c.2-.2.4-.3.7-.2l2.1 1c.3.1.5.3.4.6 0 .9-.6 1.8-1.5 2.1-1 .3-2.4.1-4.3-1.1a11 11 0 0 1-3.6-3.9c-.8-1.5-.8-2.9-.3-3.6z" fill="currentColor"/></svg><span>Consultar preço <span aria-hidden="true">↗</span></span></a>
         </div>
       </article>
-      <article class="card" data-cat="scooter" data-uses="trabalho garupa">
+      <article class="card" id="modelo-paris" data-cat="scooter" data-uses="trabalho garupa">
         <button class="card-open" data-open="paris" aria-label="Ver detalhes da Paris">
-          <span class="card-img"><span class="badge">2 cores</span><img src="img/paris-rosa-640.webp" srcset="img/paris-rosa-400.webp 400w, img/paris-rosa-640.webp 640w, img/paris-rosa-1200.webp 1200w" sizes="(min-width:1100px) 280px, (min-width:700px) 33vw, 50vw" alt="Scooter elétrica Paris rosa e branca, estilo retrô, com para-brisa" width="640" height="640" loading="lazy" decoding="async"></span>
+          <span class="card-img" data-number="02 / 08"><span class="badge">2 cores</span><img src="img/paris-rosa-640.webp" srcset="img/paris-rosa-400.webp 400w, img/paris-rosa-640.webp 640w, img/paris-rosa-1200.webp 1200w" sizes="(min-width:1100px) 280px, (min-width:700px) 33vw, 50vw" alt="Scooter elétrica Paris rosa e branca, estilo retrô, com para-brisa" width="640" height="640" loading="lazy" decoding="async"></span>
           <span class="card-body">
             <span class="card-kind">Scooter elétrica</span>
             <span class="card-name">Paris</span>
@@ -105,12 +119,12 @@
           </span>
         </button>
         <div class="card-foot">
-          <a class="btn btn-wa btn-sm" href="#contato-demo" data-demo-url="https://wa.me/5500900000000?text=Ol%C3%A1%21%20Vi%20a%20scooter%20el%C3%A9trica%20Paris%20no%20site%20e%20quero%20saber%20pre%C3%A7o%20e%20condi%C3%A7%C3%B5es." target="_blank" rel="noopener noreferrer" aria-label="Quero a Paris pelo WhatsApp"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.6 7.4c.3-.6.6-.6.9-.6h.7c.2 0 .5.1.6.5l.9 2.1c.1.3 0 .5-.1.7l-.6.7c-.2.2-.2.4-.1.6.6 1.1 1.5 2 2.6 2.6.2.1.4.1.6-.1l.7-.8c.2-.2.4-.3.7-.2l2.1 1c.3.1.5.3.4.6 0 .9-.6 1.8-1.5 2.1-1 .3-2.4.1-4.3-1.1a11 11 0 0 1-3.6-3.9c-.8-1.5-.8-2.9-.3-3.6z" fill="currentColor"/></svg><span>Quero<span class="nm"> a Paris</span></span></a>
+          <a class="btn btn-wa btn-sm" href="#contato-demo" data-demo-url="https://wa.me/5500900000000?text=Ol%C3%A1%21%20Vi%20a%20scooter%20el%C3%A9trica%20Paris%20no%20site%20e%20quero%20saber%20pre%C3%A7o%20e%20condi%C3%A7%C3%B5es." target="_blank" rel="noopener noreferrer" aria-label="Quero a Paris pelo WhatsApp"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.6 7.4c.3-.6.6-.6.9-.6h.7c.2 0 .5.1.6.5l.9 2.1c.1.3 0 .5-.1.7l-.6.7c-.2.2-.2.4-.1.6.6 1.1 1.5 2 2.6 2.6.2.1.4.1.6-.1l.7-.8c.2-.2.4-.3.7-.2l2.1 1c.3.1.5.3.4.6 0 .9-.6 1.8-1.5 2.1-1 .3-2.4.1-4.3-1.1a11 11 0 0 1-3.6-3.9c-.8-1.5-.8-2.9-.3-3.6z" fill="currentColor"/></svg><span>Consultar preço <span aria-hidden="true">↗</span></span></a>
         </div>
       </article>
-      <article class="card" data-cat="scooter" data-uses="trabalho">
+      <article class="card" id="modelo-ibiza" data-cat="scooter" data-uses="trabalho">
         <button class="card-open" data-open="ibiza" aria-label="Ver detalhes da Ibiza">
-          <span class="card-img"><span class="badge">Com baú</span><img src="img/ibiza-640.webp" srcset="img/ibiza-400.webp 400w, img/ibiza-640.webp 640w, img/ibiza-1200.webp 1200w" sizes="(min-width:1100px) 280px, (min-width:700px) 33vw, 50vw" alt="Scooter elétrica Ibiza vermelha com baú traseiro" width="640" height="640" loading="lazy" decoding="async"></span>
+          <span class="card-img" data-number="03 / 08"><span class="badge">Com baú</span><img src="img/ibiza-640.webp" srcset="img/ibiza-400.webp 400w, img/ibiza-640.webp 640w, img/ibiza-1200.webp 1200w" sizes="(min-width:1100px) 280px, (min-width:700px) 33vw, 50vw" alt="Scooter elétrica Ibiza vermelha com baú traseiro" width="640" height="640" loading="lazy" decoding="async"></span>
           <span class="card-body">
             <span class="card-kind">Scooter elétrica</span>
             <span class="card-name">Ibiza</span>
@@ -119,12 +133,12 @@
           </span>
         </button>
         <div class="card-foot">
-          <a class="btn btn-wa btn-sm" href="#contato-demo" data-demo-url="https://wa.me/5500900000000?text=Ol%C3%A1%21%20Vi%20a%20scooter%20el%C3%A9trica%20Ibiza%20no%20site%20e%20quero%20saber%20pre%C3%A7o%20e%20condi%C3%A7%C3%B5es." target="_blank" rel="noopener noreferrer" aria-label="Quero a Ibiza pelo WhatsApp"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.6 7.4c.3-.6.6-.6.9-.6h.7c.2 0 .5.1.6.5l.9 2.1c.1.3 0 .5-.1.7l-.6.7c-.2.2-.2.4-.1.6.6 1.1 1.5 2 2.6 2.6.2.1.4.1.6-.1l.7-.8c.2-.2.4-.3.7-.2l2.1 1c.3.1.5.3.4.6 0 .9-.6 1.8-1.5 2.1-1 .3-2.4.1-4.3-1.1a11 11 0 0 1-3.6-3.9c-.8-1.5-.8-2.9-.3-3.6z" fill="currentColor"/></svg><span>Quero<span class="nm"> a Ibiza</span></span></a>
+          <a class="btn btn-wa btn-sm" href="#contato-demo" data-demo-url="https://wa.me/5500900000000?text=Ol%C3%A1%21%20Vi%20a%20scooter%20el%C3%A9trica%20Ibiza%20no%20site%20e%20quero%20saber%20pre%C3%A7o%20e%20condi%C3%A7%C3%B5es." target="_blank" rel="noopener noreferrer" aria-label="Quero a Ibiza pelo WhatsApp"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.6 7.4c.3-.6.6-.6.9-.6h.7c.2 0 .5.1.6.5l.9 2.1c.1.3 0 .5-.1.7l-.6.7c-.2.2-.2.4-.1.6.6 1.1 1.5 2 2.6 2.6.2.1.4.1.6-.1l.7-.8c.2-.2.4-.3.7-.2l2.1 1c.3.1.5.3.4.6 0 .9-.6 1.8-1.5 2.1-1 .3-2.4.1-4.3-1.1a11 11 0 0 1-3.6-3.9c-.8-1.5-.8-2.9-.3-3.6z" fill="currentColor"/></svg><span>Consultar preço <span aria-hidden="true">↗</span></span></a>
         </div>
       </article>
-      <article class="card" data-cat="scooter" data-uses="trabalho garupa">
+      <article class="card" id="modelo-gtsm1" data-cat="scooter" data-uses="trabalho garupa">
         <button class="card-open" data-open="gtsm1" aria-label="Ver detalhes da GTSM1">
-          <span class="card-img"><img src="img/gtsm1-640.webp" srcset="img/gtsm1-400.webp 400w, img/gtsm1-640.webp 640w, img/gtsm1-1200.webp 1200w" sizes="(min-width:1100px) 280px, (min-width:700px) 33vw, 50vw" alt="Scooter elétrica GTSM1 preta com cesto dianteiro" width="640" height="640" loading="lazy" decoding="async"></span>
+          <span class="card-img" data-number="04 / 08"><img src="img/gtsm1-640.webp" srcset="img/gtsm1-400.webp 400w, img/gtsm1-640.webp 640w, img/gtsm1-1200.webp 1200w" sizes="(min-width:1100px) 280px, (min-width:700px) 33vw, 50vw" alt="Scooter elétrica GTSM1 preta com cesto dianteiro" width="640" height="640" loading="lazy" decoding="async"></span>
           <span class="card-body">
             <span class="card-kind">Scooter elétrica</span>
             <span class="card-name">GTSM1</span>
@@ -133,12 +147,12 @@
           </span>
         </button>
         <div class="card-foot">
-          <a class="btn btn-wa btn-sm" href="#contato-demo" data-demo-url="https://wa.me/5500900000000?text=Ol%C3%A1%21%20Vi%20a%20scooter%20el%C3%A9trica%20GTSM1%20no%20site%20e%20quero%20saber%20pre%C3%A7o%20e%20condi%C3%A7%C3%B5es." target="_blank" rel="noopener noreferrer" aria-label="Quero a GTSM1 pelo WhatsApp"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.6 7.4c.3-.6.6-.6.9-.6h.7c.2 0 .5.1.6.5l.9 2.1c.1.3 0 .5-.1.7l-.6.7c-.2.2-.2.4-.1.6.6 1.1 1.5 2 2.6 2.6.2.1.4.1.6-.1l.7-.8c.2-.2.4-.3.7-.2l2.1 1c.3.1.5.3.4.6 0 .9-.6 1.8-1.5 2.1-1 .3-2.4.1-4.3-1.1a11 11 0 0 1-3.6-3.9c-.8-1.5-.8-2.9-.3-3.6z" fill="currentColor"/></svg><span>Quero<span class="nm"> a GTSM1</span></span></a>
+          <a class="btn btn-wa btn-sm" href="#contato-demo" data-demo-url="https://wa.me/5500900000000?text=Ol%C3%A1%21%20Vi%20a%20scooter%20el%C3%A9trica%20GTSM1%20no%20site%20e%20quero%20saber%20pre%C3%A7o%20e%20condi%C3%A7%C3%B5es." target="_blank" rel="noopener noreferrer" aria-label="Quero a GTSM1 pelo WhatsApp"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.6 7.4c.3-.6.6-.6.9-.6h.7c.2 0 .5.1.6.5l.9 2.1c.1.3 0 .5-.1.7l-.6.7c-.2.2-.2.4-.1.6.6 1.1 1.5 2 2.6 2.6.2.1.4.1.6-.1l.7-.8c.2-.2.4-.3.7-.2l2.1 1c.3.1.5.3.4.6 0 .9-.6 1.8-1.5 2.1-1 .3-2.4.1-4.3-1.1a11 11 0 0 1-3.6-3.9c-.8-1.5-.8-2.9-.3-3.6z" fill="currentColor"/></svg><span>Consultar preço <span aria-hidden="true">↗</span></span></a>
         </div>
       </article>
-      <article class="card" data-cat="scooter" data-uses="garupa">
+      <article class="card" id="modelo-chopper" data-cat="scooter" data-uses="garupa">
         <button class="card-open" data-open="chopper" aria-label="Ver detalhes da Chopper">
-          <span class="card-img"><img src="img/chopper-640.webp" srcset="img/chopper-400.webp 400w, img/chopper-640.webp 640w, img/chopper-1200.webp 1200w" sizes="(min-width:1100px) 280px, (min-width:700px) 33vw, 50vw" alt="Scooter elétrica estilo chopper preta com banco marrom" width="640" height="640" loading="lazy" decoding="async"></span>
+          <span class="card-img" data-number="05 / 08"><img src="img/chopper-640.webp" srcset="img/chopper-400.webp 400w, img/chopper-640.webp 640w, img/chopper-1200.webp 1200w" sizes="(min-width:1100px) 280px, (min-width:700px) 33vw, 50vw" alt="Scooter elétrica estilo chopper preta com banco marrom" width="640" height="640" loading="lazy" decoding="async"></span>
           <span class="card-body">
             <span class="card-kind">Scooter elétrica</span>
             <span class="card-name">Chopper</span>
@@ -147,12 +161,12 @@
           </span>
         </button>
         <div class="card-foot">
-          <a class="btn btn-wa btn-sm" href="#contato-demo" data-demo-url="https://wa.me/5500900000000?text=Ol%C3%A1%21%20Vi%20a%20scooter%20el%C3%A9trica%20Chopper%20no%20site%20e%20quero%20saber%20pre%C3%A7o%20e%20condi%C3%A7%C3%B5es." target="_blank" rel="noopener noreferrer" aria-label="Quero a Chopper pelo WhatsApp"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.6 7.4c.3-.6.6-.6.9-.6h.7c.2 0 .5.1.6.5l.9 2.1c.1.3 0 .5-.1.7l-.6.7c-.2.2-.2.4-.1.6.6 1.1 1.5 2 2.6 2.6.2.1.4.1.6-.1l.7-.8c.2-.2.4-.3.7-.2l2.1 1c.3.1.5.3.4.6 0 .9-.6 1.8-1.5 2.1-1 .3-2.4.1-4.3-1.1a11 11 0 0 1-3.6-3.9c-.8-1.5-.8-2.9-.3-3.6z" fill="currentColor"/></svg><span>Quero<span class="nm"> a Chopper</span></span></a>
+          <a class="btn btn-wa btn-sm" href="#contato-demo" data-demo-url="https://wa.me/5500900000000?text=Ol%C3%A1%21%20Vi%20a%20scooter%20el%C3%A9trica%20Chopper%20no%20site%20e%20quero%20saber%20pre%C3%A7o%20e%20condi%C3%A7%C3%B5es." target="_blank" rel="noopener noreferrer" aria-label="Quero a Chopper pelo WhatsApp"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.6 7.4c.3-.6.6-.6.9-.6h.7c.2 0 .5.1.6.5l.9 2.1c.1.3 0 .5-.1.7l-.6.7c-.2.2-.2.4-.1.6.6 1.1 1.5 2 2.6 2.6.2.1.4.1.6-.1l.7-.8c.2-.2.4-.3.7-.2l2.1 1c.3.1.5.3.4.6 0 .9-.6 1.8-1.5 2.1-1 .3-2.4.1-4.3-1.1a11 11 0 0 1-3.6-3.9c-.8-1.5-.8-2.9-.3-3.6z" fill="currentColor"/></svg><span>Consultar preço <span aria-hidden="true">↗</span></span></a>
         </div>
       </article>
-      <article class="card" data-cat="triciclo" data-uses="garupa estabilidade">
+      <article class="card" id="modelo-triciclo" data-cat="triciclo" data-uses="garupa estabilidade">
         <button class="card-open" data-open="triciclo" aria-label="Ver detalhes da Triciclo">
-          <span class="card-img"><span class="badge">3 rodas</span><img src="img/triciclo-1-640.webp" srcset="img/triciclo-1-400.webp 400w, img/triciclo-1-640.webp 640w, img/triciclo-1-1200.webp 1200w" sizes="(min-width:1100px) 280px, (min-width:700px) 33vw, 50vw" alt="Triciclo elétrico preto com cesto dianteiro e banco traseiro com encosto" width="640" height="640" loading="lazy" decoding="async"></span>
+          <span class="card-img" data-number="06 / 08"><span class="badge">3 rodas</span><img src="img/triciclo-1-640.webp" srcset="img/triciclo-1-400.webp 400w, img/triciclo-1-640.webp 640w, img/triciclo-1-1200.webp 1200w" sizes="(min-width:1100px) 280px, (min-width:700px) 33vw, 50vw" alt="Triciclo elétrico preto com cesto dianteiro e banco traseiro com encosto" width="640" height="640" loading="lazy" decoding="async"></span>
           <span class="card-body">
             <span class="card-kind">Triciclo elétrico</span>
             <span class="card-name">Triciclo</span>
@@ -161,12 +175,12 @@
           </span>
         </button>
         <div class="card-foot">
-          <a class="btn btn-wa btn-sm" href="#contato-demo" data-demo-url="https://wa.me/5500900000000?text=Ol%C3%A1%21%20Vi%20o%20triciclo%20el%C3%A9trico%20no%20site%20e%20quero%20saber%20pre%C3%A7o%20e%20condi%C3%A7%C3%B5es." target="_blank" rel="noopener noreferrer" aria-label="Quero o Triciclo pelo WhatsApp"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.6 7.4c.3-.6.6-.6.9-.6h.7c.2 0 .5.1.6.5l.9 2.1c.1.3 0 .5-.1.7l-.6.7c-.2.2-.2.4-.1.6.6 1.1 1.5 2 2.6 2.6.2.1.4.1.6-.1l.7-.8c.2-.2.4-.3.7-.2l2.1 1c.3.1.5.3.4.6 0 .9-.6 1.8-1.5 2.1-1 .3-2.4.1-4.3-1.1a11 11 0 0 1-3.6-3.9c-.8-1.5-.8-2.9-.3-3.6z" fill="currentColor"/></svg><span>Quero<span class="nm"> o Triciclo</span></span></a>
+          <a class="btn btn-wa btn-sm" href="#contato-demo" data-demo-url="https://wa.me/5500900000000?text=Ol%C3%A1%21%20Vi%20o%20triciclo%20el%C3%A9trico%20no%20site%20e%20quero%20saber%20pre%C3%A7o%20e%20condi%C3%A7%C3%B5es." target="_blank" rel="noopener noreferrer" aria-label="Quero o Triciclo pelo WhatsApp"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.6 7.4c.3-.6.6-.6.9-.6h.7c.2 0 .5.1.6.5l.9 2.1c.1.3 0 .5-.1.7l-.6.7c-.2.2-.2.4-.1.6.6 1.1 1.5 2 2.6 2.6.2.1.4.1.6-.1l.7-.8c.2-.2.4-.3.7-.2l2.1 1c.3.1.5.3.4.6 0 .9-.6 1.8-1.5 2.1-1 .3-2.4.1-4.3-1.1a11 11 0 0 1-3.6-3.9c-.8-1.5-.8-2.9-.3-3.6z" fill="currentColor"/></svg><span>Consultar preço <span aria-hidden="true">↗</span></span></a>
         </div>
       </article>
-      <article class="card" data-cat="patinete" data-uses="curtos">
+      <article class="card" id="modelo-hapali" data-cat="patinete" data-uses="curtos">
         <button class="card-open" data-open="hapali" aria-label="Ver detalhes da Hapali">
-          <span class="card-img"><img src="img/hapali-640.webp" srcset="img/hapali-400.webp 400w, img/hapali-640.webp 640w, img/hapali-1200.webp 1200w" sizes="(min-width:1100px) 280px, (min-width:700px) 33vw, 50vw" alt="Pessoa em pé no patinete elétrico Hapali" width="640" height="640" loading="lazy" decoding="async"></span>
+          <span class="card-img" data-number="07 / 08"><img src="img/hapali-640.webp" srcset="img/hapali-400.webp 400w, img/hapali-640.webp 640w, img/hapali-1200.webp 1200w" sizes="(min-width:1100px) 280px, (min-width:700px) 33vw, 50vw" alt="Pessoa em pé no patinete elétrico Hapali" width="640" height="640" loading="lazy" decoding="async"></span>
           <span class="card-body">
             <span class="card-kind">Patinete elétrico</span>
             <span class="card-name">Hapali</span>
@@ -175,12 +189,12 @@
           </span>
         </button>
         <div class="card-foot">
-          <a class="btn btn-wa btn-sm" href="#contato-demo" data-demo-url="https://wa.me/5500900000000?text=Ol%C3%A1%21%20Vi%20o%20patinete%20el%C3%A9trico%20Hapali%20no%20site%20e%20quero%20saber%20pre%C3%A7o%20e%20condi%C3%A7%C3%B5es." target="_blank" rel="noopener noreferrer" aria-label="Quero o Hapali pelo WhatsApp"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.6 7.4c.3-.6.6-.6.9-.6h.7c.2 0 .5.1.6.5l.9 2.1c.1.3 0 .5-.1.7l-.6.7c-.2.2-.2.4-.1.6.6 1.1 1.5 2 2.6 2.6.2.1.4.1.6-.1l.7-.8c.2-.2.4-.3.7-.2l2.1 1c.3.1.5.3.4.6 0 .9-.6 1.8-1.5 2.1-1 .3-2.4.1-4.3-1.1a11 11 0 0 1-3.6-3.9c-.8-1.5-.8-2.9-.3-3.6z" fill="currentColor"/></svg><span>Quero<span class="nm"> o Hapali</span></span></a>
+          <a class="btn btn-wa btn-sm" href="#contato-demo" data-demo-url="https://wa.me/5500900000000?text=Ol%C3%A1%21%20Vi%20o%20patinete%20el%C3%A9trico%20Hapali%20no%20site%20e%20quero%20saber%20pre%C3%A7o%20e%20condi%C3%A7%C3%B5es." target="_blank" rel="noopener noreferrer" aria-label="Quero o Hapali pelo WhatsApp"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.6 7.4c.3-.6.6-.6.9-.6h.7c.2 0 .5.1.6.5l.9 2.1c.1.3 0 .5-.1.7l-.6.7c-.2.2-.2.4-.1.6.6 1.1 1.5 2 2.6 2.6.2.1.4.1.6-.1l.7-.8c.2-.2.4-.3.7-.2l2.1 1c.3.1.5.3.4.6 0 .9-.6 1.8-1.5 2.1-1 .3-2.4.1-4.3-1.1a11 11 0 0 1-3.6-3.9c-.8-1.5-.8-2.9-.3-3.6z" fill="currentColor"/></svg><span>Consultar preço <span aria-hidden="true">↗</span></span></a>
         </div>
       </article>
-      <article class="card" data-cat="patinete" data-uses="curtos">
+      <article class="card" id="modelo-tomate" data-cat="patinete" data-uses="curtos">
         <button class="card-open" data-open="tomate" aria-label="Ver detalhes da Tomate">
-          <span class="card-img"><img src="img/tomate-640.webp" srcset="img/tomate-400.webp 400w, img/tomate-640.webp 640w, img/tomate-1200.webp 1200w" sizes="(min-width:1100px) 280px, (min-width:700px) 33vw, 50vw" alt="Patinete elétrico Tomate cinza com detalhes vermelhos" width="640" height="640" loading="lazy" decoding="async"></span>
+          <span class="card-img" data-number="08 / 08"><img src="img/tomate-640.webp" srcset="img/tomate-400.webp 400w, img/tomate-640.webp 640w, img/tomate-1200.webp 1200w" sizes="(min-width:1100px) 280px, (min-width:700px) 33vw, 50vw" alt="Patinete elétrico Tomate cinza com detalhes vermelhos" width="640" height="640" loading="lazy" decoding="async"></span>
           <span class="card-body">
             <span class="card-kind">Patinete elétrico</span>
             <span class="card-name">Tomate</span>
@@ -189,10 +203,24 @@
           </span>
         </button>
         <div class="card-foot">
-          <a class="btn btn-wa btn-sm" href="#contato-demo" data-demo-url="https://wa.me/5500900000000?text=Ol%C3%A1%21%20Vi%20o%20patinete%20el%C3%A9trico%20Tomate%20no%20site%20e%20quero%20saber%20pre%C3%A7o%20e%20condi%C3%A7%C3%B5es." target="_blank" rel="noopener noreferrer" aria-label="Quero o Tomate pelo WhatsApp"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.6 7.4c.3-.6.6-.6.9-.6h.7c.2 0 .5.1.6.5l.9 2.1c.1.3 0 .5-.1.7l-.6.7c-.2.2-.2.4-.1.6.6 1.1 1.5 2 2.6 2.6.2.1.4.1.6-.1l.7-.8c.2-.2.4-.3.7-.2l2.1 1c.3.1.5.3.4.6 0 .9-.6 1.8-1.5 2.1-1 .3-2.4.1-4.3-1.1a11 11 0 0 1-3.6-3.9c-.8-1.5-.8-2.9-.3-3.6z" fill="currentColor"/></svg><span>Quero<span class="nm"> o Tomate</span></span></a>
+          <a class="btn btn-wa btn-sm" href="#contato-demo" data-demo-url="https://wa.me/5500900000000?text=Ol%C3%A1%21%20Vi%20o%20patinete%20el%C3%A9trico%20Tomate%20no%20site%20e%20quero%20saber%20pre%C3%A7o%20e%20condi%C3%A7%C3%B5es." target="_blank" rel="noopener noreferrer" aria-label="Quero o Tomate pelo WhatsApp"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.6 7.4c.3-.6.6-.6.9-.6h.7c.2 0 .5.1.6.5l.9 2.1c.1.3 0 .5-.1.7l-.6.7c-.2.2-.2.4-.1.6.6 1.1 1.5 2 2.6 2.6.2.1.4.1.6-.1l.7-.8c.2-.2.4-.3.7-.2l2.1 1c.3.1.5.3.4.6 0 .9-.6 1.8-1.5 2.1-1 .3-2.4.1-4.3-1.1a11 11 0 0 1-3.6-3.9c-.8-1.5-.8-2.9-.3-3.6z" fill="currentColor"/></svg><span>Consultar preço <span aria-hidden="true">↗</span></span></a>
         </div>
       </article>
       </div>
+    </div>
+  </section>
+
+  <section class="city-story" aria-labelledby="story-title">
+    <div class="city-story-photo">
+      <img src="img/v8-3-1200.webp" srcset="img/v8-3-640.webp 640w, img/v8-3-1200.webp 1200w" sizes="(max-width:850px) 100vw, 55vw" loading="lazy" decoding="async" width="1200" height="1200" alt="Bike elétrica V8 fotografada em um cenário urbano, com o farol aceso">
+      <span class="story-photo-caption">NAS RUAS, DO SEU JEITO. — 01 / 08</span>
+    </div>
+    <div class="city-story-copy">
+      <p class="section-kicker">Mais do que ir de A a B</p>
+      <h2 id="story-title">A CIDADE<br>NÃO PARA.<br><i>VOCÊ TAMBÉM<br>NÃO PRECISA.</i></h2>
+      <p>Um modelo para o trabalho. Outro para passear acompanhado. Um compacto para distâncias curtas. Descubra o formato de elétrico que faz sentido para o seu dia.</p>
+      <a href="#escolher" class="story-link">Descobrir meu modelo ideal <span aria-hidden="true">↗</span></a>
+      <div class="story-coordinate" aria-hidden="true">URBANO / ELÉTRICO / MOVIMENTO</div>
     </div>
   </section>
 
@@ -266,6 +294,47 @@
         <li class="stop"><h3>Retire ou receba</h3><p>Combine a retirada na loja ou a entrega, e saia rodando.</p></li>
       </ol>
       <a class="btn btn-wa" href="#contato-demo" data-demo-url="https://wa.me/5500900000000?text=Ol%C3%A1%21%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20os%20el%C3%A9tricos." target="_blank" rel="noopener noreferrer"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.6 7.4c.3-.6.6-.6.9-.6h.7c.2 0 .5.1.6.5l.9 2.1c.1.3 0 .5-.1.7l-.6.7c-.2.2-.2.4-.1.6.6 1.1 1.5 2 2.6 2.6.2.1.4.1.6-.1l.7-.8c.2-.2.4-.3.7-.2l2.1 1c.3.1.5.3.4.6 0 .9-.6 1.8-1.5 2.1-1 .3-2.4.1-4.3-1.1a11 11 0 0 1-3.6-3.9c-.8-1.5-.8-2.9-.3-3.6z" fill="currentColor"/></svg><span>Começar pelo WhatsApp</span></a>
+    </div>
+  </section>
+
+  <section class="sales-assist" id="atendimento" aria-labelledby="sales-title">
+    <div class="wrap sales-assist-inner">
+      <div class="sales-assist-copy">
+        <p class="sales-assist-eyebrow"><span class="pulsing-dot" aria-hidden="true"></span> ATENDIMENTO PERSONALIZADO</p>
+        <h2 id="sales-title">VOCÊ ESCOLHE.<br><span>A CONVERSA<br>JÁ VAI PRONTA.</span></h2>
+        <p>Não precisa explicar tudo de novo. Escolha o modelo e o assunto — a mensagem já chega organizada para o vendedor.</p>
+        <div class="sales-progress" aria-hidden="true"><span>01</span><span class="sales-progress-line"></span><span>02</span><span class="sales-progress-line"></span><span>03</span></div>
+      </div>
+      <div class="sales-assist-form" id="salesAssistant">
+        <div class="sales-step">
+          <label for="salesModel"><span class="sales-step-num">01 /</span> Qual modelo chamou sua atenção?</label>
+          <select id="salesModel" name="modelo" aria-label="Modelo que você quer conhecer">
+            <option value="">Ainda não sei — me ajuda a escolher</option>
+            <option value="V8">V8 · Bike elétrica</option>
+            <option value="Paris">Paris · Scooter retrô</option>
+            <option value="Ibiza">Ibiza · Scooter com baú</option>
+            <option value="GTSM1">GTSM1 · Scooter</option>
+            <option value="Chopper">Chopper · Scooter</option>
+            <option value="Triciclo">Triciclo elétrico</option>
+            <option value="Hapali">Hapali · Patinete</option>
+            <option value="Tomate">Tomate · Patinete</option>
+          </select>
+        </div>
+        <fieldset class="sales-step sales-interests">
+          <legend><span class="sales-step-num">02 /</span> O que você quer saber primeiro?</legend>
+          <div class="interest-options">
+            <label><input type="radio" name="salesInterest" value="preço e opções de pagamento" checked><span>Preço e pagamento</span></label>
+            <label><input type="radio" name="salesInterest" value="autonomia e ficha técnica"><span>Autonomia e detalhes</span></label>
+            <label><input type="radio" name="salesInterest" value="disponibilidade e entrega"><span>Disponibilidade</span></label>
+          </div>
+        </fieldset>
+        <div class="sales-message-preview">
+          <span>PRÉVIA DA SUA MENSAGEM</span>
+          <p id="salesMessagePreview" aria-live="polite">Olá! Vi os elétricos no site e quero uma indicação de modelo, com informações sobre preço e opções de pagamento.</p>
+        </div>
+        <a id="salesSend" class="sales-send" href="#contato-demo" data-demo-url="https://wa.me/5500900000000?text=Ol%C3%A1" target="_blank" rel="noopener noreferrer">Continuar pelo WhatsApp <span aria-hidden="true">↗</span></a>
+        <p class="sales-assist-note">Sem cadastro. Sem formulário enviado. Só uma conversa com o vendedor.</p>
+      </div>
     </div>
   </section>
 
@@ -346,5 +415,6 @@
 <script src="main.js" defer></script>
 <script src="contact.js" defer></script>
 <script src="motion.js" defer></script>
+<script src="sales.js" defer></script>
 </body>
 </html>

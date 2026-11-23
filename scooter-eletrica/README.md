@@ -1,40 +1,49 @@
-# Scooter Elétrica — Loja de elétricos
+# Scooter Elétrica — vitrine comercial demonstrativa
 
-Landing page conceitual **não oficial** para uma loja de scooters, bikes, triciclo e patinetes elétricos. Todo o caminho de compra leva o cliente ao WhatsApp do vendedor, com a mensagem já escrita.
+Landing page responsiva para lojas de scooters, bicicletas elétricas, triciclos e patinetes, criada para mostrar produtos e iniciar conversas de venda.
 
-## Estrutura
-- `index.html` — topo com vídeo, atalhos, "Para que você vai usar?", catálogo com filtros, destaque da V8, como comprar, dúvidas e chamada final.
-- `style.css` — identidade de sinalização de trânsito (preto asfalto, amarelo de placa, Barlow Condensed), responsiva de 320 px a desktop, com reforços para navegadores antigos.
-- `main.js` — filtros, painel do produto (sobe de baixo no celular), galerias com arrastar, vídeo que só carrega em conexão boa e pausa fora da tela. Os dados dos produtos ficam no início do arquivo.
-- `img/` — fotos dos produtos em fundo branco, em 400, 640 e 1200 px (o navegador escolhe o tamanho certo).
-- `media/` — vídeo do topo (paisagem e retrato) e imagens de capa leves.
-- `favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`, `site.webmanifest` — ícones da aba e da tela inicial do celular.
-- `og-image.jpg` — prévia de 1200×630 que aparece ao enviar o link no WhatsApp e nas redes.
-- `fonts/` — Barlow e Barlow Condensed hospedadas no próprio site (só os caracteres do português), com as licenças OFL.
-- `vercel.json` — cabeçalhos de segurança e cache (vale quando a pasta é a raiz do projeto na Vercel).
+**Natureza do projeto:** demonstração não oficial da ÚNICA — Estúdio Digital. As imagens, os modelos e as informações servem para mostrar a experiência, não para representar uma loja real.
 
-## Antes de apresentar como site real
-- **WhatsApp e contatos:** o número `5500900000000`, o telefone, o endereço e o horário são provisórios. Troque em `index.html` e em `main.js` (busque por `5500900000000`).
-- **Preços:** cada produto aceita preço e parcelamento; enquanto não houver, aparece "Preço no WhatsApp".
-- **Sem CNH e sem placa:** confirmado apenas para a V8. Os demais modelos dependem da Resolução CONTRAN nº 996/2023; o texto do site pede que o vendedor confirme.
-- **Especificações:** só aparecem dados informados pela loja ou visíveis nas fotos. O restante fica para a ficha técnica pelo WhatsApp.
+## O que o visitante encontra
 
-## Imagens e vídeo
-- Fotos dos produtos: fornecidas para a demonstração e versões maiores dos mesmos anúncios (Mercado Livre e Amazon). Para lançamento, use as fotos originais da loja ou do fabricante.
-- Vídeo do topo: "Men and Woman Standing Beside Parked Motorcycles", de Anastasia Shuraeva, Pexels (licença gratuita).
+- Hero com foto de produto, proposta de valor clara e dois caminhos: explorar o catálogo ou receber indicação por tipo de uso.
+- Seleção guiada por rotina, 8 produtos com filtros por categoria, fichas de produto e galerias de fotos.
+- Destaque editorial para V8, conteúdo sobre mobilidade, processo de compra, FAQ e contato.
+- Versão mobile com duas colunas compactas para os produtos, menu, toque confortável e CTA persistente.
+- Modo de demonstração do atendimento: ao tocar em um botão de WhatsApp, uma janela mostra a mensagem que o comprador enviaria; nenhum número fictício recebe contato.
 
-## Desempenho e segurança
-- Nenhum recurso de terceiros: script, estilos, fontes, fotos e vídeo saem do próprio site. O visitante não tem o IP enviado ao Google e a página abre mesmo se outro serviço cair.
-- Em 3G lento (simulação, celular com CPU 4× mais lenta): primeira tela em cerca de 2,5 s; o vídeo não é carregado nessa conexão.
-- Rolagem a 60 quadros por segundo no mesmo celular simulado, sem deslocamento de layout.
-- Política de segurança de conteúdo (CSP) no `index.html` e no `vercel.json`: só roda o script do próprio site, sem estilos ou scripts embutidos.
-- Cabeçalhos na Vercel: HTTPS obrigatório (HSTS), proteção contra a página ser embutida em outro site, `nosniff`, política de referência e bloqueio de câmera, microfone e localização.
-- Links externos com `noopener noreferrer`. Não há formulários, cookies, rastreadores nem bibliotecas de terceiros.
+## Arquivos
 
-## Prévia no WhatsApp
-A tag `og:image` aponta para `og-image.jpg` no branch `main` deste repositório (`raw.githubusercontent.com`). A prévia aparece depois que esta pasta estiver no `main`. Se o site for publicado em domínio próprio, troque a URL pela do domínio.
+- `index.html` — conteúdo e estrutura semântica.
+- `style.css` — estilos e componentes da versão inicial, mantidos para compatibilidade.
+- `retail.css` — nova direção visual, ajustes desktop/tablet/mobile, layout comercial e preview de contato.
+- `main.js` — filtros, dados dos produtos, diálogo de detalhes e galerias.
+- `contact.js` — comunicação WhatsApp configurável e prévia segura para demonstração.
+- `img/`, `fonts/`, `media/` — imagens responsivas, fontes e acervo.
+- `vercel.json` — cabeçalhos de segurança/cache quando a pasta é o projeto raiz na Vercel.
+
+Não há build, framework, CDN, rastreamento ou dependências externas.
+
+## Personalizar para uma loja real
+
+1. **Contato:** em `contact.js`, altere `WHATSAPP_DA_LOJA = ''` para o WhatsApp verdadeiro, somente dígitos (DDI 55 + DDD + número). O clique passará a abrir o número configurado com texto correspondente ao produto.
+2. **Identidade:** atualize nome, logomarca, cores, localização, descrição, horários e favicon de acordo com a loja. Não apresente informações de demonstração como dados de uma empresa real.
+3. **Estoque e valores:** ajuste preços, parcelamento, imagens, descrição e especificações em `main.js` e nos cards de `index.html`. Produtos sem valores publicados mostram “Valor sob consulta”.
+4. **Imagens sociais:** gere uma nova arte `og-image.jpg` para o cliente antes de publicar; a imagem atual é herança do conceito anterior e não segue a nova direção visual.
+5. **Homologação:** valide a versão final com a loja, especialmente disponibilidade, entrega, meios de pagamento, garantia e direitos sobre imagens.
+6. **Regras de circulação:** a exigência de habilitação/emplacamento **não deve ser deduzida de “ser elétrica”, ter pedal, potência isolada ou nome comercial**. Verifique a classificação técnica de cada veículo perante a Resolução CONTRAN 996/2023 e normas vigentes, além das regras locais. Não use “sem CNH e sem placa” como promessa geral sem documentação que a sustente.
+
+## Verificar antes de publicar
+
+- No desktop: testar hero, cards, grid, menu, CTA e diálogo lateral.
+- No celular, especialmente 320–390 px: conferir quebra de texto, filtros horizontais, toque, menu, modal inferior e CTA fixo.
+- Seleção por uso e categoria: os 8 modelos continuam aparecendo em “Todos”; filtros combinam corretamente.
+- Detalhes de cada modelo: imagens, texto, galeria e ações de contato.
+- WhatsApp: na demonstração, abrir preview e copiar texto; em loja real, validar número final com mensagem certa.
+- Performance: medir em aparelho real e Lighthouse; o vídeo de hero foi retirado da primeira dobra e os assets responsivos existentes foram mantidos. Evitar alegações de desempenho sem medição da versão publicada.
 
 ## Executar
-Abra `index.html` no navegador ou utilize Live Server. Não precisa instalar dependências.
 
-Este é um projeto de apresentação/portfólio; antes de divulgar como página oficial, confirme textos, preços, uso de marcas de produtos e direitos sobre as imagens.
+Abra `index.html` no navegador ou execute um servidor estático local (ex.: Live Server). Para publicar na Vercel, a raiz do projeto deve apontar para `scooter-eletrica/`.
+
+A proposta é ser uma vitrine reutilizável para apresentar a lojas com uma experiência de compra concreta, sem inventar depoimentos, avaliações, preços ou dados de contato.

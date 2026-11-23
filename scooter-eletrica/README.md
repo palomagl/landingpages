@@ -7,8 +7,9 @@ Landing page responsiva para lojas de scooters, bicicletas elétricas, triciclos
 ## O que o visitante encontra
 
 - Hero com vídeo cinematográfico original em tela cheia, capa adaptada ao celular e dois caminhos: explorar o catálogo ou receber indicação por tipo de uso.
-- Seleção guiada pela rotina: tocar em uma opção mostra os modelos correspondentes imediatamente abaixo, com chips de troca rápida no próprio resultado (sem salto para o catálogo). O catálogo mantém 8 produtos, filtros por categoria, fichas e galerias.
-- Destaque editorial para V8, conteúdo sobre mobilidade, processo de compra, FAQ e contato.
+- **Catálogo aberto** logo após o hero: os 8 modelos estão na página sem filtros, "Ver todos" ou interação prévia. Atalhos opcionais por categoria apenas rolam até o produto correspondente. A escolha por rotina continua opcional, depois da vitrine, mostrando recomendações logo abaixo das escolhas.
+- Seção editorial com foto da V8 em ambiente urbano, destaque V8, conteúdo sobre mobilidade, processo de compra, FAQ e contato.
+- Assistente comercial com duas escolhas (modelo e tipo de dúvida) que monta uma mensagem pronta e segue para a prévia demonstrativa ou WhatsApp real configurado.
 - Versão mobile com duas colunas compactas para os produtos, seleção guiada mais baixa, resultados horizontais com arraste, menu, toque confortável e CTA persistente.
 - Modo de demonstração do atendimento: ao tocar em um botão de WhatsApp, uma janela mostra a mensagem que o comprador enviaria; nenhum número fictício recebe contato.
 
@@ -16,10 +17,12 @@ Landing page responsiva para lojas de scooters, bicicletas elétricas, triciclos
 
 - `index.html` — conteúdo e estrutura semântica.
 - `style.css` — estilos e componentes da versão inicial, mantidos para compatibilidade.
-- `retail.css` — nova direção visual, ajustes desktop/tablet/mobile, layout comercial e preview de contato.
+- `retail.css` — direção visual base, ajustes desktop/tablet/mobile, layout e preview de contato.
+- `conversion.css` — linguagem visual mais forte: letreiro animado, catálogo completo, detalhes dos cards, storytelling urbano e assistente comercial.
 - `main.js` — filtros, dados dos produtos, diálogo de detalhes e galerias.
 - `contact.js` — comunicação WhatsApp configurável e prévia segura para demonstração.
-- `motion.js` — revelação progressiva das seções no scroll, respeitando a preferência por movimento reduzido.
+- `motion.js` — revelação progressiva de cards e seções no scroll, respeitando a preferência por movimento reduzido.
+- `sales.js` — constrói a mensagem de atendimento conforme o modelo e o motivo escolhido; não envia dados a servidores.
 - `img/`, `fonts/`, `media/` — imagens responsivas, fontes e acervo.
 - `vercel.json` — cabeçalhos de segurança/cache quando a pasta é o projeto raiz na Vercel.
 
@@ -38,7 +41,8 @@ Não há build, framework, CDN, rastreamento ou dependências externas.
 
 - No desktop: testar hero, cards, grid, menu, CTA e diálogo lateral.
 - No celular, especialmente 320–390 px: conferir quebra de texto, filtros horizontais, toque, menu, modal inferior e CTA fixo.
-- Seleção por uso e categoria: os 8 modelos continuam aparecendo em “Todos”; filtros combinam corretamente.
+- Vitrine: os 8 modelos aparecem sempre no scroll, sem filtros nem botões de expansão; os atalhos por tipo apenas navegam até cards visíveis.
+- Seleção por rotina: os resultados aparecem apenas no bloco de ajuda, sem ocultar ou alterar os 8 cards do catálogo principal.
 - Detalhes de cada modelo: imagens, texto, galeria e ações de contato.
 - WhatsApp: na demonstração, abrir preview e copiar texto; em loja real, validar número final com mensagem certa.
 - Performance: medir em aparelho real e Lighthouse. O vídeo original foi restaurado: desktop (~1,35 MB) e mobile (~712 KB), com posters WebP, início após carregamento, pausa fora da tela e fallback para conexão lenta, economia de dados ou movimento reduzido. Evitar alegações de desempenho sem medição da versão publicada.

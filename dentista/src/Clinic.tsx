@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { clinic, services } from "./config";
-import { clearRequests, dayLabel, loadRequests, longDay, updateRequest, upcomingDays, type Request } from "./booking";
+import { clearRequests, dayLabel, formatTime, loadRequests, updateRequest, upcomingDays, whenLabel, type Request } from "./booking";
 
 // Visão do consultório (só na demonstração): como os pedidos feitos no site chegam e viram agenda.
 
@@ -24,6 +24,14 @@ export function Clinic() {
   const days = upcomingDays(6);
 
   useEffect(() => {
+    const title = document.title;
+    document.title = `Visão do consultório | ${clinic.dentist}`;
+    return () => {
+      document.title = title;
+    };
+  }, []);
+
+  useEffect(() => {
     const on = () => setRequests(loadRequests());
     window.addEventListener("storage", on);
     return () => window.removeEventListener("storage", on);
@@ -35,7 +43,7 @@ export function Clinic() {
   };
 
   const confirmation = (r: Request) =>
-    `Confirmado, ${r.name.split(" ")[0]}! Te espero ${r.date && r.time ? `${longDay(r.date)} às ${r.time.replace(":", "h")}` : "no horário que combinamos"}, na ${clinic.address}. Se precisar remarcar, é só responder aqui.`;
+    `Confirmado, ${r.name.split(" ")[0]}! Te espero ${r.date && r.time ? whenLabel(r.date, r.time) : "no horário que combinamos"}, na ${clinic.address}. Se precisar remarcar, é só responder aqui.`;
 
   return (
     <div className="clinic">
@@ -58,7 +66,7 @@ export function Clinic() {
             <div className="row">
               <h2 id="req-title">Pedidos pelo site</h2>
               {requests.length > 0 && (
-                <button className="btn quiet small" onClick={() => { clearRequests(); setRequests([]); }}>Limpar testes</button>
+                <button type="button" className="btn quiet small" onClick={() => { clearRequests(); setRequests([]); }}>Limpar testes</button>
               )}
             </div>
             {requests.length === 0 ? (
@@ -74,11 +82,11 @@ export function Clinic() {
                         <span className="small muted">{ago(r.createdAt)}</span>
                       </div>
                       <p className="small">
-                        {s?.name}. {r.date && r.time ? `Pediu ${longDay(r.date)} às ${r.time.replace(":", "h")}.` : "Sem horário escolhido."}
+                        {s?.name}. {r.date && r.time ? `Pediu ${whenLabel(r.date, r.time)}.` : "Sem horário escolhido."}
                       </p>
                       <p className="bubble out">{r.message}</p>
                       {r.status === "novo" ? (
-                        <button className="btn zap small" onClick={() => confirm(r)}>Confirmar pelo WhatsApp</button>
+                        <button type="button" className="btn zap small" onClick={() => confirm(r)}>Confirmar pelo WhatsApp</button>
                       ) : (
                         <p className="bubble in">{confirmation(r)}</p>
                       )}
@@ -101,7 +109,7 @@ export function Clinic() {
                       const req = requests.find((r) => r.date === s.date && r.time === s.time);
                       return (
                         <div key={s.time} className={`cell ${req ? `site ${req.status}` : s.free ? "free" : "busy"}`}>
-                          <span>{s.time.replace(":", "h")}</span>
+                          <span>{formatTime(s.time)}</span>
                           <span>{req ? `${req.name.split(" ")[0]}, pelo site` : s.free ? "livre" : initialsFor(s.date + s.time)}</span>
                         </div>
                       );

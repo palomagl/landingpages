@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { clinic } from "./config";
 
 // Mapa do "Onde fica". Com mapEmbedUrl preenchido, mostra o Google Maps de verdade; sem ele (como na
@@ -35,12 +35,23 @@ export function MapCard() {
 // arrastar pros lados. Ao abrir, já aparece centralizado no consultório.
 function MapScroller() {
   const box = useRef<HTMLDivElement>(null);
+  // Só vira uma área rolável (com foco pelo teclado) quando o mapa não cabe na tela.
+  const [scrolls, setScrolls] = useState(false);
   useEffect(() => {
     const el = box.current;
-    if (el && el.scrollWidth > el.clientWidth) el.scrollLeft = (el.scrollWidth * 292) / 640 - el.clientWidth / 2;
+    if (!el) return;
+    const check = () => setScrolls(el.scrollWidth > el.clientWidth + 1);
+    check();
+    if (el.scrollWidth > el.clientWidth) el.scrollLeft = (el.scrollWidth * 292) / 640 - el.clientWidth / 2;
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
   }, []);
   return (
-    <div className="map-scroll" ref={box} tabIndex={0} aria-label="Mapa ilustrativo, role para os lados">
+    <div
+      className="map-scroll"
+      ref={box}
+      {...(scrolls ? { tabIndex: 0, role: "region", "aria-label": "Mapa ilustrativo. Role para os lados para ver a estação." } : {})}
+    >
       <IllustratedMap />
     </div>
   );

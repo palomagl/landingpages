@@ -34,7 +34,8 @@ a pasta `dist/` gerada pelo build.
    `python3 tools/preparar-fotos.py pasta-das-fotos`. O script recorta na proporção certa e gera WebP em
    800 e 1600 px em `public/fotos/`. Ajuste os textos alternativos em `photos` no `config.ts`.
 4. **Textos**: os blocos "Medo de dentista", "Sobre" e as perguntas frequentes estão em `src/Home.tsx`.
-5. **`index.html`**: título, descrição e `og:` com o nome e a cidade do cliente.
+5. **`index.html`**: título, descrição e `og:` com o nome e a cidade do cliente, e o aviso do
+   `<noscript>` (aparece só para quem está com JavaScript desligado) com o WhatsApp e o telefone dele.
 
 ## Regras de publicidade do CFO (checklist)
 

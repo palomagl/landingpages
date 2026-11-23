@@ -5,7 +5,8 @@ import { clinic } from "./config";
 
 export type PhoneState = "draft" | "sent" | "replied";
 
-export function Phone({ message, state, reply }: { message: string; state: PhoneState; reply?: string }) {
+// live: só um dos celulares da página avisa o leitor de tela quando a mensagem muda, para não repetir.
+export function Phone({ message, state, reply, live = false }: { message: string; state: PhoneState; reply?: string; live?: boolean }) {
   return (
     <figure className="phone" aria-label="Prévia da mensagem que vai para o WhatsApp do consultório">
       <div className="phone-top">
@@ -17,13 +18,20 @@ export function Phone({ message, state, reply }: { message: string; state: Phone
       </div>
       <div className="chat">
         <p className="chat-day">hoje</p>
-        <p className="bubble out" aria-live="polite">
+        <p className="bubble out" aria-live={live ? "polite" : undefined}>
           {message}
           <span className="meta">
-            {state === "draft" ? <em className="caret" aria-hidden /> : <span className="ticks" aria-label="entregue">✓✓</span>}
+            {state === "draft" ? (
+              <em className="caret" aria-hidden />
+            ) : (
+              <>
+                <span className="ticks" aria-hidden>✓✓</span>
+                <span className="sr-only">entregue</span>
+              </>
+            )}
           </span>
         </p>
-        {state === "replied" && reply && <p className="bubble in">{reply}</p>}
+        <div className="chat-live" aria-live={live ? "polite" : undefined}>{state === "replied" && reply && <p className="bubble in">{reply}</p>}</div>
       </div>
       <div className="composer" aria-hidden>
         <span>{state === "draft" ? "Mensagem pronta para enviar" : "Mensagem"}</span>

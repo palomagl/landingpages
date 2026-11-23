@@ -25,8 +25,8 @@ const CSP = [
 const cspMeta = (): Plugin => ({
   name: "csp-meta",
   apply: "build",
-  transformIndexHtml: (html) =>
-    html.replace('<meta charset="UTF-8" />', `<meta charset="UTF-8" />\n    <meta http-equiv="Content-Security-Policy" content="${CSP}" />`),
+  // Entra no começo do <head>, antes de qualquer script ou estilo, para valer para todos eles.
+  transformIndexHtml: () => [{ tag: "meta", attrs: { "http-equiv": "Content-Security-Policy", content: CSP }, injectTo: "head-prepend" }],
 });
 
 export default defineConfig({

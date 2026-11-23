@@ -34,30 +34,66 @@ function busy(date: string, time: string) {
   return h % 100 < 46;
 }
 
-/** Próximos dias de atendimento (sem domingo), com os horários de cada um. */
+/** Agora, no relógio do consultório (não no de quem abre o site, que pode estar em outro fuso). */
+export function clinicNow(from = new Date()): Date {
+  try {
+    const parts = Object.fromEntries(
+      new Intl.DateTimeFormat("en-US", {
+        timeZone: clinic.timeZone,
+        hourCycle: "h23",
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+      })
+        .formatToParts(from)
+        .map((p) => [p.type, p.value]),
+    );
+    return new Date(+parts.year, +parts.month - 1, +parts.day, +parts.hour, +parts.minute);
+  } catch {
+    return new Date(from);
+  }
+}
+
+/** Próximos dias de atendimento (sem domingo), só com horários que ainda dá pra marcar. */
 export function upcomingDays(count = 10, from = new Date()): { date: string; slots: Slot[] }[] {
   const out: { date: string; slots: Slot[] }[] = [];
-  const now = new Date(from);
-  const d = new Date(from);
+  const now = clinicNow(from);
+  const today = isoDate(now);
+  const minutesNow = now.getHours() * 60 + now.getMinutes();
+  const d = new Date(now);
   d.setHours(12, 0, 0, 0);
-  // Depois das 17h, a agenda começa no dia seguinte.
-  if (now.getHours() >= 17) d.setDate(d.getDate() + 1);
   while (out.length < count) {
     if (d.getDay() !== 0) {
       const date = isoDate(d);
-      const times = d.getDay() === 6 ? SATURDAY_TIMES : WEEKDAY_TIMES;
-      const today = date === isoDate(now);
-      const slots = times.map((time) => {
+      const times = (d.getDay() === 6 ? SATURDAY_TIMES : WEEKDAY_TIMES).filter((time) => {
+        if (date !== today) return true;
         const [hh, mm] = time.split(":").map(Number);
-        // Hoje, só horários com pelo menos 1 hora de antecedência.
-        const past = today && hh * 60 + mm < now.getHours() * 60 + now.getMinutes() + 60;
-        return { date, time, free: !past && !busy(date, time) };
+        return hh * 60 + mm >= minutesNow + 60; // hoje, só com pelo menos 1 hora de antecedência
       });
-      out.push({ date, slots });
+      // Hoje sem nenhum horário pela frente: a agenda começa no próximo dia.
+      if (times.length) out.push({ date, slots: times.map((time) => ({ date, time, free: !busy(date, time) })) });
     }
     d.setDate(d.getDate() + 1);
   }
   return out;
+}
+
+/** Primeiros horários livres que combinam com o período escolhido (usado na resposta da demonstração). */
+export function suggestSlots(period: PeriodId, count = 2, from = new Date()): Slot[] {
+  const fits = (s: Slot) => {
+    const h = Number(s.time.slice(0, 2));
+    const saturday = dayLabel(s.date).weekday === "sábado";
+    if (period === "manha") return h < 12 && !saturday;
+    if (period === "tarde") return h >= 12;
+    if (period === "sabado") return saturday;
+    return true;
+  };
+  return upcomingDays(14, from)
+    .flatMap((d) => d.slots)
+    .filter((s) => s.free && fits(s))
+    .slice(0, count);
 }
 
 const WEEKDAYS = ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado"];
@@ -74,13 +110,26 @@ export function longDay(date: string) {
   return `${l.weekday}, ${l.day} de ${l.month}`;
 }
 
+/** "08:30" vira "8h30" e "11:00" vira "11h", como se escreve no Brasil. */
+export function formatTime(time: string) {
+  const [hh, mm] = time.split(":");
+  return `${Number(hh)}h${mm === "00" ? "" : mm}`;
+}
+
+/** "na quinta, 19 de nov, às 17h30" (ou "no sábado, ..."), para usar no meio de uma frase. */
+export function whenLabel(date: string, time: string) {
+  const l = dayLabel(date);
+  const article = l.weekday === "sábado" || l.weekday === "domingo" ? "no" : "na";
+  return `${article} ${longDay(date)}, às ${formatTime(time)}`;
+}
+
 /** A mensagem que chega no WhatsApp do consultório. */
 export function buildMessage(opts: { name?: string; service: ServiceId; period: PeriodId; date?: string; time?: string }) {
   const s = services.find((x) => x.id === opts.service) ?? services[0];
   const p = periods.find((x) => x.id === opts.period) ?? periods[3];
   const first = cleanName(opts.name ?? "").split(" ")[0];
   const hello = `Oi, ${clinic.dentist}!${first ? ` Aqui é ${first}.` : ""}`;
-  const chosen = opts.date && opts.time ? `${longDay(opts.date)} às ${opts.time.replace(":", "h")}` : "";
+  const chosen = opts.date && opts.time ? whenLabel(opts.date, opts.time) : "";
   if (s.id === "dor") {
     return chosen
       ? `${hello} Estou com dor e queria um encaixe ${chosen}. Pode ser?`
@@ -106,18 +155,20 @@ const KEY = "dentista-demo-pedidos";
 function isRequest(x: unknown): x is Request {
   if (!x || typeof x !== "object") return false;
   const r = x as Record<string, unknown>;
-  const optional = (v: unknown) => v === undefined || typeof v === "string";
+  const optional = (v: unknown, format: RegExp) => v === undefined || (typeof v === "string" && format.test(v));
   return (
     typeof r.id === "string" &&
     typeof r.name === "string" &&
+    r.name.length <= 60 &&
     typeof r.message === "string" &&
+    r.message.length <= 600 &&
     typeof r.createdAt === "string" &&
     !Number.isNaN(Date.parse(r.createdAt)) &&
     (r.status === "novo" || r.status === "confirmado") &&
     services.some((s) => s.id === r.service) &&
     periods.some((p) => p.id === r.period) &&
-    optional(r.date) &&
-    optional(r.time)
+    optional(r.date, /^\d{4}-\d{2}-\d{2}$/) &&
+    optional(r.time, /^\d{2}:\d{2}$/)
   );
 }
 

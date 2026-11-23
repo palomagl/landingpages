@@ -1,11 +1,11 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Choices } from "./Choices";
 import { clinic, DEMO, periods, services, type PeriodId, type ServiceId } from "./config";
 import { MapCard } from "./MapCard";
 import { Phone, type PhoneState } from "./Phone";
 import { Photo } from "./Photo";
 import { SendButton } from "./SendButton";
-import { buildMessage, cleanName, dayLabel, longDay, upcomingDays } from "./booking";
+import { buildMessage, cleanName, dayLabel, formatTime, longDay, upcomingDays } from "./booking";
 
 export interface Draft {
   service: ServiceId;
@@ -74,7 +74,7 @@ export function Home({ draft, setDraft, phone, reply, onSend }: Props) {
           <div className="hero-visual">
             <Photo id="retrato" className="hero-photo" sizes="(max-width: 980px) 92vw, 460px" priority />
             <div className="hero-phone">
-              <Phone message={message} state={phone} reply={reply} />
+              <Phone message={message} state={phone} reply={reply} live />
             </div>
           </div>
         </section>
@@ -187,7 +187,10 @@ export function Home({ draft, setDraft, phone, reply, onSend }: Props) {
           <p>{clinic.address}, {clinic.district}. {clinic.phone}.</p>
         </div>
         <div className="small">
-          <p>Os dados que você digita servem só para montar a mensagem do WhatsApp.</p>
+          <p>
+            O que você escolhe e digita aqui serve só para montar a mensagem do WhatsApp: nada é enviado para outro
+            lugar.{DEMO && " Na demonstração, os pedidos de teste ficam guardados só neste navegador."}
+          </p>
           {DEMO && (
             <p>
               Site de demonstração: profissional, CRO, endereço e telefones são fictícios. Fotos de banco de imagem
@@ -202,10 +205,14 @@ export function Home({ draft, setDraft, phone, reply, onSend }: Props) {
 }
 
 function Booking({ draft, setDraft, phone, reply, onSend, message }: Omit<Props, "onSend"> & { onSend: () => void; message: string }) {
-  const days = useMemo(() => upcomingDays(10), []);
-  const [day, setDay] = useState(draft.date ?? days.find((d) => d.slots.some((s) => s.free))?.date ?? days[0].date);
-  const current = days.find((d) => d.date === day) ?? days[0];
-  const ready = cleanName(draft.name).length >= 2 && !!draft.time;
+  // Recalculado a cada vez: se a aba ficar aberta por horas, horários que já passaram somem sozinhos.
+  const days = upcomingDays(10);
+  const [picked, setDay] = useState(draft.date ?? days.find((d) => d.slots.some((s) => s.free))?.date ?? days[0].date);
+  const current = days.find((d) => d.date === picked) ?? days[0];
+  const day = current.date;
+  // O horário escolhido ainda precisa existir (com a aba aberta muito tempo, ele pode ter passado).
+  const stillOpen = days.some((d) => d.slots.some((s) => s.free && s.date === draft.date && s.time === draft.time));
+  const ready = cleanName(draft.name).length >= 2 && stillOpen;
 
   return (
     <section className="booking" id="agendar" aria-labelledby="b-title">
@@ -223,7 +230,7 @@ function Booking({ draft, setDraft, phone, reply, onSend, message }: Omit<Props,
 
         <fieldset className="choices">
           <legend>Dia</legend>
-          <div className="days" role="radiogroup" aria-label="Dia">
+          <div className="days">
             {days.map((d) => {
               const l = dayLabel(d.date);
               const free = d.slots.filter((s) => s.free).length;
@@ -250,7 +257,7 @@ function Booking({ draft, setDraft, phone, reply, onSend, message }: Omit<Props,
         </fieldset>
 
         <fieldset className="choices">
-          <legend>Horário em {longDay(current.date)}</legend>
+          <legend>Horários de {longDay(current.date)}</legend>
           <div className="slots">
             {current.slots.map((s) => (
               <label key={s.time} className={`slot ${draft.time === s.time && draft.date === s.date ? "on" : ""} ${s.free ? "" : "taken"}`}>
@@ -262,7 +269,7 @@ function Booking({ draft, setDraft, phone, reply, onSend, message }: Omit<Props,
                   checked={draft.time === s.time && draft.date === s.date}
                   onChange={() => setDraft({ ...draft, date: s.date, time: s.time })}
                 />
-                {s.time.replace(":", "h")}
+                {formatTime(s.time)}
                 <span className="sr-only">{s.free ? "livre" : "ocupado"}</span>
               </label>
             ))}
@@ -277,7 +284,7 @@ function Booking({ draft, setDraft, phone, reply, onSend, message }: Omit<Props,
 
         <div className="actions">
           <SendButton label="Pedir esse horário no WhatsApp" message={message} ready={ready} onDemoSend={onSend} />
-          {!ready && <span className="small muted">{draft.time ? "Falta só o seu nome." : "Escolha um horário."}</span>}
+          {!ready && <span className="small muted">{stillOpen ? "Falta só o seu nome." : "Escolha um horário."}</span>}
         </div>
       </div>
       <div className="booking-phone">

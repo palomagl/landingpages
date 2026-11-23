@@ -20,6 +20,8 @@ export const clinic = {
   // Cliente de verdade: cole aqui o link de incorporação do Google Maps (Compartilhar > Incorporar um
   // mapa > só o endereço do src). Vazio = mostra o mapa ilustrado, que é o que a demonstração usa.
   mapEmbedUrl: "",
+  // Fuso do consultório: a agenda usa o horário daqui mesmo para quem abre o site de outro lugar.
+  timeZone: "America/Sao_Paulo",
   howToGetThere: "A 6 minutos a pé da Estação Centro do trem. Estacionamento conveniado em frente.",
   hours: [
     { days: "Segunda a sexta", time: "8h30 às 18h30" },

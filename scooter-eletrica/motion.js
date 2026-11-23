@@ -6,10 +6,11 @@
   if (reduced) return;
 
   const selectors = [
-    '.choose .section-kicker', '.choose .h2', '.choose .sub',
-    '.choose .use', '.cat-head', '.catalog .card',
-    '.feature-gallery', '.feature-copy', '.benefits-head',
-    '.benefit', '.steps .h2', '.stop',
+    '.catalog .cat-head', '.catalog-jump', '.catalog .card',
+    '.city-story-photo', '.city-story-copy h2', '.city-story-copy > p', '.story-link',
+    '.choose .section-kicker', '.choose .h2', '.choose .sub', '.choose .use',
+    '.feature-gallery', '.feature-copy', '.benefits-head', '.benefit',
+    '.steps .h2', '.stop', '.sales-assist-copy', '.sales-assist-form',
     '.faq-grid > div', '.final-grid > *'
   ];
   const elements = document.querySelectorAll(selectors.join(','));

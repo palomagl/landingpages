@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import type { CatalogConfig, ThemeDefinition } from './config/schema';
 import { CatalogProvider, useCatalog } from './core/catalog';
 import { RouterProvider, useRouter } from './core/router';
@@ -13,6 +13,7 @@ import { HomePage } from './pages/HomePage';
 import { CollectionPage } from './pages/CollectionPage';
 import { ProductPage } from './pages/ProductPage';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { PrivacyPage } from './pages/PrivacyPage';
 
 /** Estado de interface compartilhado (busca global e termo levado para a coleção). */
 interface Ui {
@@ -51,10 +52,32 @@ export function App({ config, initialTheme }: { config: CatalogConfig; initialTh
   );
 }
 
+/** Título da aba por página: ajuda no histórico, nos favoritos e ao compartilhar. */
+function useDocumentTitle() {
+  const { route } = useRouter();
+  const { config, bySlug, category, group } = useCatalog();
+  useEffect(() => {
+    const brand = config.brand.name;
+    let title = `${brand} | ${config.brand.tagline}`;
+    if (route.name === 'collection') {
+      const name = route.category ? category(route.category)?.name ?? group(route.category)?.name : config.copy.collectionTitle;
+      title = `${name ?? 'Categoria não encontrada'} | ${brand}`;
+    } else if (route.name === 'product') {
+      title = `${bySlug(route.slug)?.name ?? 'Produto não encontrado'} | ${brand}`;
+    } else if (route.name === 'privacy') {
+      title = `${config.copy.privacy?.title ?? 'Privacidade'} | ${brand}`;
+    } else if (route.name === 'notfound') {
+      title = `Página não encontrada | ${brand}`;
+    }
+    document.title = title;
+  }, [route, config, bySlug, category, group]);
+}
+
 function Shell() {
   const { route } = useRouter();
   const { config } = useCatalog();
   useRevealObserver(route);
+  useDocumentTitle();
   let page;
   switch (route.name) {
     case 'home':
@@ -65,6 +88,9 @@ function Shell() {
       break;
     case 'product':
       page = <ProductPage key={route.slug} slug={route.slug} />;
+      break;
+    case 'privacy':
+      page = <PrivacyPage />;
       break;
     default:
       page = <NotFoundPage />;

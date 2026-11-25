@@ -298,6 +298,17 @@ export interface CatalogConfig {
       legal?: string;
       credit?: string;
     };
+    /**
+     * Política de privacidade (página #privacidade e aviso no formulário do
+     * orçamento). `{brand}` vira o nome da marca. Revise o texto com o cliente.
+     */
+    privacy?: {
+      title: string;
+      intro: string;
+      sections: { title: string; text: string }[];
+      /** Frase curta exibida junto aos campos do orçamento. */
+      formNote: string;
+    };
   };
 
   quoteFields: QuoteField[];

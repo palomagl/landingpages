@@ -232,8 +232,37 @@ export const catalogConfig: CatalogConfig = {
     },
     footer: {
       statement: 'Máquinas de café de alto padrão para casa, escritório e negócios.',
-      legal: 'Marca fictícia para demonstração.',
+      legal: 'AROMA é uma marca fictícia, criada para demonstrar este catálogo.',
       credit: 'Catálogo digital por ÚNICA',
+    },
+    // Modelo de texto: revise com o cliente (e com o jurídico dele) antes de publicar.
+    privacy: {
+      title: 'Política de privacidade',
+      intro:
+        'Este catálogo foi pensado para pedir o mínimo de informação. Aqui explicamos quais dados você informa ao pedir um orçamento, onde eles ficam e como a {brand} usa cada um.',
+      sections: [
+        {
+          title: 'Quais dados você informa',
+          text: 'No pedido de orçamento você pode informar nome, empresa e cidade, além dos produtos escolhidos e das observações. Nenhum campo pede documentos, endereço completo ou dados de pagamento.',
+        },
+        {
+          title: 'Onde eles ficam',
+          text: 'Os dados ficam salvos apenas neste navegador, para você não perder o orçamento ao fechar a página. O catálogo não tem cadastro, não envia formulários para servidores e não usa cookies de rastreamento nem ferramentas de análise de visitas.',
+        },
+        {
+          title: 'Quando são enviados',
+          text: 'Somente quando você toca em “Enviar pelo WhatsApp”. A mensagem abre no seu WhatsApp para você revisar antes de enviar. A partir daí, a conversa também segue os termos de uso e a política de privacidade do WhatsApp.',
+        },
+        {
+          title: 'Para que a {brand} usa',
+          text: 'Para responder ao seu pedido com valores, prazos de entrega e condições de pagamento. Os dados não são usados para outras finalidades nem vendidos ou repassados a terceiros.',
+        },
+        {
+          title: 'Seus direitos',
+          text: 'Pela Lei Geral de Proteção de Dados (Lei nº 13.709/2018), você pode pedir acesso, correção ou exclusão dos dados enviados à {brand}, pelo mesmo WhatsApp do atendimento. Os dados salvos neste aparelho você mesmo apaga no botão abaixo.',
+        },
+      ],
+      formNote: 'Ficam salvos só neste aparelho e são enviados apenas quando você tocar em enviar.',
     },
   },
 
@@ -299,8 +328,8 @@ export const catalogConfig: CatalogConfig = {
     },
     { key: 'dimensoes', label: 'Dimensões (L × A × P)', type: 'dimensions', unit: 'cm', group: 'Dimensões' },
     { key: 'peso', label: 'Peso', type: 'number', unit: 'kg', decimals: 1, group: 'Dimensões' },
-    { key: 'material', label: 'Material', type: 'text', group: 'Dimensões' },
-    { key: 'garantia', label: 'Garantia', type: 'text', group: 'Dimensões' },
+    { key: 'material', label: 'Material', type: 'text', group: 'Construção e garantia' },
+    { key: 'garantia', label: 'Garantia', type: 'text', group: 'Construção e garantia' },
   ],
 
   /* Categorias ------------------------------------------------------------ */

@@ -3,6 +3,7 @@ import { useCatalog } from './catalog';
 import { storage } from './hooks';
 import { normalizeSelection, priceFor, selectionKey, type Selection } from './selection';
 import type { QuoteLine } from './whatsapp';
+import type { Product } from '../config/schema';
 
 export interface QuoteItem {
   key: string;
@@ -31,6 +32,8 @@ interface QuoteApi extends QuoteState {
   setNote: (key: string, note: string) => void;
   remove: (key: string) => void;
   clear: () => void;
+  /** Apaga tudo o que o catálogo guardou neste aparelho (itens, dados e observações). */
+  forget: () => void;
   setCustomer: (id: string, value: string) => void;
   setNotes: (notes: string) => void;
   has: (productId: string) => boolean;
@@ -38,15 +41,39 @@ interface QuoteApi extends QuoteState {
 
 const Ctx = createContext<QuoteApi | null>(null);
 
+const isRecord = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v);
+const strings = (v: unknown): Record<string, string> =>
+  isRecord(v) ? Object.fromEntries(Object.entries(v).filter((e): e is [string, string] => typeof e[1] === 'string')) : {};
+
+/**
+ * Restaura o orçamento salvo no navegador sem confiar no formato: dados de uma
+ * versão antiga do catálogo ou corrompidos viram um orçamento válido (ou vazio),
+ * nunca uma tela em branco.
+ */
+function restore(saved: unknown, byId: (id: string) => Product | undefined): QuoteState {
+  const empty: QuoteState = { items: [], customer: {}, notes: '' };
+  if (!isRecord(saved) || !Array.isArray(saved.items)) return empty;
+  const items: QuoteItem[] = [];
+  for (const raw of saved.items) {
+    if (!isRecord(raw) || typeof raw.productId !== 'string') continue;
+    const product = byId(raw.productId);
+    if (!product) continue; // produto saiu do catálogo
+    const selection = normalizeSelection(product, strings(raw.selection));
+    const key = selectionKey(product.id, selection);
+    const q = Math.round(Number(raw.quantity));
+    const quantity = Number.isFinite(q) ? Math.max(1, Math.min(99, q)) : 1;
+    const note = typeof raw.note === 'string' ? raw.note : '';
+    const same = items.find((i) => i.key === key);
+    if (same) same.quantity = Math.min(99, same.quantity + quantity);
+    else items.push({ key, productId: product.id, selection, quantity, note });
+  }
+  return { items, customer: strings(saved.customer), notes: typeof saved.notes === 'string' ? saved.notes : '' };
+}
+
 export function QuoteProvider({ children }: { children: ReactNode }) {
   const { config, byId } = useCatalog();
   const KEY = `catalogo.orcamento.${config.brand.name}`;
-  const [state, setState] = useState<QuoteState>(() => {
-    const saved = storage.get<QuoteState | null>(KEY, null);
-    if (!saved || !Array.isArray(saved.items)) return { items: [], customer: {}, notes: '' };
-    // descarta itens de produtos que não existem mais
-    return { ...saved, items: saved.items.filter((i) => byId(i.productId)) };
-  });
+  const [state, setState] = useState<QuoteState>(() => restore(storage.get<unknown>(KEY, null), byId));
   const [isOpen, setOpen] = useState(false);
   const [lastAdded, setLastAdded] = useState<string | null>(null);
 
@@ -97,6 +124,7 @@ export function QuoteProvider({ children }: { children: ReactNode }) {
       setNote: (key, note) => setState((s) => ({ ...s, items: s.items.map((i) => (i.key === key ? { ...i, note } : i)) })),
       remove: (key) => setState((s) => ({ ...s, items: s.items.filter((i) => i.key !== key) })),
       clear: () => setState((s) => ({ ...s, items: [], notes: '' })),
+      forget: () => setState({ items: [], customer: {}, notes: '' }),
       setCustomer: (id, value) => setState((s) => ({ ...s, customer: { ...s.customer, [id]: value } })),
       setNotes: (notes) => setState((s) => ({ ...s, notes })),
       has: (productId) => state.items.some((i) => i.productId === productId),

@@ -20,7 +20,7 @@ Na Vercel, aponte o **Root Directory** para `cafeteria/`. O `vercel.json` já in
 - `src/config/themes.ts` — paleta (marrom, bege, areia, creme e grafite, medidos no mockup).
 - `src/config/schema.ts` — tipos do catálogo, independentes de segmento.
 - `src/sections/Home.tsx` — página inicial: topo com slides, diferenciais, "Nossos modelos", "Explore por categoria" e banner.
-- `src/pages/` — coleção (categorias, busca, filtros, ordenação), página do produto e página não encontrada.
+- `src/pages/` — coleção (categorias, busca, filtros, ordenação), página do produto, política de privacidade e página não encontrada.
 - `src/components/` — cabeçalho, rodapé, cards, filtros, gaveta de orçamento, busca e avisos.
 - `src/core/` — rotas por `#hash`, filtros, busca sem acento, orçamento salvo no navegador, mensagem do WhatsApp e animações (`motion.tsx`).
 - `src/assets/fonts/` — Inter e Montserrat hospedadas no próprio site (só os caracteres do português), com as licenças OFL.
@@ -35,12 +35,28 @@ Na Vercel, aponte o **Root Directory** para `cafeteria/`. O `vercel.json` já in
 - **Coleção:** categorias e grupos (ex.: "Máquinas" reúne automáticas e semiautomáticas), busca sem acento, filtros por uso, recursos, tensão e faixa de preço, e ordenação.
 - **Produto:** galeria, variações (cor, tensão, embalagem…) que mudam o preço, quantidade, ficha técnica, destaques e relacionados.
 - **Orçamento:** itens, variações, quantidades, observações por item e gerais, dados do cliente e envio pelo WhatsApp com a mensagem pronta (ou cópia do texto).
+- **Privacidade (LGPD):** aviso junto aos campos do orçamento e página `#privacidade` (link no rodapé) explicando quais dados são pedidos, onde ficam e como pedir exclusão, com botão para o visitante apagar o que ficou salvo no aparelho. O texto está em `copy.privacy`.
+- **Acessibilidade:** navegação completa pelo teclado (o foco entra nos painéis, fica preso neles e volta ao botão de origem), link "Pular para o conteúdo", textos alternativos nas fotos e título da aba atualizado em cada página.
 - **Movimento:** entradas suaves ao rolar, cards que inclinam com o cursor, títulos que sobem linha a linha, cabeçalho que se esconde ao descer e volta ao subir. Tudo é desligado quando o visitante pede "reduzir movimento" no sistema.
 
-## Antes de apresentar como site real
-- **WhatsApp:** preencha `contact.whatsapp` em `src/config/catalog.config.ts` com DDI + DDD + número, só dígitos (ex.: `5511912345678`). Vazio, o WhatsApp abre com a mensagem pronta e pede para escolher o contato.
-- **Marca e rodapé:** AROMA é fictícia; o rodapé diz "Marca fictícia para demonstração" (`copy.footer.legal`). Troque antes de publicar.
-- **Preços e especificações:** são de demonstração. Confirme com o cliente.
+## Como apresentar para uma empresa
+1. **Coloque o seu WhatsApp** em `contact.whatsapp` (DDI + DDD + número, só dígitos, ex.: `5511912345678`). Assim, na reunião, você monta um orçamento na frente do cliente e a mensagem chega no seu celular, mostrando o fluxo completo. Vazio, o WhatsApp abre e pede para escolher o contato.
+2. **Mostre no celular primeiro:** a maioria dos clientes da empresa vai abrir o catálogo pelo link do WhatsApp ou do Instagram.
+3. **Roteiro de 3 minutos:** página inicial → "Explorar a coleção" → filtro "Bebidas com leite" → produto → trocar cor e tensão (o preço muda) → "Adicionar ao orçamento" → abrir o orçamento → "Enviar pelo WhatsApp".
+4. **Deixe claro o que é demonstração:** a marca AROMA, as fotos, os preços e as especificações são fictícios (o rodapé avisa). No projeto do cliente, tudo isso é trocado pelos dados dele.
+
+### O que pedir à empresa para a versão dela
+- Logo e cores da marca (ou o manual de marca).
+- Fotos dos produtos em boa resolução (de preferência fundo neutro e ambientadas).
+- Lista de produtos com nome, categoria, descrição curta, preço (ou "sob consulta"), variações e ficha técnica. Uma planilha basta.
+- Número de WhatsApp do atendimento, endereço/horário e redes sociais.
+- Domínio (ex.: `catalogo.empresa.com.br`) ou acesso para publicar.
+- Aprovação do texto de privacidade (`copy.privacy`) pelo jurídico da empresa.
+
+### Antes de publicar como site real
+- **Marca e rodapé:** troque `brand`, `copy.footer.legal` (hoje avisa que a marca é fictícia) e os textos do topo e do banner.
+- **Preços e especificações:** confirme cada um com o cliente. Para esconder todos os preços, use `features.prices: false`.
+- **Privacidade:** o texto é um modelo. Ele diz que o site não usa cookies de rastreamento nem análise de visitas; se a empresa pedir Google Analytics, Meta Pixel ou similar, atualize a política e o `vercel.json`.
 - **Prévia no WhatsApp:** a tag `og:image` em `index.html` aponta para `og-image.jpg` no branch `main` deste repositório. Em domínio próprio, troque pela URL do domínio.
 
 ## Imagens

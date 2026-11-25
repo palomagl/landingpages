@@ -170,7 +170,7 @@ export function CollectionPage({ category }: { category: string | null }) {
           <div className="grid place-items-start gap-5 rounded-[1.25rem] bg-card px-6 py-14 card-shadow md:px-12">
             <p className="t-subsection">Nenhum produto com esses critérios.</p>
             <p className="max-w-[48ch] text-muted">
-              {ui.query ? `A busca por “${ui.query}” não encontrou resultados${title && category ? ` em ${title}` : ''}. ` : ''}
+              {ui.query ? `A busca por “${ui.query}” não encontrou resultados${category && !unknown ? ` em ${title}` : ''}. ` : ''}
               Remova alguns filtros ou veja a coleção completa.
             </p>
             <div className="flex flex-wrap gap-3">

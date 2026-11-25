@@ -41,12 +41,22 @@ export function useDialog<T extends HTMLElement>(open: boolean, onClose: () => v
   useEffect(() => {
     if (!open) return;
     const prev = document.activeElement as HTMLElement | null;
-    const el = ref.current;
-    const t = window.setTimeout(() => {
-      const first = el?.querySelector<HTMLElement>('[data-autofocus]') ?? el;
-      first?.focus({ preventScroll: true });
-    }, 30);
+    // O painel costuma montar um quadro depois de `open` (animação de entrada via
+    // usePresence): por isso o elemento é lido na hora, nunca guardado aqui.
+    let raf = 0;
+    let tries = 0;
+    const focusIn = () => {
+      const el = ref.current;
+      if (!el) {
+        if (tries++ < 30) raf = requestAnimationFrame(focusIn);
+        return;
+      }
+      const first = el.querySelector<HTMLElement>('[data-autofocus]') ?? el;
+      first.focus({ preventScroll: true });
+    };
+    raf = requestAnimationFrame(focusIn);
     const onKey = (e: KeyboardEvent) => {
+      const el = ref.current;
       if (e.key === 'Escape') {
         e.stopPropagation();
         closeRef.current();
@@ -58,7 +68,11 @@ export function useDialog<T extends HTMLElement>(open: boolean, onClose: () => v
         if (!items.length) return;
         const first = items[0];
         const last = items[items.length - 1];
-        if (e.shiftKey && document.activeElement === first) {
+        // foco fora do painel (ex.: clique no fundo) volta para dentro
+        if (!el.contains(document.activeElement)) {
+          e.preventDefault();
+          (e.shiftKey ? last : first).focus();
+        } else if (e.shiftKey && (document.activeElement === first || document.activeElement === el)) {
           e.preventDefault();
           last.focus();
         } else if (!e.shiftKey && document.activeElement === last) {
@@ -69,7 +83,7 @@ export function useDialog<T extends HTMLElement>(open: boolean, onClose: () => v
     };
     document.addEventListener('keydown', onKey);
     return () => {
-      window.clearTimeout(t);
+      cancelAnimationFrame(raf);
       document.removeEventListener('keydown', onKey);
       prev?.focus?.({ preventScroll: true });
     };
